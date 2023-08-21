@@ -9,8 +9,11 @@
 
   <ItemGroup>
     <Folder Include="Data\Resources\" />
-    <Folder Include="UI\Widgets\" />
     <Folder Include="Core\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetProjects.CustomChromeLibrary" Version="1.0.3" />
   </ItemGroup>
 
 </Project>
