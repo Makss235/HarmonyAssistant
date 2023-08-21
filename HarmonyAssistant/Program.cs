@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HarmonyAssistant.UI.Windows.MainWindow;
+using System;
+using System.Windows;
 
 namespace HarmonyAssistant
 {
@@ -7,7 +9,12 @@ namespace HarmonyAssistant
         [STAThread]
         static void Main(string[] args)
         {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
 
+            Application application = new Application();
+            application.MainWindow = mainWindow;
+            application.Run();
         }
     }
 }

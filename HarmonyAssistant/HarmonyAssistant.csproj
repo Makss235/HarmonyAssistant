@@ -11,6 +11,7 @@
     <Folder Include="Data\Resources\" />
     <Folder Include="UI\Widgets\" />
     <Folder Include="Core\" />
+    <Folder Include="UI\Windows\MainWindow\Widgets\" />
   </ItemGroup>
 
 </Project>
