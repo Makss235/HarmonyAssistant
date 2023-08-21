@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -13,11 +14,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
         private void InitializeComponent()
         {
-            Border border = new Border();
-            border.Background = Brushes.Black;
-            border.Width = 40;
-            Grid.SetColumn(border, 0);
-            Grid.SetRowSpan(border, 2);
+            LeftPanelMenu leftPanelMenu = new LeftPanelMenu();
+            Grid.SetColumn(leftPanelMenu, 0);
+            Grid.SetRowSpan(leftPanelMenu, 2);
 
             ColumnDefinition columnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Auto) };
@@ -36,7 +35,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             grid.ColumnDefinitions.Add(columnDefinition1);
             grid.RowDefinitions.Add(rowDefinition);
             grid.RowDefinitions.Add(rowDefinition1);
-            grid.Children.Add(border);
+            grid.Children.Add(leftPanelMenu);
 
             Content = grid;
         }
