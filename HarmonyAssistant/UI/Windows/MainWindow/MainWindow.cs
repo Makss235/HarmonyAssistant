@@ -1,6 +1,4 @@
-﻿using AdvaDirectStorage.Widgets.Base;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
-using System;
+﻿using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -24,6 +22,11 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             Height = 650;
             MinWidth = 600;
             MinHeight = 400;
+            WindowStartupLocation = WindowStartupLocation.Manual;
+            double w = SystemParameters.PrimaryScreenWidth;
+            double h = SystemParameters.PrimaryScreenHeight;
+            Top = h - Height - 55;
+            Left = w - Width - 10;
 
             InitializeComponent();
         }
@@ -46,28 +49,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
         private void InitializeComponent()
         {
-            //LeftPanelMenu leftPanelMenu = new LeftPanelMenu();
-            //Grid.SetColumn(leftPanelMenu, 0);
-            //Grid.SetRowSpan(leftPanelMenu, 2);
-
-            Border bordericon = new Border()
-            {
-                Background = new SolidColorBrush(new Color()
-                { R = 1, G = 6, B = 108, A = 255 }),
-                CornerRadius = new CornerRadius(12),
-                Width = 24,
-                Height = 24,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(5, 5, 0, 0)
-            };
-
-            TButton button = new TButton();
-            button.Content = bordericon;
-            button.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
-            Grid.SetColumn(button, 0);
-            Grid.SetRow(button, 0);
-            button.Click += (s, e) => MessageBox.Show("hbkj");
+            LeftPanelMenu leftPanelMenu = new LeftPanelMenu();
+            Grid.SetColumn(leftPanelMenu, 0);
+            Grid.SetRow(leftPanelMenu, 0);
+            Grid.SetRowSpan(leftPanelMenu, 2);
 
             Border bordermainfield = new Border()
             {
@@ -79,7 +64,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             Grid.SetRow(bordermainfield, 1);
 
             ColumnDefinition columnDefinition = new ColumnDefinition()
-            { Width = new GridLength(50, GridUnitType.Pixel) };
+            { Width = new GridLength(1, GridUnitType.Auto) };
 
             ColumnDefinition columnDefinition1 = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };
@@ -95,8 +80,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             grid.ColumnDefinitions.Add(columnDefinition1);
             grid.RowDefinitions.Add(rowDefinition);
             grid.RowDefinitions.Add(rowDefinition1);
+            grid.Children.Add(leftPanelMenu);
             grid.Children.Add(bordermainfield);
-            grid.Children.Add(button);
 
             Content = grid;
         }

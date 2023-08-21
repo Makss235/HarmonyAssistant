@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AdvaDirectStorage.Widgets.Base;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Shell;
+using FontAwesome.WPF;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
     public class LeftPanelMenu : ContentControl
     {
-        private Border border;
+        private Border openpanelborder;
 
         private ColumnDefinition leftColumn;
         private ColumnDefinition mainColumn;
@@ -25,36 +22,65 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void InitializeComponent()
         {
-            Button button = new Button()
+            Border bordericon = new Border()
             {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Background = new SolidColorBrush(new Color()
+                { R = 1, G = 6, B = 108, A = 255 }),
+                CornerRadius = new CornerRadius(13),
+                Width = 26,
+                Height = 26,
+            };
+
+            TButton button = new TButton()
+            {
+                Content = bordericon,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Height = 20,
+                Margin = new Thickness(14, 10, 0, 0)
             };
-            button.Click += (s, e) => border.Visibility = Visibility.Visible;
+            button.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
+            button.Click += Button_Click;
 
-            Border leftBrder = new Border()
+            openpanelborder = new Border()
             {
-                Background = Brushes.Black,
+                Width = 250,
+                Background = Brushes.Transparent,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                Visibility = Visibility.Collapsed,
             };
-            leftBrder.Child = button;
-            Grid.SetColumn(leftBrder, 0);
+            Grid.SetColumn(openpanelborder, 0);
+            Grid.SetColumnSpan(openpanelborder, 2);
+            Grid.SetRow(openpanelborder, 1);
 
-            Button button1 = new Button()
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Height = 20,
-                Margin = new Thickness(-30, 10, 10, 10)
-            };
-            button1.Click += (s, e) => border.Visibility = Visibility.Collapsed;
+            Button button1 = new Button();
+            button1.Height = 35;
+            button1.HorizontalAlignment = HorizontalAlignment.Stretch;
+            button1.Margin = new Thickness(7, 5, 7, 5);
 
-            border = new Border()
-            {
-                Background = Brushes.Blue,
-                Width = 200
+            Button button12 = new Button();
+            button12.Height = 35;
+            button12.HorizontalAlignment = HorizontalAlignment.Stretch;
+            button12.Margin = new Thickness(7, 5, 7, 5);
+
+            Button button13 = new Button();
+            button13.Height = 35;
+            button13.HorizontalAlignment = HorizontalAlignment.Stretch;
+            button13.Margin = new Thickness(7, 5, 7, 5);
+
+            //Пример использования иконок
+            ImageAwesome imageAwesome = new ImageAwesome()
+            { Icon = FontAwesomeIcon.Google, Foreground = Brushes.AliceBlue };
+
+            StackPanel stackPanel = new StackPanel()
+            { 
+                VerticalAlignment = VerticalAlignment.Center
             };
-            border.Child = button1;
-            Grid.SetColumn(border, 1);
+            stackPanel.Children.Add(button1);
+            stackPanel.Children.Add(button12);
+            stackPanel.Children.Add(button13);
+            //stackPanel.Children.Add(imageAwesome);
+            Grid.SetColumn(stackPanel, 0);
+            Grid.SetRow(stackPanel, 1);
 
             leftColumn = new ColumnDefinition()
             { Width = new GridLength(50, GridUnitType.Pixel) };
@@ -62,14 +88,29 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             mainColumn = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Auto) };
 
-            mainGrid = new Grid();
+            RowDefinition rowDefinition = new RowDefinition()
+            { Height = new GridLength(40, GridUnitType.Pixel) };
+            
+            RowDefinition rowDefinition1 = new RowDefinition()
+            { Height = new GridLength(1, GridUnitType.Star) };
 
+            mainGrid = new Grid();
             mainGrid.ColumnDefinitions.Add(leftColumn);
             mainGrid.ColumnDefinitions.Add(mainColumn);
-            mainGrid.Children.Add(leftBrder);
-            mainGrid.Children.Add(border);
+            mainGrid.RowDefinitions.Add(rowDefinition);
+            mainGrid.RowDefinitions.Add(rowDefinition1);
+            mainGrid.Children.Add(button);
+            mainGrid.Children.Add(openpanelborder);
+            mainGrid.Children.Add(stackPanel);
 
             Content = mainGrid;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (openpanelborder.Visibility == Visibility.Collapsed)
+                openpanelborder.Visibility = Visibility.Visible;
+            else openpanelborder.Visibility = Visibility.Collapsed;
         }
     }
 }
