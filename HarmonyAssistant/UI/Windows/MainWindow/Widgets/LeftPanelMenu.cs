@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shell;
 using FontAwesome.WPF;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Icons;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
@@ -41,10 +42,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
             iconButton = new TButton()
             {
-                Content = iconBorder,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(14, 10, 0, 0)
+                Content = new ProgrammIcon(),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Background = Brushes.Yellow,
             };
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
@@ -68,34 +69,42 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             Grid.SetColumn(headerBorder, 1);
             Grid.SetRow(headerBorder, 0);
 
-            LeftPanelMenuButton leftPanelMenuButton = new LeftPanelMenuButton("Главная");
-            leftPanelMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-            leftPanelMenuButton.Margin = new Thickness(7, 5, 7, 5);
+            LeftPanelMenuButton HomeMenuButton = new LeftPanelMenuButton("Главная", new HomeIcon());
+            HomeMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            HomeMenuButton.Margin = new Thickness(7, 5, 7, 5);
 
-            Button button1 = new Button();
-            button1.Height = 35;
-            button1.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button1.Margin = new Thickness(7, 5, 7, 5);
+            LeftPanelMenuButton OptionsMenuButton = new LeftPanelMenuButton("Главная", new HomeIcon()); // если добавить в текст на один символ больше, начнет прыгать, также блюет от того, что в 3 кнопках разный текст, жопа
+            OptionsMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            OptionsMenuButton.Margin = new Thickness(7, 5, 7, 5);
 
-            Button button2 = new Button();
-            button2.Height = 35;
-            button2.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button2.Margin = new Thickness(7, 5, 7, 5);
+            LeftPanelMenuButton InfoMenuButton = new LeftPanelMenuButton("Главная", new HomeIcon());
+            InfoMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            InfoMenuButton.Margin = new Thickness(7, 5, 7, 5);
 
-            Button button3 = new Button();
-            button3.Height = 35;
-            button3.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button3.Margin = new Thickness(7, 5, 7, 5);
+            //Button button1 = new Button();
+            //button1.Height = 35;
+            //button1.HorizontalAlignment = HorizontalAlignment.Stretch;
+            //button1.Margin = new Thickness(7, 5, 7, 5);
+
+            //Button button2 = new Button();
+            //button2.Height = 35;
+            //button2.HorizontalAlignment = HorizontalAlignment.Stretch;
+            //button2.Margin = new Thickness(7, 5, 7, 5);
+
+            //Button button3 = new Button();
+            //button3.Height = 35;
+            //button3.HorizontalAlignment = HorizontalAlignment.Stretch;
+            //button3.Margin = new Thickness(7, 5, 7, 5);
 
             menuButtonsStackPanel = new StackPanel()
             { 
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
             };
-            menuButtonsStackPanel.Children.Add(leftPanelMenuButton);
-            menuButtonsStackPanel.Children.Add(button1);
-            menuButtonsStackPanel.Children.Add(button2);
-            menuButtonsStackPanel.Children.Add(button3);
+            //menuButtonsStackPanel.Children.Add(leftPanelMenuButton);
+            menuButtonsStackPanel.Children.Add(HomeMenuButton);
+            menuButtonsStackPanel.Children.Add(OptionsMenuButton);
+            menuButtonsStackPanel.Children.Add(InfoMenuButton);
             Grid.SetColumn(menuButtonsStackPanel, 0);
             Grid.SetColumnSpan(menuButtonsStackPanel, 2);
             Grid.SetRow(menuButtonsStackPanel, 1);
