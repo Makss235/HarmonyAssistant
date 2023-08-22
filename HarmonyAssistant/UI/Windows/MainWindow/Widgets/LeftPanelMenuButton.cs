@@ -14,15 +14,16 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         public event Action<Tab> ButtonClicked;
 
         private string text;
-        private Grid image;
+        private ContentControl icon;
 
         private TextBlock titleTextBlock;
         private Border border1;
+        Border border;
 
-        public LeftPanelMenuButton(string text/*, Grid image*/)
+        public LeftPanelMenuButton(string text, ContentControl icon)
         {
             this.text = text;
-            //this.image = image;
+            this.icon = icon;
             InitializeComponent();
         }
 
@@ -33,8 +34,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 Width = 36, 
-                Height = 36,
-                Background = Brushes.White
+                Height = 40,
+                Background = Brushes.Transparent,
+                Margin = new Thickness(10, 0, 0, 0),
+                Child = icon,
             };
             Grid.SetColumn(iconBorder, 0);
 
@@ -53,7 +56,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             border1 = new Border()
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                BorderBrush = Brushes.White,
+                BorderBrush = Brushes.Yellow,
                 //BorderThickness = new Thickness(1)
             };
             border1.Child = titleTextBlock;
@@ -75,17 +78,24 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             mainGrid.Children.Add(iconBorder);
             mainGrid.Children.Add(border1);
 
-            Border border = new Border()
+            border = new Border()
             {
-                HorizontalAlignment = HorizontalAlignment.Stretch
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                CornerRadius = new CornerRadius(5),
             };
             border.Child = mainGrid;
 
+<<<<<<< HEAD
             TButton button = new TButton();
             button.Click += Button_Click;
             button.MouseEnter += Button_MouseEnter;
             button.MouseLeave += Button_MouseLeave;
             button.Content = border;
+=======
+            this.MouseEnter += (s, e) => border.Background = new SolidColorBrush(new Color()
+            { R = 13, G = 27, B = 42, A = 255 });
+            this.MouseLeave += (s, e) => border.Background = Brushes.Transparent;
+>>>>>>> 74c5b44166fc3f883bb4cf9eee0a0ecce1a3529b
 
             Content = button;
         }

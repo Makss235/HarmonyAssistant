@@ -49,10 +49,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
             iconButton = new TButton()
             {
-                Content = iconBorder,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(14, 10, 0, 0)
+                Content = new ProgrammIcon(),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                Background = Brushes.Yellow,
             };
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
@@ -82,7 +82,22 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             leftPanelMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             leftPanelMenuButton.Margin = new Thickness(7, 5, 7, 5);
             buttons.Add(leftPanelMenuButton);
+            LeftPanelMenuButton HomeMenuButton = new LeftPanelMenuButton("Главная", new HomeIcon());
+            HomeMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            HomeMenuButton.Margin = new Thickness(7, 5, 7, 5);
 
+            LeftPanelMenuButton OptionsMenuButton = new LeftPanelMenuButton("Главная", new HomeIcon()); // если добавить в текст на один символ больше, начнет прыгать, также блюет от того, что в 3 кнопках разный текст, жопа
+            OptionsMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            OptionsMenuButton.Margin = new Thickness(7, 5, 7, 5);
+
+            LeftPanelMenuButton InfoMenuButton = new LeftPanelMenuButton("Главная", new HomeIcon());
+            InfoMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            InfoMenuButton.Margin = new Thickness(7, 5, 7, 5);
+
+            //Button button1 = new Button();
+            //button1.Height = 35;
+            //button1.HorizontalAlignment = HorizontalAlignment.Stretch;
+            //button1.Margin = new Thickness(7, 5, 7, 5);
             LeftPanelMenuButton leftPanelMenuButton1 = new LeftPanelMenuButton("Настройки");
             leftPanelMenuButton1.ButtonClicked += LeftPanelMenu_ButtonClicked;
             leftPanelMenuButton1.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -109,6 +124,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             menuButtonsStackPanel.Children.Add(leftPanelMenuButton);
             menuButtonsStackPanel.Children.Add(leftPanelMenuButton1);
             menuButtonsStackPanel.Children.Add(leftPanelMenuButton2);
+            //menuButtonsStackPanel.Children.Add(leftPanelMenuButton);
+            menuButtonsStackPanel.Children.Add(HomeMenuButton);
+            menuButtonsStackPanel.Children.Add(OptionsMenuButton);
+            menuButtonsStackPanel.Children.Add(InfoMenuButton);
             Grid.SetColumn(menuButtonsStackPanel, 0);
             Grid.SetColumnSpan(menuButtonsStackPanel, 2);
             Grid.SetRow(menuButtonsStackPanel, 1);
