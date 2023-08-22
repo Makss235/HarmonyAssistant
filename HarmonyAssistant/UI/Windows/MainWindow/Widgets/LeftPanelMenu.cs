@@ -68,6 +68,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             Grid.SetColumn(headerBorder, 1);
             Grid.SetRow(headerBorder, 0);
 
+            LeftPanelMenuButton leftPanelMenuButton = new LeftPanelMenuButton("Главная");
+            leftPanelMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            leftPanelMenuButton.Margin = new Thickness(7, 5, 7, 5);
 
             Button button1 = new Button();
             button1.Height = 35;
@@ -89,14 +92,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
             };
+            menuButtonsStackPanel.Children.Add(leftPanelMenuButton);
             menuButtonsStackPanel.Children.Add(button1);
             menuButtonsStackPanel.Children.Add(button2);
             menuButtonsStackPanel.Children.Add(button3);
             Grid.SetColumn(menuButtonsStackPanel, 0);
             Grid.SetColumnSpan(menuButtonsStackPanel, 2);
             Grid.SetRow(menuButtonsStackPanel, 1);
-
-            
 
             leftColumnDefinition = new ColumnDefinition()
             { Width = new GridLength(50, GridUnitType.Pixel) };
