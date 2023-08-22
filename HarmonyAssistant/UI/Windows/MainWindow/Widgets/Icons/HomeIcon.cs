@@ -14,10 +14,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Icons
     {
         public HomeIcon() 
         {
-            InitialazeComponent();
+            InitializeComponent();
         }
 
-        private void InitialazeComponent()
+        private void InitializeComponent()
         {
             Polygon homeIcon = new Polygon()
             {

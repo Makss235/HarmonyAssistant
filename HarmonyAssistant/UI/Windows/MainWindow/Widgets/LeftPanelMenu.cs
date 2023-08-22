@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.UI.Widgets.Base;
+using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Icons;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
 using System;
@@ -61,13 +62,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             titleTextBlock = new TextBlock()
             {
                 Text = "Привет, Иван!",
-                FontFamily = new FontFamily("Candara"),
-                FontSize = 17,
-                FontWeight = FontWeights.Bold,
+                Style = TextBlocksStyles.textBlockStyle,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Bottom,
                 Margin = new Thickness(20, 5, 5, 7),
-                Foreground = Brushes.AliceBlue
             };
 
             headerBorder = new Border()
@@ -78,19 +76,19 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
             buttons = new List<LeftPanelMenuButton>();
 
-            LeftPanelMenuButton homeMenuButton = new LeftPanelMenuButton("Главная", new HomeIcon());
+            LeftPanelMenuButton homeMenuButton = new LeftPanelMenuButton("Главная1", new HomeIcon());
             homeMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             homeMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             homeMenuButton.Margin = new Thickness(7, 5, 7, 5);
             buttons.Add(homeMenuButton);
 
-            LeftPanelMenuButton settingsMenuButton = new LeftPanelMenuButton("Главная", new HomeIcon()); // если добавить в текст на один символ больше, начнет прыгать, также блюет от того, что в 3 кнопках разный текст, жопа
+            LeftPanelMenuButton settingsMenuButton = new LeftPanelMenuButton("Главная1", new HomeIcon()); // если добавить в текст на один символ больше, начнет прыгать, также блюет от того, что в 3 кнопках разный текст, жопа
             settingsMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             settingsMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             settingsMenuButton.Margin = new Thickness(7, 5, 7, 5);
             buttons.Add(settingsMenuButton);
 
-            LeftPanelMenuButton aboutProgramMenuButton = new LeftPanelMenuButton("Главная", new HomeIcon());
+            LeftPanelMenuButton aboutProgramMenuButton = new LeftPanelMenuButton("Главная1", new HomeIcon());
             aboutProgramMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             aboutProgramMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             aboutProgramMenuButton.Margin = new Thickness(7, 5, 7, 5);

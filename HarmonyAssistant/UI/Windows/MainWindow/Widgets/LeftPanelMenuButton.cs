@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.UI.Widgets.Base;
+using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
 using System;
 using System.Windows;
@@ -36,7 +37,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 Width = 36, 
                 Height = 40,
                 Background = Brushes.Transparent,
-                Margin = new Thickness(10, 0, 0, 0),
+                Margin = new Thickness(0, 0, 0, 0),
                 Child = icon,
             };
             Grid.SetColumn(iconBorder, 0);
@@ -44,11 +45,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             titleTextBlock = new TextBlock()
             {
                 Text = text,
-                FontFamily = new FontFamily("Candara"),
-                FontSize = 20,
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.AliceBlue,
-                HorizontalAlignment = HorizontalAlignment.Left,
+                Style = TextBlocksStyles.textBlockStyle,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(20, 0, 0, 0)
             };
