@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -8,32 +9,31 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 {
     public class MainWindow : Window
     {
+        private double widthScreen;
+        private double heightScreen;
+
+        private WindowChrome windowChrome;
         private Style windowStyle;
+
+        private LeftPanelMenu leftPanelMenu;
+        private Border mainFieldBorder;
+
+        private ColumnDefinition leftMenuColumnDefinition;
+        private ColumnDefinition mainFieldColumnDefinition;
+        private RowDefinition headerRowDefinition;
+        private RowDefinition clientZoneRowDefinition;
+        private Grid mainGrid;
 
         public MainWindow()
         {
             InitializeStyles();
-            Title = "Привет, Иван!";
-            Style = windowStyle;
-            Background = new SolidColorBrush(new Color()
-            { R = 14, G = 12, B = 30, A = 255 });
-            WindowStyle = WindowStyle.None;
-            Width = 750;
-            Height = 650;
-            MinWidth = 600;
-            MinHeight = 400;
-            WindowStartupLocation = WindowStartupLocation.Manual;
-            double w = SystemParameters.PrimaryScreenWidth;
-            double h = SystemParameters.PrimaryScreenHeight;
-            Top = h - Height - 55;
-            Left = w - Width - 10;
-
+            InitializeWindow();
             InitializeComponent();
         }
 
         private void InitializeStyles()
         {
-            WindowChrome windowChrome = new WindowChrome()
+            windowChrome = new WindowChrome()
             {
                 CaptionHeight = 40,
                 CornerRadius = new CornerRadius(5),
@@ -47,43 +47,61 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             windowStyle.Setters.Add(new Setter(WindowChrome.WindowChromeProperty, windowChrome));
         }
 
+        private void InitializeWindow()
+        {
+            Title = "Привет, Иван!";
+            Style = windowStyle;
+            Background = new SolidColorBrush(new Color()
+            { R = 15, G = 20, B = 35, A = 255 });
+            WindowStyle = WindowStyle.None;
+            Width = 750;
+            Height = 650;
+            MinWidth = 600;
+            MinHeight = 400;
+            WindowStartupLocation = WindowStartupLocation.Manual;
+            widthScreen = SystemParameters.PrimaryScreenWidth;
+            heightScreen = SystemParameters.PrimaryScreenHeight;
+            Top = heightScreen - Height - 55;
+            Left = widthScreen - Width - 10;
+        }
+
         private void InitializeComponent()
         {
-            LeftPanelMenu leftPanelMenu = new LeftPanelMenu();
+            leftPanelMenu = new LeftPanelMenu();
             Grid.SetColumn(leftPanelMenu, 0);
             Grid.SetRow(leftPanelMenu, 0);
             Grid.SetRowSpan(leftPanelMenu, 2);
 
-            Border bordermainfield = new Border()
+            mainFieldBorder = new Border()
             {
                 Background = new SolidColorBrush(new Color() 
-                { R = 10, G = 13, B = 40, A = 255 }),
+                { R = 13, G = 27, B = 42, A = 255 }),
                 CornerRadius = new CornerRadius(10, 0, 0, 0)
             };
-            Grid.SetColumn(bordermainfield, 1);
-            Grid.SetRow(bordermainfield, 1);
+            Grid.SetColumn(mainFieldBorder, 1);
+            Grid.SetRow(mainFieldBorder, 1);
 
-            ColumnDefinition columnDefinition = new ColumnDefinition()
+            leftMenuColumnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Auto) };
 
-            ColumnDefinition columnDefinition1 = new ColumnDefinition()
+            mainFieldColumnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };
 
-            RowDefinition rowDefinition = new RowDefinition()
+            headerRowDefinition = new RowDefinition()
             { Height = new GridLength(40, GridUnitType.Pixel) };
             
-            RowDefinition rowDefinition1 = new RowDefinition()
+            clientZoneRowDefinition = new RowDefinition()
             { Height = new GridLength(1, GridUnitType.Star) };
 
-            Grid grid = new Grid();
-            grid.ColumnDefinitions.Add(columnDefinition);
-            grid.ColumnDefinitions.Add(columnDefinition1);
-            grid.RowDefinitions.Add(rowDefinition);
-            grid.RowDefinitions.Add(rowDefinition1);
-            grid.Children.Add(leftPanelMenu);
-            grid.Children.Add(bordermainfield);
+            mainGrid = new Grid();
+            mainGrid.ColumnDefinitions.Add(leftMenuColumnDefinition);
+            mainGrid.ColumnDefinitions.Add(mainFieldColumnDefinition);
+            mainGrid.RowDefinitions.Add(headerRowDefinition);
+            mainGrid.RowDefinitions.Add(clientZoneRowDefinition);
+            mainGrid.Children.Add(leftPanelMenu);
+            mainGrid.Children.Add(mainFieldBorder);
 
-            Content = grid;
+            Content = mainGrid;
         }
     }
 }

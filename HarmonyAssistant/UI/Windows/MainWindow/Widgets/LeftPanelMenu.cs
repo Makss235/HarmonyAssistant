@@ -9,10 +9,18 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
     public class LeftPanelMenu : ContentControl
     {
-        private Border border;
+        private Border iconBorder;
+        private TButton iconButton;
 
-        private ColumnDefinition leftColumn;
-        private ColumnDefinition mainColumn;
+        private TextBlock titleTextBlock;
+        private Border headerBorder;
+
+        private StackPanel menuButtonsStackPanel;
+
+        private ColumnDefinition leftColumnDefinition;
+        private ColumnDefinition mainColumnDefinition;
+        private RowDefinition headerRowDefinition;
+        private RowDefinition menuRowDefinition;
         private Grid mainGrid;
 
         public LeftPanelMenu() 
@@ -22,7 +30,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void InitializeComponent()
         {
-            Border bordericon = new Border()
+            iconBorder = new Border()
             {
                 Background = new SolidColorBrush(new Color()
                 { R = 1, G = 6, B = 108, A = 255 }),
@@ -31,49 +39,18 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 Height = 26,
             };
 
-            TButton button = new TButton()
+            iconButton = new TButton()
             {
-                Content = bordericon,
+                Content = iconBorder,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(14, 10, 0, 0)
             };
-            button.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
-            button.Click += Button_Click;
+            iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
+            iconButton.Click += Button_Click;
 
-            Button button1 = new Button();
-            button1.Height = 35;
-            button1.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button1.Margin = new Thickness(7, 5, 7, 5);
 
-            Button button12 = new Button();
-            button12.Height = 35;
-            button12.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button12.Margin = new Thickness(7, 5, 7, 5);
-
-            Button button13 = new Button();
-            button13.Height = 35;
-            button13.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button13.Margin = new Thickness(7, 5, 7, 5);
-
-            //Пример использования иконок
-            ImageAwesome imageAwesome = new ImageAwesome()
-            { Icon = FontAwesomeIcon.Info, Foreground = Brushes.AliceBlue };
-
-            StackPanel stackPanel = new StackPanel()
-            { 
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-            };
-            stackPanel.Children.Add(button1);
-            stackPanel.Children.Add(button12);
-            stackPanel.Children.Add(button13);
-            //stackPanel.Children.Add(imageAwesome);
-            Grid.SetColumn(stackPanel, 0);
-            Grid.SetColumnSpan(stackPanel, 2);
-            Grid.SetRow(stackPanel, 1);
-
-            TextBlock textBlock1 = new TextBlock()
+            titleTextBlock = new TextBlock()
             {
                 Text = "Привет, Иван!",
                 FontFamily = new FontFamily("Candara"),
@@ -85,41 +62,71 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 Foreground = Brushes.AliceBlue
             };
 
-            border = new Border()
+            headerBorder = new Border()
             { Width = 200 };
-            border.Child = textBlock1;
-            Grid.SetColumn(border, 1);
-            Grid.SetRow(border, 0);
+            headerBorder.Child = titleTextBlock;
+            Grid.SetColumn(headerBorder, 1);
+            Grid.SetRow(headerBorder, 0);
 
-            leftColumn = new ColumnDefinition()
+
+            Button button1 = new Button();
+            button1.Height = 35;
+            button1.HorizontalAlignment = HorizontalAlignment.Stretch;
+            button1.Margin = new Thickness(7, 5, 7, 5);
+
+            Button button2 = new Button();
+            button2.Height = 35;
+            button2.HorizontalAlignment = HorizontalAlignment.Stretch;
+            button2.Margin = new Thickness(7, 5, 7, 5);
+
+            Button button3 = new Button();
+            button3.Height = 35;
+            button3.HorizontalAlignment = HorizontalAlignment.Stretch;
+            button3.Margin = new Thickness(7, 5, 7, 5);
+
+            menuButtonsStackPanel = new StackPanel()
+            { 
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+            };
+            menuButtonsStackPanel.Children.Add(button1);
+            menuButtonsStackPanel.Children.Add(button2);
+            menuButtonsStackPanel.Children.Add(button3);
+            Grid.SetColumn(menuButtonsStackPanel, 0);
+            Grid.SetColumnSpan(menuButtonsStackPanel, 2);
+            Grid.SetRow(menuButtonsStackPanel, 1);
+
+            
+
+            leftColumnDefinition = new ColumnDefinition()
             { Width = new GridLength(50, GridUnitType.Pixel) };
 
-            mainColumn = new ColumnDefinition()
+            mainColumnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Auto) };
 
-            RowDefinition rowDefinition = new RowDefinition()
+            headerRowDefinition = new RowDefinition()
             { Height = new GridLength(40, GridUnitType.Pixel) };
             
-            RowDefinition rowDefinition1 = new RowDefinition()
+            menuRowDefinition = new RowDefinition()
             { Height = new GridLength(1, GridUnitType.Star) };
 
             mainGrid = new Grid();
-            mainGrid.ColumnDefinitions.Add(leftColumn);
-            mainGrid.ColumnDefinitions.Add(mainColumn);
-            mainGrid.RowDefinitions.Add(rowDefinition);
-            mainGrid.RowDefinitions.Add(rowDefinition1);
-            mainGrid.Children.Add(button);
-            mainGrid.Children.Add(border);
-            mainGrid.Children.Add(stackPanel);
+            mainGrid.ColumnDefinitions.Add(leftColumnDefinition);
+            mainGrid.ColumnDefinitions.Add(mainColumnDefinition);
+            mainGrid.RowDefinitions.Add(headerRowDefinition);
+            mainGrid.RowDefinitions.Add(menuRowDefinition);
+            mainGrid.Children.Add(iconButton);
+            mainGrid.Children.Add(headerBorder);
+            mainGrid.Children.Add(menuButtonsStackPanel);
 
             Content = mainGrid;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (border.Visibility == Visibility.Collapsed)
-                border.Visibility = Visibility.Visible;
-            else border.Visibility = Visibility.Collapsed;
+            if (headerBorder.Visibility == Visibility.Collapsed)
+                headerBorder.Visibility = Visibility.Visible;
+            else headerBorder.Visibility = Visibility.Collapsed;
         }
     }
 }
