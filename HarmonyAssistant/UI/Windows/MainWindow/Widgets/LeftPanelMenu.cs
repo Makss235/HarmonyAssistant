@@ -9,7 +9,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
     public class LeftPanelMenu : ContentControl
     {
-        private Border openpanelborder;
+        private Border border;
 
         private ColumnDefinition leftColumn;
         private ColumnDefinition mainColumn;
@@ -41,17 +41,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             button.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             button.Click += Button_Click;
 
-            openpanelborder = new Border()
-            {
-                Width = 250,
-                Background = Brushes.Transparent,
-                VerticalAlignment = VerticalAlignment.Stretch,
-                Visibility = Visibility.Collapsed,
-            };
-            Grid.SetColumn(openpanelborder, 0);
-            Grid.SetColumnSpan(openpanelborder, 2);
-            Grid.SetRow(openpanelborder, 1);
-
             Button button1 = new Button();
             button1.Height = 35;
             button1.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -69,18 +58,38 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
             //Пример использования иконок
             ImageAwesome imageAwesome = new ImageAwesome()
-            { Icon = FontAwesomeIcon.Google, Foreground = Brushes.AliceBlue };
+            { Icon = FontAwesomeIcon.Info, Foreground = Brushes.AliceBlue };
 
             StackPanel stackPanel = new StackPanel()
             { 
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
             };
             stackPanel.Children.Add(button1);
             stackPanel.Children.Add(button12);
             stackPanel.Children.Add(button13);
             //stackPanel.Children.Add(imageAwesome);
             Grid.SetColumn(stackPanel, 0);
+            Grid.SetColumnSpan(stackPanel, 2);
             Grid.SetRow(stackPanel, 1);
+
+            TextBlock textBlock1 = new TextBlock()
+            {
+                Text = "Привет, Иван!",
+                FontFamily = new FontFamily("Candara"),
+                FontSize = 17,
+                FontWeight = FontWeights.Bold,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(20, 5, 5, 7),
+                Foreground = Brushes.AliceBlue
+            };
+
+            border = new Border()
+            { Width = 200 };
+            border.Child = textBlock1;
+            Grid.SetColumn(border, 1);
+            Grid.SetRow(border, 0);
 
             leftColumn = new ColumnDefinition()
             { Width = new GridLength(50, GridUnitType.Pixel) };
@@ -100,7 +109,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             mainGrid.RowDefinitions.Add(rowDefinition);
             mainGrid.RowDefinitions.Add(rowDefinition1);
             mainGrid.Children.Add(button);
-            mainGrid.Children.Add(openpanelborder);
+            mainGrid.Children.Add(border);
             mainGrid.Children.Add(stackPanel);
 
             Content = mainGrid;
@@ -108,9 +117,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (openpanelborder.Visibility == Visibility.Collapsed)
-                openpanelborder.Visibility = Visibility.Visible;
-            else openpanelborder.Visibility = Visibility.Collapsed;
+            if (border.Visibility == Visibility.Collapsed)
+                border.Visibility = Visibility.Visible;
+            else border.Visibility = Visibility.Collapsed;
         }
     }
 }
