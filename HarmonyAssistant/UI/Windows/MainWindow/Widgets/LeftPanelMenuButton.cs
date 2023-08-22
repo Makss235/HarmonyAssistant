@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using HarmonyAssistant.UI.Widgets.Base;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -6,6 +9,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
     public class LeftPanelMenuButton : ContentControl
     {
+        public Tab Tab { get; set; }
+
+        public event Action<Tab> ButtonClicked;
+
         private string text;
         private Grid image;
 
@@ -52,8 +59,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             border1.Child = titleTextBlock;
             border1.SizeChanged += Border1_SizeChanged;
             Grid.SetColumn(border1, 1);
-            
-
 
             ColumnDefinition iconColumnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Auto) };
@@ -76,8 +81,28 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             };
             border.Child = mainGrid;
 
+            TButton button = new TButton();
+            button.Click += Button_Click;
+            button.MouseEnter += Button_MouseEnter;
+            button.MouseLeave += Button_MouseLeave;
+            button.Content = border;
 
-            Content = border;
+            Content = button;
+        }
+
+        private void Button_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            
+        }
+
+        private void Button_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonClicked?.Invoke(Tab);
         }
 
         private void Border1_SizeChanged(object sender, SizeChangedEventArgs e)

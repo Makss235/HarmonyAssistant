@@ -1,5 +1,7 @@
 ﻿using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -67,10 +69,26 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
         private void InitializeComponent()
         {
-            leftPanelMenu = new LeftPanelMenu();
+            List<Tab> tabs = new List<Tab>();
+
+            ChatTab chatTab = new ChatTab() { Visibility = Visibility.Visible };
+            tabs.Add(chatTab);
+
+            SettingsTab settingsTab = new SettingsTab() { Visibility = Visibility.Collapsed };
+            tabs.Add(settingsTab);
+
+            AboutProgramTab aboutProgramTab = new AboutProgramTab() { Visibility = Visibility.Collapsed };
+            tabs.Add(aboutProgramTab);
+
+            leftPanelMenu = new LeftPanelMenu(tabs);
             Grid.SetColumn(leftPanelMenu, 0);
             Grid.SetRow(leftPanelMenu, 0);
             Grid.SetRowSpan(leftPanelMenu, 2);
+
+            Grid grid = new Grid();
+            grid.Children.Add(chatTab);
+            grid.Children.Add(settingsTab);
+            grid.Children.Add(aboutProgramTab);
 
             mainFieldBorder = new Border()
             {
@@ -78,6 +96,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
                 { R = 13, G = 27, B = 42, A = 255 }),
                 CornerRadius = new CornerRadius(10, 0, 0, 0)
             };
+            mainFieldBorder.Child = grid;
             Grid.SetColumn(mainFieldBorder, 1);
             Grid.SetRow(mainFieldBorder, 1);
 

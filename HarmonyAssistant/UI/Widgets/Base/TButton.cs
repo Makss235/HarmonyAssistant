@@ -2,7 +2,7 @@
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace AdvaDirectStorage.Widgets.Base
+namespace HarmonyAssistant.UI.Widgets.Base
 {
     public class TButton : ButtonBase
     {

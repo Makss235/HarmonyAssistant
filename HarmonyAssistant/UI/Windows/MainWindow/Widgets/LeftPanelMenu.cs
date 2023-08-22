@@ -1,14 +1,20 @@
-﻿using AdvaDirectStorage.Widgets.Base;
+﻿using HarmonyAssistant.UI.Widgets.Base;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shell;
-using FontAwesome.WPF;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
     public class LeftPanelMenu : ContentControl
     {
+        public List<Tab> Tabs { get; }
+
+        private List<LeftPanelMenuButton> buttons;
+
         private Border iconBorder;
         private TButton iconButton;
 
@@ -23,8 +29,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         private RowDefinition menuRowDefinition;
         private Grid mainGrid;
 
-        public LeftPanelMenu() 
+        public LeftPanelMenu(List<Tab> tabs) 
         {
+            Tabs = tabs;
+
             InitializeComponent();
         }
 
@@ -49,7 +57,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
 
-
             titleTextBlock = new TextBlock()
             {
                 Text = "Привет, Иван!",
@@ -68,24 +75,31 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             Grid.SetColumn(headerBorder, 1);
             Grid.SetRow(headerBorder, 0);
 
+            buttons = new List<LeftPanelMenuButton>();
+
             LeftPanelMenuButton leftPanelMenuButton = new LeftPanelMenuButton("Главная");
+            leftPanelMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             leftPanelMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             leftPanelMenuButton.Margin = new Thickness(7, 5, 7, 5);
+            buttons.Add(leftPanelMenuButton);
 
-            Button button1 = new Button();
-            button1.Height = 35;
-            button1.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button1.Margin = new Thickness(7, 5, 7, 5);
+            LeftPanelMenuButton leftPanelMenuButton1 = new LeftPanelMenuButton("Настройки");
+            leftPanelMenuButton1.ButtonClicked += LeftPanelMenu_ButtonClicked;
+            leftPanelMenuButton1.HorizontalAlignment = HorizontalAlignment.Stretch;
+            leftPanelMenuButton1.Margin = new Thickness(7, 5, 7, 5);
+            buttons.Add(leftPanelMenuButton1);
 
-            Button button2 = new Button();
-            button2.Height = 35;
-            button2.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button2.Margin = new Thickness(7, 5, 7, 5);
+            LeftPanelMenuButton leftPanelMenuButton2 = new LeftPanelMenuButton("О программе");
+            leftPanelMenuButton2.ButtonClicked += LeftPanelMenu_ButtonClicked;
+            leftPanelMenuButton2.HorizontalAlignment = HorizontalAlignment.Stretch;
+            leftPanelMenuButton2.Margin = new Thickness(7, 5, 7, 5);
+            buttons.Add(leftPanelMenuButton2);
 
-            Button button3 = new Button();
-            button3.Height = 35;
-            button3.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button3.Margin = new Thickness(7, 5, 7, 5);
+            if (buttons.Count != Tabs.Count)
+                throw new Exception("Quantity of tabs and buttons are not equal");
+
+            for (int i = 0; i < Tabs.Count; i++)
+                buttons[i].Tab = Tabs[i];
 
             menuButtonsStackPanel = new StackPanel()
             { 
@@ -93,9 +107,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 HorizontalAlignment = HorizontalAlignment.Stretch,
             };
             menuButtonsStackPanel.Children.Add(leftPanelMenuButton);
-            menuButtonsStackPanel.Children.Add(button1);
-            menuButtonsStackPanel.Children.Add(button2);
-            menuButtonsStackPanel.Children.Add(button3);
+            menuButtonsStackPanel.Children.Add(leftPanelMenuButton1);
+            menuButtonsStackPanel.Children.Add(leftPanelMenuButton2);
             Grid.SetColumn(menuButtonsStackPanel, 0);
             Grid.SetColumnSpan(menuButtonsStackPanel, 2);
             Grid.SetRow(menuButtonsStackPanel, 1);
@@ -122,6 +135,19 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             mainGrid.Children.Add(menuButtonsStackPanel);
 
             Content = mainGrid;
+        }
+
+        private void LeftPanelMenu_ButtonClicked(Tab obj)
+        {
+            foreach (var item in buttons)
+            {
+                if (item.Tab == obj)
+                {
+                    item.Tab.Visibility = Visibility.Visible;
+                }
+                else item.Tab.Visibility = Visibility.Collapsed;
+
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
