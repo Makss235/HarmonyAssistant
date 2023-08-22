@@ -85,17 +85,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             };
             border.Child = mainGrid;
 
-<<<<<<< HEAD
             TButton button = new TButton();
             button.Click += Button_Click;
-            button.MouseEnter += Button_MouseEnter;
-            button.MouseLeave += Button_MouseLeave;
+            //button.MouseEnter += Button_MouseEnter;
+            //button.MouseLeave += Button_MouseLeave;
             button.Content = border;
-=======
             this.MouseEnter += (s, e) => border.Background = new SolidColorBrush(new Color()
             { R = 13, G = 27, B = 42, A = 255 });
             this.MouseLeave += (s, e) => border.Background = Brushes.Transparent;
->>>>>>> 74c5b44166fc3f883bb4cf9eee0a0ecce1a3529b
 
             Content = button;
         }
