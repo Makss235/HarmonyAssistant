@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shell;
 using FontAwesome.WPF;
+using HarmonyAssistant.UI.Widgets.Icons;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {

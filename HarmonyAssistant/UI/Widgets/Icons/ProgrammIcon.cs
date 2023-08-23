@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Icons
+namespace HarmonyAssistant.UI.Widgets.Icons
 {
     public class ProgrammIcon : ContentControl
     {
@@ -11,7 +11,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Icons
         {
             Path programmIcon = new Path
             {
-                Stroke = Brushes.Green,
+                Stroke = Brushes.AliceBlue,
                 StrokeThickness = 1,
                 Fill = Brushes.Green,
                 VerticalAlignment = VerticalAlignment.Center,

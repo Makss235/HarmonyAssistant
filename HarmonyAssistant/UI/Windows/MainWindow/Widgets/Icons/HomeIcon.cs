@@ -22,7 +22,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Icons
             Polygon homeIcon = new Polygon()
             {
                 StrokeThickness = 3,
-                Stroke = Brushes.White,
+                Stroke = Brushes.AliceBlue,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 Points =

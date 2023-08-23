@@ -1,5 +1,6 @@
 ﻿using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab;
 using System;
 using System.Collections.Generic;
 using System.Windows;
