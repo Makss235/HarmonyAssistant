@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Widgets.Base;
+﻿using FontAwesome.WPF;
+using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
 using System;
@@ -15,17 +16,27 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         public event Action<Tab> ButtonClicked;
 
         private string text;
-        private ContentControl icon;
+        private ImageAwesome icon;
 
         private TextBlock titleTextBlock;
         private Border border1;
         Border border;
 
-        public LeftPanelMenuButton(string text, ContentControl icon)
+        public LeftPanelMenuButton(string text, ImageAwesome icon)
         {
             this.text = text;
             this.icon = icon;
             InitializeComponent();
+        }
+
+        public void OpenButton()
+        {
+            border1.Visibility = Visibility.Visible;
+        }
+
+        public void CloseButton()
+        {
+            border1.Visibility = Visibility.Collapsed;
         }
 
         private void InitializeComponent()
@@ -34,8 +45,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             {
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
-                Width = 36, 
-                Height = 40,
+                Height = 25,
+                Width = 25,
                 Background = Brushes.Transparent,
                 Margin = new Thickness(0, 0, 0, 0),
                 Child = icon,
@@ -54,22 +65,20 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             border1 = new Border()
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                BorderBrush = Brushes.Yellow,
-                //BorderThickness = new Thickness(1)
             };
             border1.Child = titleTextBlock;
-            border1.SizeChanged += Border1_SizeChanged;
             Grid.SetColumn(border1, 1);
 
             ColumnDefinition iconColumnDefinition = new ColumnDefinition()
-            { Width = new GridLength(1, GridUnitType.Auto) };
+            { Width = new GridLength(36, GridUnitType.Pixel) };
             
             ColumnDefinition titleColumnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };
 
             Grid mainGrid = new Grid()
             {
-                HorizontalAlignment = HorizontalAlignment.Stretch
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Height = 36
             };
             mainGrid.ColumnDefinitions.Add(iconColumnDefinition);
             mainGrid.ColumnDefinitions.Add(titleColumnDefinition);
@@ -95,28 +104,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             Content = button;
         }
 
-        private void Button_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            
-        }
-
-        private void Button_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ButtonClicked?.Invoke(Tab);
-        }
-
-        private void Border1_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //MessageBox.Show(border1.RenderSize.Width.ToString() + "\n" + titleTextBlock.DesiredSize.Width.ToString());
-
-            if (border1.RenderSize.Width - 15 <= titleTextBlock.DesiredSize.Width)
-                titleTextBlock.Visibility = Visibility.Collapsed;
-            else titleTextBlock.Visibility = Visibility.Visible;
         }
     }
 }

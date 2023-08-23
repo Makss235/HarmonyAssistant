@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shell;
+using FontAwesome.WPF;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
@@ -52,9 +53,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             iconButton = new TButton()
             {
                 Content = new ProgrammIcon(),
-                HorizontalAlignment = HorizontalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
-                Background = Brushes.Yellow,
+                Margin = new Thickness(14, 10, 0, 0),
             };
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
@@ -76,19 +77,37 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
             buttons = new List<LeftPanelMenuButton>();
 
-            LeftPanelMenuButton homeMenuButton = new LeftPanelMenuButton("Главная1", new HomeIcon());
+            ImageAwesome imageAwesome = new ImageAwesome()
+            {
+                Icon = FontAwesomeIcon.Home,
+                Foreground = Brushes.AliceBlue
+            };
+            
+            ImageAwesome imageAwesome1 = new ImageAwesome()
+            {
+                Icon = FontAwesomeIcon.Gear,
+                Foreground = Brushes.AliceBlue
+            };
+            
+            ImageAwesome imageAwesome2 = new ImageAwesome()
+            {
+                Icon = FontAwesomeIcon.Info,
+                Foreground = Brushes.AliceBlue
+            };
+
+            LeftPanelMenuButton homeMenuButton = new LeftPanelMenuButton("Главная", imageAwesome);
             homeMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             homeMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             homeMenuButton.Margin = new Thickness(7, 5, 7, 5);
             buttons.Add(homeMenuButton);
 
-            LeftPanelMenuButton settingsMenuButton = new LeftPanelMenuButton("Главная1", new HomeIcon()); // если добавить в текст на один символ больше, начнет прыгать, также блюет от того, что в 3 кнопках разный текст, жопа
+            LeftPanelMenuButton settingsMenuButton = new LeftPanelMenuButton("Настройки", imageAwesome1); // если добавить в текст на один символ больше, начнет прыгать, также блюет от того, что в 3 кнопках разный текст, жопа
             settingsMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             settingsMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             settingsMenuButton.Margin = new Thickness(7, 5, 7, 5);
             buttons.Add(settingsMenuButton);
 
-            LeftPanelMenuButton aboutProgramMenuButton = new LeftPanelMenuButton("Главная1", new HomeIcon());
+            LeftPanelMenuButton aboutProgramMenuButton = new LeftPanelMenuButton("О программе", imageAwesome2);
             aboutProgramMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             aboutProgramMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             aboutProgramMenuButton.Margin = new Thickness(7, 5, 7, 5);
@@ -152,8 +171,17 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (headerBorder.Visibility == Visibility.Collapsed)
+            {
                 headerBorder.Visibility = Visibility.Visible;
-            else headerBorder.Visibility = Visibility.Collapsed;
+                foreach (var item in buttons)
+                    item.OpenButton();
+            }
+            else
+            {
+                headerBorder.Visibility = Visibility.Collapsed;
+                foreach (var item in buttons)
+                    item.CloseButton();
+            }
         }
     }
 }

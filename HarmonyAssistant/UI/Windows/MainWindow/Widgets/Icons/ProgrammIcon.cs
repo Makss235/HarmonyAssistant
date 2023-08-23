@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -36,7 +31,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Icons
                 Height = 28,
                 //HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(14, 10, 0, 0),
                 Children = { programmIcon }
             };
 
