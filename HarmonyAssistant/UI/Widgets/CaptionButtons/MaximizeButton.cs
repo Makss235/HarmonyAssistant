@@ -19,17 +19,6 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons
         {
             this.window = window;
 
-            maximizeIcon = new MaximizeIcon(10)
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-            };
-            normalStateIcon = new NormalStateIcon(10)
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-            };
-
             InitializeComponent();
         }
 
