@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shell;
 using FontAwesome.WPF;
-using HarmonyAssistant.UI.Widgets.Icons;
+using HarmonyAssistant.UI.Icons;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
@@ -19,7 +19,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private List<LeftPanelMenuButton> buttons;
 
-        private Border iconBorder;
         private TButton iconButton;
 
         private TextBlock titleTextBlock;
@@ -42,15 +41,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void InitializeComponent()
         {
-            iconBorder = new Border()
-            {
-                Background = new SolidColorBrush(new Color()
-                { R = 1, G = 6, B = 108, A = 255 }),
-                CornerRadius = new CornerRadius(13),
-                Width = 26,
-                Height = 26,
-            };
-
             iconButton = new TButton()
             {
                 Content = new ProgrammIcon(),

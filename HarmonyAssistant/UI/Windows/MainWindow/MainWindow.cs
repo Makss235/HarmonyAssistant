@@ -1,7 +1,8 @@
-﻿using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
+﻿using HarmonyAssistant.UI.Icons.CaptionButtonIcons;
+using HarmonyAssistant.UI.Widgets.CaptionButtons;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,10 +41,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             {
                 CaptionHeight = 40,
                 CornerRadius = new CornerRadius(5),
-                GlassFrameThickness = new Thickness(-1),
-                NonClientFrameEdges = NonClientFrameEdges.None,
+                NonClientFrameEdges = NonClientFrameEdges.Bottom,
                 ResizeBorderThickness = new Thickness(5),
-                UseAeroCaptionButtons = true
             };
 
             windowStyle = new Style(typeof(Window));
@@ -80,6 +79,45 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
             AboutProgramTab aboutProgramTab = new AboutProgramTab() { Visibility = Visibility.Collapsed };
             tabs.Add(aboutProgramTab);
+
+            MinimizeButton minimizeButton = new MinimizeButton(this);
+            minimizeButton.VerticalAlignment = VerticalAlignment.Stretch;
+            minimizeButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            Grid.SetColumn(minimizeButton, 0);
+            
+            MaximizeButton minimizeButton1 = new MaximizeButton(this, new NormalStateIcon(10));
+            minimizeButton.VerticalAlignment = VerticalAlignment.Stretch;
+            minimizeButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            Grid.SetColumn(minimizeButton1, 1);
+
+            CloseButton minimizeButton2 = new CloseButton(this);
+            minimizeButton.VerticalAlignment = VerticalAlignment.Stretch;
+            minimizeButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            Grid.SetColumn(minimizeButton2, 2);
+
+            ColumnDefinition columnDefinition = new ColumnDefinition()
+            { Width = new GridLength(1, GridUnitType.Star) };
+            
+            ColumnDefinition columnDefinition1 = new ColumnDefinition()
+            { Width = new GridLength(1, GridUnitType.Star) };
+            
+            ColumnDefinition columnDefinition2 = new ColumnDefinition()
+            { Width = new GridLength(1, GridUnitType.Star) };
+
+            Grid grid1 = new Grid()
+            {
+                Width = 150,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            };
+            grid1.ColumnDefinitions.Add(columnDefinition);
+            grid1.ColumnDefinitions.Add(columnDefinition1);
+            grid1.ColumnDefinitions.Add(columnDefinition2);
+            grid1.Children.Add(minimizeButton);
+            grid1.Children.Add(minimizeButton1);
+            grid1.Children.Add(minimizeButton2);
+            Grid.SetColumn(grid1, 1);
+            Grid.SetRow(grid1, 0);
 
             leftPanelMenu = new LeftPanelMenu(tabs);
             Grid.SetColumn(leftPanelMenu, 0);
@@ -120,6 +158,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             mainGrid.RowDefinitions.Add(clientZoneRowDefinition);
             mainGrid.Children.Add(leftPanelMenu);
             mainGrid.Children.Add(mainFieldBorder);
+            mainGrid.Children.Add(grid1);
 
             Content = mainGrid;
         }

@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using static HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab.ChatTab;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Media3D;
 using System.Windows.Media;
-using System.Windows;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 {
-    public class Message : UserControl
+    public class Message : ContentControl
     {
         public Message(object messageObject, SendMessageBy sendMessageBy)
         {
