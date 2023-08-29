@@ -1,8 +1,10 @@
 ﻿using HarmonyAssistant.UI.Icons.CaptionButtonIcons;
 using HarmonyAssistant.UI.Widgets.CaptionButtons;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

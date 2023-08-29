@@ -3,6 +3,7 @@ using HarmonyAssistant.UI.Icons;
 using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -42,7 +43,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         {
             iconButton = new TButton()
             {
-                Content = new ProgrammIcon(),
+                //Content = new Image() { Source = new BitmapImage { UriSource = new Uri(@"/HarmonyAssistant;component/Resources/Send_Button.png") } },
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(16, 10, 0, 0),

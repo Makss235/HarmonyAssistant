@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 {
@@ -232,14 +233,32 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             downloadHyperlinkStackPanel.Children.Add(downloadHyperlinkTextBlock);
             downloadHyperlinkStackPanel.Children.Add(downloadQRLabel);
 
-            //warningTextBlock = new TextBlock()
-            //{
-            //    //Text = loc.WarningLoc,
-            //    TextAlignment = TextAlignment.Center,
-            //    Margin = new Thickness(0, 10, 0, 0),
-            //    HorizontalAlignment = HorizontalAlignment.Center,
-            //    TextWrapping = TextWrapping.Wrap
-            //};
+            GitHubLinkLocTextBlock = new TextBlock()
+            {
+                //Text = loc.GitHubLinkLoc,
+                TextAlignment = TextAlignment.Left,
+                Margin = new Thickness(25, 10, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = 300,
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            linksStackPanel = new StackPanel()
+            { Orientation = Orientation.Horizontal };
+            linksStackPanel.Children.Add(downloadHyperlinkStackPanel);
+            linksStackPanel.Children.Add(GitHubLinkLocTextBlock);
+
+            #endregion
+
+            warningTextBlock = new TextBlock()
+            {
+                //Text = loc.WarningLoc,
+                TextAlignment = TextAlignment.Center,
+                Margin = new Thickness(0, 10, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextWrapping = TextWrapping.Wrap
+            };
 
             mainStackPanel = new StackPanel()
             {
@@ -251,8 +270,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             mainStackPanel.Children.Add(nameBuildStackPanel);
             mainStackPanel.Children.Add(versionStackPanel);
             mainStackPanel.Children.Add(authorsStackPanel);
-            mainStackPanel.Children.Add(downloadHyperlinkStackPanel);
-            //mainStackPanel.Children.Add(warningTextBlock);
+            mainStackPanel.Children.Add(linksStackPanel);
+            mainStackPanel.Children.Add(warningTextBlock);
 
             //SButton a = new SButton{ 
             //    Width = 50, 

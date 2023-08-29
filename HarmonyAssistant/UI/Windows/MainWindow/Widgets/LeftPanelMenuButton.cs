@@ -1,7 +1,7 @@
 ﻿using FontAwesome.WPF;
 using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Windows;
 using System.Windows.Controls;
