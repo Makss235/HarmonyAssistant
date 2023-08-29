@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
-namespace HarmonyAssistant.UI.Widgets.Icons.CaptionButtonIcons
+namespace HarmonyAssistant.UI.Icons.CaptionButtonIcons
 {
     public class MinimizeIcon : ContentControl
     {
-        public MinimizeIcon(double lineLength) 
+        public MinimizeIcon(double lineLength)
         {
             Path minimizeIcon = new Path()
             {
                 Stroke = Brushes.AliceBlue,
                 StrokeThickness = 2,
-                Height = 2,
                 Data = new GeometryGroup()
                 {
                     Children =

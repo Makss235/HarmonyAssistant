@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace HarmonyAssistant.UI.Widgets.Icons
+namespace HarmonyAssistant.UI.Icons
 {
     public class ProgrammIcon : ContentControl
     {

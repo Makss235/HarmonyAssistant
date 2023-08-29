@@ -9,13 +9,14 @@ using System.Windows.Media.Imaging;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 {
+    public enum SendMessageBy
+    {
+        ByMe,
+        ByBot
+    }
+
     public class ChatTab : Tab
     {
-        public enum SendMessageBy
-        {
-            ByMe,
-            ByBot
-        }
         public ChatTab()
         {
             InitializeComponent();
@@ -25,12 +26,11 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         {
             ObservableCollection<Message> messageChat = new ObservableCollection<Message>();
 
-            Message m = new Message("DADADADADAD", SendMessageBy.ByMe);
-            messageChat.Add(m);
+            messageChat.Add(new Message("DADADADADAD", SendMessageBy.ByBot));
+            messageChat.Add(new Message("111", SendMessageBy.ByBot));
 
             ItemsControl ic = new ItemsControl()
             {
-                VerticalContentAlignment = VerticalAlignment.Bottom,
                 ItemsSource = messageChat,
                 Style = new ItemsControlStyle()
             };

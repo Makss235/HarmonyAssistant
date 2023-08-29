@@ -1,16 +1,14 @@
-﻿using HarmonyAssistant.UI.Widgets.Base;
+﻿using FontAwesome.WPF;
+using HarmonyAssistant.UI.Icons;
+using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Icons;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shell;
-using FontAwesome.WPF;
-using HarmonyAssistant.UI.Widgets.Icons;
-using System.Windows.Media.Imaging;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
@@ -20,7 +18,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private List<LeftPanelMenuButton> buttons;
 
-        private Border iconBorder;
         private TButton iconButton;
 
         private TextBlock titleTextBlock;
@@ -43,21 +40,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void InitializeComponent()
         {
-            iconBorder = new Border()
-            {
-                Background = new SolidColorBrush(new Color()
-                { R = 1, G = 6, B = 108, A = 255 }),
-                CornerRadius = new CornerRadius(13),
-                Width = 26,
-                Height = 26,
-            };
-
             iconButton = new TButton()
             {
                 //Content = new Image() { Source = new BitmapImage { UriSource = new Uri(@"/HarmonyAssistant;component/Resources/Send_Button.png") } },
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(14, 10, 0, 0),
+                Margin = new Thickness(16, 10, 0, 0),
             };
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
@@ -100,19 +88,19 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             LeftPanelMenuButton homeMenuButton = new LeftPanelMenuButton("Главная", imageAwesome);
             homeMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             homeMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-            homeMenuButton.Margin = new Thickness(7, 5, 7, 5);
+            homeMenuButton.Margin = new Thickness(10, 5, 7, 5);
             buttons.Add(homeMenuButton);
 
             LeftPanelMenuButton settingsMenuButton = new LeftPanelMenuButton("Настройки", imageAwesome1); // если добавить в текст на один символ больше, начнет прыгать, также блюет от того, что в 3 кнопках разный текст, жопа
             settingsMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             settingsMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-            settingsMenuButton.Margin = new Thickness(7, 5, 7, 5);
+            settingsMenuButton.Margin = new Thickness(10, 5, 7, 5);
             buttons.Add(settingsMenuButton);
 
             LeftPanelMenuButton aboutProgramMenuButton = new LeftPanelMenuButton("О программе", imageAwesome2);
             aboutProgramMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             aboutProgramMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-            aboutProgramMenuButton.Margin = new Thickness(7, 5, 7, 5);
+            aboutProgramMenuButton.Margin = new Thickness(10, 5, 7, 5);
             buttons.Add(aboutProgramMenuButton);
 
             if (buttons.Count != Tabs.Count)

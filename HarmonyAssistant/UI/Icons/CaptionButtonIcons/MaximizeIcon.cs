@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace HarmonyAssistant.UI.Widgets.Icons.CaptionButtonIcons
+namespace HarmonyAssistant.UI.Icons.CaptionButtonIcons
 {
     public class MaximizeIcon : ContentControl
     {
@@ -12,7 +12,7 @@ namespace HarmonyAssistant.UI.Widgets.Icons.CaptionButtonIcons
             Path maximizeIcon = new Path()
             {
                 Stroke = Brushes.AliceBlue,
-                StrokeThickness = 2,
+                StrokeThickness = 1.5,
                 Data = new GeometryGroup()
                 {
                     Children =

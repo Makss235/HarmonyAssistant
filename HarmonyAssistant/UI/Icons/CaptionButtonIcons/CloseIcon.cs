@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
-namespace HarmonyAssistant.UI.Widgets.Icons.CaptionButtonIcons
+namespace HarmonyAssistant.UI.Icons.CaptionButtonIcons
 {
     public class CloseIcon : ContentControl
     {
