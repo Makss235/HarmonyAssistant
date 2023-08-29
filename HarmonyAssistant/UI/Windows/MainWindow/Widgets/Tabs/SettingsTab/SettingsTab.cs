@@ -1,4 +1,6 @@
-﻿namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs
+﻿using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
+
+namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
     public class SettingsTab : Tab
     {

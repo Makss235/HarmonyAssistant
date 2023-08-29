@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs
 {
@@ -191,9 +192,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs
             {
                 Content = new Image()
                 {
-                    //Source = new BitmapImage(
-                    //new Uri("pack://application:,,,/Resources/QR.png",
-                    //UriKind.RelativeOrAbsolute))
+                    Source = new BitmapImage(
+                    new Uri("pack://application:,,,/Resources/QRDownload.png",
+                    UriKind.RelativeOrAbsolute))
                 },
                 Width = 150,
                 Height = 150,

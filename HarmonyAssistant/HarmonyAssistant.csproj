@@ -8,12 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icon.png" />
+    <None Remove="Resources\QRDownload.png" />
+    <None Remove="Resources\Send_Button.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Data\Resources\" />
     <Folder Include="Core\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icon.png" />
+    <Resource Include="Resources\QRDownload.png" />
+    <Resource Include="Resources\Send_Button.png" />
   </ItemGroup>
 
 </Project>

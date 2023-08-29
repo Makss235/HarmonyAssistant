@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Shell;
 using FontAwesome.WPF;
 using HarmonyAssistant.UI.Widgets.Icons;
+using System.Windows.Media.Imaging;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
@@ -53,7 +54,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
             iconButton = new TButton()
             {
-                Content = new ProgrammIcon(),
+                //Content = new Image() { Source = new BitmapImage { UriSource = new Uri(@"/HarmonyAssistant;component/Resources/Send_Button.png") } },
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(14, 10, 0, 0),

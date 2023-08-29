@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
-namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs
+namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base
 {
     public class Tab : ContentControl, INotifyPropertyChanged
     {
