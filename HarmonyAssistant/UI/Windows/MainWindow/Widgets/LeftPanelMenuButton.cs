@@ -48,7 +48,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 Height = 25,
                 Width = 25,
                 Background = Brushes.Transparent,
-                Margin = new Thickness(0, 0, 0, 0),
                 Child = icon,
             };
             Grid.SetColumn(iconBorder, 0);
@@ -97,9 +96,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             //button.MouseEnter += Button_MouseEnter;
             //button.MouseLeave += Button_MouseLeave;
             button.Content = border;
-            this.MouseEnter += (s, e) => border.Background = new SolidColorBrush(new Color()
+            MouseEnter += (s, e) => border.Background = new SolidColorBrush(new Color()
             { R = 13, G = 27, B = 42, A = 255 });
-            this.MouseLeave += (s, e) => border.Background = Brushes.Transparent;
+            MouseLeave += (s, e) => border.Background = Brushes.Transparent;
 
             Content = button;
         }

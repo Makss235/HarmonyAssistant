@@ -5,11 +5,22 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <StartupObject>HarmonyAssistant.Program</StartupObject>
+    <IsPublishable>False</IsPublishable>
+    <Title>Привет, Иван!</Title>
+    <Authors>Makss (Широков Максим), MrVeser (Кузнецов Виктор), Cripol1 (Инкин Максим)</Authors>
+    <Company>HarmonySoftware</Company>
+    <ApplicationIcon>Data\Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Resources\" />
-    <Folder Include="Core\" />
+    <Content Include="Data\Resources\Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\RecognizeSpeech\" />
+    <Folder Include="Core\RecognizeCommand\" />
+    <Folder Include="Core\Skills\" />
   </ItemGroup>
 
   <ItemGroup>
