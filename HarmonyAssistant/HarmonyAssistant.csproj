@@ -40,7 +40,6 @@
     <Resource Include="Resources\Icon.png" />
     <Resource Include="Resources\QRDownload.png" />
     <Resource Include="Resources\QRGit.png" />
-    <Resource Include="Resources\Send_Button.png" />
   </ItemGroup>
 
 </Project>

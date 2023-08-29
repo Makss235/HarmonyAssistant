@@ -35,19 +35,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 Style = new ItemsControlStyle()
             };
 
-            Image ass = new Image()
-            {
-                Source = new BitmapImage(
-                    new Uri("pack://application:,,,/Resources/QRDownload.png",
-                    UriKind.RelativeOrAbsolute))
-            };
-
             Border border = new Border()
             {
                 Background = Brushes.Transparent,
                 BorderBrush = Brushes.AliceBlue,
                 BorderThickness = new Thickness(0, 0, 0, 1),
-                Child = ass,
+                Child = ic,
             };
             Grid.SetColumn(border, 0);
             Grid.SetColumnSpan(border, 2);
