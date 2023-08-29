@@ -192,24 +192,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             downloadHyperlinkTextBlock = new TextBlock();
             downloadHyperlinkTextBlock.Inlines.Add(downloadHyperlink);
 
-            //GitHubLinkLocTextBlock = new TextBlock()
-            //{
-            //    //Text = loc.GitHubLinkLoc,
-            //    TextAlignment = TextAlignment.Left,
-            //    Margin = new Thickness(25, 10, 0, 0),
-            //    HorizontalAlignment = HorizontalAlignment.Left,
-            //    VerticalAlignment = VerticalAlignment.Top,
-            //    Width = 300,
-            //    TextWrapping = TextWrapping.Wrap
-            //};
-
-            //linksStackPanel = new StackPanel()
-            //{ Orientation = Orientation.Horizontal };
-            //linksStackPanel.Children.Add(downloadHyperlinkStackPanel);
-            //linksStackPanel.Children.Add(GitHubLinkLocTextBlock);
-
-            #endregion
-
             downloadQRLabel = new Label()
             {
                 Content = new Image()
@@ -218,8 +200,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
                     new Uri("pack://application:,,,/Resources/QRDownload.png",
                     UriKind.RelativeOrAbsolute))
                 },
-                Width = 150,
-                Height = 150,
+                Width = 200,
+                Height = 200,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Margin = new Thickness(0, 5, 0, 0)
             };
@@ -233,32 +215,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             downloadHyperlinkStackPanel.Children.Add(downloadHyperlinkTextBlock);
             downloadHyperlinkStackPanel.Children.Add(downloadQRLabel);
 
-            GitHubLinkLocTextBlock = new TextBlock()
-            {
-                //Text = loc.GitHubLinkLoc,
-                TextAlignment = TextAlignment.Left,
-                Margin = new Thickness(25, 10, 0, 0),
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Width = 300,
-                TextWrapping = TextWrapping.Wrap
-            };
-
-            linksStackPanel = new StackPanel()
-            { Orientation = Orientation.Horizontal };
-            linksStackPanel.Children.Add(downloadHyperlinkStackPanel);
-            linksStackPanel.Children.Add(GitHubLinkLocTextBlock);
-
             #endregion
-
-            warningTextBlock = new TextBlock()
-            {
-                //Text = loc.WarningLoc,
-                TextAlignment = TextAlignment.Center,
-                Margin = new Thickness(0, 10, 0, 0),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                TextWrapping = TextWrapping.Wrap
-            };
 
             mainStackPanel = new StackPanel()
             {
@@ -270,20 +227,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             mainStackPanel.Children.Add(nameBuildStackPanel);
             mainStackPanel.Children.Add(versionStackPanel);
             mainStackPanel.Children.Add(authorsStackPanel);
-            mainStackPanel.Children.Add(linksStackPanel);
-            mainStackPanel.Children.Add(warningTextBlock);
-
-            //SButton a = new SButton{ 
-            //    Width = 50, 
-            //    Height = 50, 
-            //    ButContent = "MyGegg", 
-            //    ButBackground = Brushes.Green, 
-            //    ButCornerRadius = new CornerRadius(10) 
-            //};
+            mainStackPanel.Children.Add(downloadHyperlinkStackPanel);
 
             mainGrid = new Grid();
             mainGrid.Children.Add(mainStackPanel);
-            //mainGrid.Children.Add(a);
             Content = mainGrid;
         }
 
