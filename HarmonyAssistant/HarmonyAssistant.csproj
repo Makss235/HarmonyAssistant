@@ -14,7 +14,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Data\Resources\Icon.ico" />
+    <None Remove="Data\Resources\QRDownload.png" />
+    <None Remove="Data\Resources\QRGit.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Data\Resources\Icon.ico" />
+    <Resource Include="Data\Resources\QRDownload.png" />
+    <Resource Include="Data\Resources\QRGit.png" />
   </ItemGroup>
 
   <ItemGroup>
