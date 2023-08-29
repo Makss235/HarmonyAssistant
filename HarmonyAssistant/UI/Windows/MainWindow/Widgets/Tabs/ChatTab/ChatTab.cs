@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;

@@ -1,7 +1,6 @@
 ﻿using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Icons;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -11,6 +10,7 @@ using System.Windows.Shell;
 using FontAwesome.WPF;
 using HarmonyAssistant.UI.Widgets.Icons;
 using System.Windows.Media.Imaging;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 {
