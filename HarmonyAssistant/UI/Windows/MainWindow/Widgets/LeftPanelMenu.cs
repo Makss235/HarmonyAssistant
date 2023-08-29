@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shell;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
@@ -41,15 +42,37 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void InitializeComponent()
         {
+            Border iconBorder = new Border
+            {
+                BorderBrush = Brushes.Transparent,
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(20),
+                Child = new Image()
+                {
+                    Margin = new Thickness(1),
+                    Source = new BitmapImage(
+                    new Uri("pack://application:,,,/Resources/Icon.png",
+                    UriKind.RelativeOrAbsolute))
+                },
+            };
+
             iconButton = new TButton()
             {
-                //Content = new Image() { Source = new BitmapImage { UriSource = new Uri(@"/HarmonyAssistant;component/Resources/Send_Button.png") } },
+                //Content = new Image()
+                //{
+                //    Source = new BitmapImage(
+                //    new Uri("pack://application:,,,/Resources/Icon.png",
+                //    UriKind.RelativeOrAbsolute))
+                //},
+                Content = iconBorder,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(16, 10, 0, 0),
             };
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
+            iconButton.MouseEnter += (s, e) => iconBorder.BorderBrush = Brushes.AliceBlue;
+            iconButton.MouseLeave += (s, e) => iconBorder.BorderBrush = Brushes.Transparent;
 
             titleTextBlock = new TextBlock()
             {
