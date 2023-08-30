@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
+using System.Windows.Navigation;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 {
@@ -19,30 +19,36 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
         private TextBlock nameProgramLocTextBlock;
         private TextBlock nameProgramTextBlock;
-        private StackPanel nameProgramStackPanel;
+        private WrapPanel nameProgramWrapPanel;
 
         private TextBlock nameBuildLocTextBlock;
         private TextBlock nameBuildTextBlock;
-        private StackPanel nameBuildStackPanel;
+        private WrapPanel nameBuildWrapPanel;
 
         private TextBlock versionLocTextBlock;
         private TextBlock versionTextBlock;
-        private StackPanel versionStackPanel;
+        private WrapPanel versionWrapPanel;
 
         private TextBlock authorsLocTextBlock;
         private TextBlock makssAuthorTextBlock;
         private TextBlock mrVeserAuthorTextBlock;
         private TextBlock cripol1AuthorTextBlock;
-        private StackPanel authorsStackPanel1;
         private StackPanel authorsStackPanel;
+        private WrapPanel authorsWrapPanel;
 
         private TextBlock downloadLinkLocTextBlock;
         private Hyperlink downloadHyperlink;
         private TextBlock downloadHyperlinkTextBlock;
         private Label downloadQRLabel;
         private StackPanel downloadHyperlinkStackPanel;
-        private TextBlock GitHubLinkLocTextBlock;
-        //private StackPanel linksStackPanel;
+        
+        private TextBlock githubLinkLocTextBlock;
+        private Hyperlink githubHyperlink;
+        private TextBlock githubHyperlinkTextBlock;
+        private Label githubQRLabel;
+        private StackPanel githubHyperlinkStackPanel;
+
+        private WrapPanel linksWrapPanel;
 
         private TextBlock warningTextBlock;
         private StackPanel mainStackPanel;
@@ -72,7 +78,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             {
                 Text = "О программе",
                 FontSize = 20,
-                Margin = new Thickness(0, 15, 0, 0),
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
@@ -89,13 +94,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
                 Margin = new Thickness(10, 0, 0, 0)
             };
 
-            nameProgramStackPanel = new StackPanel()
+            nameProgramWrapPanel = new WrapPanel()
             {
                 Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 10, 0, 0),
+                Margin = new Thickness(0, 10, 0, 5),
             };
-            nameProgramStackPanel.Children.Add(nameProgramLocTextBlock);
-            nameProgramStackPanel.Children.Add(nameProgramTextBlock);
+            nameProgramWrapPanel.Children.Add(nameProgramLocTextBlock);
+            nameProgramWrapPanel.Children.Add(nameProgramTextBlock);
 
             #endregion
 
@@ -111,13 +116,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
                 Margin = new Thickness(10, 0, 0, 0)
             };
 
-            nameBuildStackPanel = new StackPanel()
+            nameBuildWrapPanel = new WrapPanel()
             {
                 Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 10, 0, 0),
+                Margin = new Thickness(0, 5, 0, 5),
             };
-            nameBuildStackPanel.Children.Add(nameBuildLocTextBlock);
-            nameBuildStackPanel.Children.Add(nameBuildTextBlock);
+            nameBuildWrapPanel.Children.Add(nameBuildLocTextBlock);
+            nameBuildWrapPanel.Children.Add(nameBuildTextBlock);
 
             #endregion
 
@@ -129,17 +134,17 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             };
             versionTextBlock = new TextBlock()
             {
-                Text = "0.0.2.1",
+                Text = "0.1.0.0",
                 Margin = new Thickness(10, 0, 0, 0)
             };
 
-            versionStackPanel = new StackPanel()
+            versionWrapPanel = new WrapPanel()
             {
                 Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 10, 0, 0),
+                Margin = new Thickness(0, 5, 0, 5),
             };
-            versionStackPanel.Children.Add(versionLocTextBlock);
-            versionStackPanel.Children.Add(versionTextBlock);
+            versionWrapPanel.Children.Add(versionLocTextBlock);
+            versionWrapPanel.Children.Add(versionTextBlock);
 
             #endregion
 
@@ -157,37 +162,37 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             cripol1AuthorTextBlock = new TextBlock()
             { Text = "Cripol1 (Инкин Максим)" };
 
-            authorsStackPanel1 = new StackPanel()
+            authorsStackPanel = new StackPanel()
             {
                 Orientation = Orientation.Vertical,
                 Margin = new Thickness(10, 0, 0, 0),
             };
-            authorsStackPanel1.Children.Add(makssAuthorTextBlock);
-            authorsStackPanel1.Children.Add(mrVeserAuthorTextBlock);
-            authorsStackPanel1.Children.Add(cripol1AuthorTextBlock);
+            authorsStackPanel.Children.Add(makssAuthorTextBlock);
+            authorsStackPanel.Children.Add(mrVeserAuthorTextBlock);
+            authorsStackPanel.Children.Add(cripol1AuthorTextBlock);
 
-            authorsStackPanel = new StackPanel()
+            authorsWrapPanel = new WrapPanel()
             {
                 Orientation = Orientation.Horizontal,
-                Margin = new Thickness(0, 10, 0, 0),
+                Margin = new Thickness(0, 5, 0, 5),
             };
-            authorsStackPanel.Children.Add(authorsLocTextBlock);
-            authorsStackPanel.Children.Add(authorsStackPanel1);
+            authorsWrapPanel.Children.Add(authorsLocTextBlock);
+            authorsWrapPanel.Children.Add(authorsStackPanel);
 
             #endregion
 
             #region Links
 
             downloadLinkLocTextBlock = new TextBlock()
-            {
-                Text = "Ссылка на скачивание"
-            };
+            { Text = "Ссылка на скачивание:" };
+
             downloadHyperlink = new Hyperlink()
-            {
-                NavigateUri = new Uri("https://goo.su/YCMpX2")
+            { 
+                NavigateUri = new Uri("https://clck.ru/335ThJ"),
+                Foreground = Brushes.CornflowerBlue
             };
             downloadHyperlink.RequestNavigate += DownloadHyperlink_RequestNavigate;
-            downloadHyperlink.Inlines.Add("https://goo.su/YCMpX2");
+            downloadHyperlink.Inlines.Add("https://clck.ru/335ThJ");
 
             downloadHyperlinkTextBlock = new TextBlock();
             downloadHyperlinkTextBlock.Inlines.Add(downloadHyperlink);
@@ -202,41 +207,95 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
                 },
                 Width = 200,
                 Height = 200,
-                HorizontalAlignment = HorizontalAlignment.Center,
+                //HorizontalAlignment = HorizontalAlignment.Center,
                 Margin = new Thickness(0, 5, 0, 0)
             };
 
             downloadHyperlinkStackPanel = new StackPanel()
             {
                 Orientation = Orientation.Vertical,
-                Margin = new Thickness(0, 10, 0, 0),
+                Margin = new Thickness(0, 0, 5, 0),
             };
             downloadHyperlinkStackPanel.Children.Add(downloadLinkLocTextBlock);
             downloadHyperlinkStackPanel.Children.Add(downloadHyperlinkTextBlock);
             downloadHyperlinkStackPanel.Children.Add(downloadQRLabel);
+
+
+            githubLinkLocTextBlock = new TextBlock()
+            { Text = "Ссылка на GitHub:" };
+
+            githubHyperlink = new Hyperlink()
+            { 
+                NavigateUri = new Uri("https://clck.ru/35WELg"),
+                Foreground = Brushes.CornflowerBlue
+            };
+            githubHyperlink.RequestNavigate += GithubHyperlink_RequestNavigate;
+            githubHyperlink.Inlines.Add("https://clck.ru/35WELg");
+
+            githubHyperlinkTextBlock = new TextBlock();
+            githubHyperlinkTextBlock.Inlines.Add(githubHyperlink);
+
+            githubQRLabel = new Label()
+            {
+                Content = new Image()
+                {
+                    Source = new BitmapImage(
+                    new Uri("pack://application:,,,/Resources/QRGit.png",
+                    UriKind.RelativeOrAbsolute))
+                },
+                Width = 200,
+                Height = 200,
+                //HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, 5, 0, 0)
+            };
+
+            githubHyperlinkStackPanel = new StackPanel()
+            {
+                Orientation = Orientation.Vertical,
+                Margin = new Thickness(5, 0, 0, 0),
+            };
+            githubHyperlinkStackPanel.Children.Add(githubLinkLocTextBlock);
+            githubHyperlinkStackPanel.Children.Add(githubHyperlinkTextBlock);
+            githubHyperlinkStackPanel.Children.Add(githubQRLabel);
+
+            linksWrapPanel = new WrapPanel()
+            {
+                Orientation = Orientation.Horizontal,
+                Margin = new Thickness(0, 5, 0, 5)
+            };
+            linksWrapPanel.Children.Add(downloadHyperlinkStackPanel);
+            linksWrapPanel.Children.Add(githubHyperlinkStackPanel);
 
             #endregion
 
             mainStackPanel = new StackPanel()
             {
                 Orientation = Orientation.Vertical,
-                Margin = new Thickness(20, 0, 20, 10)
+                Margin = new Thickness(15)
             };
             mainStackPanel.Children.Add(titleTextBlock);
-            mainStackPanel.Children.Add(nameProgramStackPanel);
-            mainStackPanel.Children.Add(nameBuildStackPanel);
-            mainStackPanel.Children.Add(versionStackPanel);
-            mainStackPanel.Children.Add(authorsStackPanel);
-            mainStackPanel.Children.Add(downloadHyperlinkStackPanel);
+            mainStackPanel.Children.Add(nameProgramWrapPanel);
+            mainStackPanel.Children.Add(nameBuildWrapPanel);
+            mainStackPanel.Children.Add(versionWrapPanel);
+            mainStackPanel.Children.Add(authorsWrapPanel);
+            mainStackPanel.Children.Add(linksWrapPanel);
 
             mainGrid = new Grid();
             mainGrid.Children.Add(mainStackPanel);
-            Content = mainGrid;
+
+            ScrollViewer scrollViewer = new ScrollViewer();
+            scrollViewer.Content = mainGrid;
+
+            Content = scrollViewer;
         }
 
-        private void DownloadHyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        private void DownloadHyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start(new ProcessStartInfo("https://goo.su/YCMpX2") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo("https://clck.ru/335ThJ") { UseShellExecute = true });
+        }
+        private void GithubHyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://clck.ru/35WELg") { UseShellExecute = true });
         }
     }
 }
