@@ -14,7 +14,7 @@ namespace HarmonyAssistant
             sTT.Start();
 
             CCSTTF cCSTTF = CCSTTF.GetInstance();
-            cCSTTF.ChangingTextSTTFEvent += (s) => MessageBox.Show(s);
+            //cCSTTF.ChangingTextSTTFEvent += (s) => MessageBox.Show(s);
             cCSTTF.Start();
 
             MainWindow mainWindow = new MainWindow();
