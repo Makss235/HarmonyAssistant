@@ -32,10 +32,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         }
         private void InitializeComponent(UIElement childControl, SendMessageBy sendMessageBy)
         {
+
+
             Border b = new Border()
             {
                 Background = new SolidColorBrush(new Color()
-                { R = 15, G = 20, B = 35, A = 255 }),
+                { R = 30, G = 30, B = 50, A = 255 }),
                 CornerRadius = new CornerRadius(5),
                 Child = childControl,
                 MaxWidth = 500,
@@ -44,6 +46,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(0, 3, 0, 3)
             };
+
+
 
             if (sendMessageBy == SendMessageBy.ByMe)
             {
