@@ -27,7 +27,8 @@ namespace HarmonyAssistant.Core.STT
             STTProcess = new Process();
             string currentDirectory = Path.GetDirectoryName(
                 Assembly.GetExecutingAssembly().Location);
-            exePythonPath = Path.Combine(currentDirectory, "Python311\\python.exe");
+            exePythonPath = Path.Combine(
+                currentDirectory, "Python311\\python.exe");
             directory = Path.Combine(currentDirectory, "stt\\");
             script = "main.py";
         }
