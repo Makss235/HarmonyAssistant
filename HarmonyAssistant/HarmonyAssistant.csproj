@@ -25,18 +25,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\RecognizeSpeech\" />
-    <Folder Include="Core\RecognizeCommand\" />
+    <Folder Include="Core\TTC\" />
     <Folder Include="Core\Skills\" />
-    <None Remove="Resources\Icon.png" />
-    <None Remove="Resources\QRDownload.png" />
-    <None Remove="Resources\QRGit.png" />
-    <None Remove="Resources\Send_Button.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Core\TTS\" />
     <Folder Include="Data\Resources\" />
-    <Folder Include="Core\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,9 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Icon.png" />
-    <Resource Include="Resources\QRDownload.png" />
-    <Resource Include="Resources\QRGit.png" />
+    <None Update="Core\STT\stt\main.py">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

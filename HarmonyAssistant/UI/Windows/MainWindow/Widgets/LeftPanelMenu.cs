@@ -1,8 +1,6 @@
 ﻿using FontAwesome.WPF;
-using HarmonyAssistant.UI.Icons;
 using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Collections.Generic;
@@ -45,7 +43,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             Border iconBorder = new Border
             {
                 BorderBrush = Brushes.Transparent,
-                BorderThickness = new Thickness(1),
+                BorderThickness = new Thickness(2),
                 CornerRadius = new CornerRadius(20),
                 Child = new Image()
                 {
@@ -58,20 +56,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
             iconButton = new TButton()
             {
-                //Content = new Image()
-                //{
-                //    Source = new BitmapImage(
-                //    new Uri("pack://application:,,,/Resources/Icon.png",
-                //    UriKind.RelativeOrAbsolute))
-                //},
                 Content = iconBorder,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(16, 10, 0, 0),
+                Margin = new Thickness(15, 10, 0, 0),
             };
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
-            iconButton.MouseEnter += (s, e) => iconBorder.BorderBrush = Brushes.AliceBlue;
+            iconButton.MouseEnter += (s, e) => iconBorder.BorderBrush = new SolidColorBrush(new Color()
+            { R = 50, G = 50, B = 100, A = 255 });
             iconButton.MouseLeave += (s, e) => iconBorder.BorderBrush = Brushes.Transparent;
 
             titleTextBlock = new TextBlock()

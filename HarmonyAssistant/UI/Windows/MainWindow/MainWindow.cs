@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Icons.CaptionButtonIcons;
+﻿using HarmonyAssistant.Core.STT;
+using HarmonyAssistant.UI.Icons.CaptionButtonIcons;
 using HarmonyAssistant.UI.Widgets.CaptionButtons;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab;
@@ -6,6 +7,7 @@ using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -33,9 +35,19 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
         public MainWindow()
         {
+            Closing += MainWindow_Closing;
+
             InitializeStyles();
             InitializeWindow();
             InitializeComponent();
+        }
+
+        private void MainWindow_Closing(object? sender, CancelEventArgs e)
+        {
+            STT.GetInstance().Stop();
+            CCSTTF.GetInstance().Stop();
+
+            Application.Current.Shutdown();
         }
 
         private void InitializeStyles()

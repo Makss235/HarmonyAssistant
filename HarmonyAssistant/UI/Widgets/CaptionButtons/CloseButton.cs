@@ -28,7 +28,7 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            window.Close();
         }
 
         private void Button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
