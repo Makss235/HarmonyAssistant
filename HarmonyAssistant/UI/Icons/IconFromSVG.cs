@@ -29,6 +29,7 @@ namespace HarmonyAssistant.UI.Icons
             var path = new System.Windows.Shapes.Path();
             path.Data = Geometry.Parse(stringPath);
             path.Fill = Brushes.AliceBlue;
+            path.Stretch = Stretch.Uniform;
 
             Content = path;
         }
