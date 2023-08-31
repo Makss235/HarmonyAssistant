@@ -10,18 +10,28 @@
     <Title>Привет, Иван!</Title>
     <Authors>Makss (Широков Максим), MrVeser (Кузнецов Виктор), Cripol1 (Инкин Максим)</Authors>
     <Company>HarmonySoftware</Company>
-    <ApplicationIcon>Data\Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>Data\Resources\Images\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\Resources\Images\send.svg" />
     <None Remove="Data\Resources\QRDownload.png" />
     <None Remove="Data\Resources\QRGit.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Data\Resources\Icon.ico" />
-    <Resource Include="Data\Resources\QRDownload.png" />
-    <Resource Include="Data\Resources\QRGit.png" />
+    <Content Include="Data\Resources\Images\Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Data\Resources\Images\Icon.ico" />
+    <Resource Include="Data\Resources\Images\QRDownload.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\Resources\Images\QRGit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\Resources\Images\send.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,11 +41,11 @@
 
   <ItemGroup>
     <Folder Include="Core\TTS\" />
-    <Folder Include="Data\Resources\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="Svg" Version="3.4.4" />
   </ItemGroup>
 
   <ItemGroup>

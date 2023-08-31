@@ -202,7 +202,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
                 Content = new Image()
                 {
                     Source = new BitmapImage(
-                    new Uri("pack://application:,,,/Resources/QRDownload.png",
+                    new Uri("pack://application:,,,/Data/Resources/Images/QRDownload.png",
                     UriKind.RelativeOrAbsolute))
                 },
                 Width = 200,
@@ -240,7 +240,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
                 Content = new Image()
                 {
                     Source = new BitmapImage(
-                    new Uri("pack://application:,,,/Resources/QRGit.png",
+                    new Uri("pack://application:,,,/Data/Resources/Images/QRGit.png",
                     UriKind.RelativeOrAbsolute))
                 },
                 Width = 200,

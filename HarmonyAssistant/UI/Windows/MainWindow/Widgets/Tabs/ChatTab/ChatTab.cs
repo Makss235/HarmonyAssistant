@@ -1,11 +1,13 @@
-﻿using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+﻿using HarmonyAssistant.UI.Icons;
+using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Resources;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 {

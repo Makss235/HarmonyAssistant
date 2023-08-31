@@ -45,13 +45,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 BorderBrush = Brushes.Transparent,
                 BorderThickness = new Thickness(2),
                 CornerRadius = new CornerRadius(20),
-                Child = new Image()
-                {
-                    Margin = new Thickness(1),
-                    Source = new BitmapImage(
-                    new Uri("pack://application:,,,/Resources/Icon.png",
-                    UriKind.RelativeOrAbsolute))
-                },
+                //Child = new Image()
+                //{
+                //    Margin = new Thickness(1),
+                //    Source = new BitmapImage(
+                //    new Uri("pack://application:,,,/Data/Resources/Icon.png",
+                //    UriKind.RelativeOrAbsolute))
+                //},
             };
 
             iconButton = new TButton()
