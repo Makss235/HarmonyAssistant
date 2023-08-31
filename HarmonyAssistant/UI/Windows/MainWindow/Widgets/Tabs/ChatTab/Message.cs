@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -6,62 +7,77 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 {
     public class Message : ContentControl
     {
-        public Message(object messageObject, SendMessageBy sendMessageBy)
-        {
-            ContentPresenter content = new ContentPresenter
-            {
-                Content = messageObject,
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = new Thickness(5),
-            };
-            InitializeComponent(content, sendMessageBy);
-        }
-        public Message(string messageString, SendMessageBy sendMessageBy)
-        {
-            TextBlock content = new TextBlock
-            {
-                Text = messageString,
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Background = Brushes.Transparent,
-                Margin = new Thickness(5),
-                Foreground = Brushes.AliceBlue,
-            };
-            InitializeComponent(content, sendMessageBy);
-        }
-        private void InitializeComponent(UIElement childControl, SendMessageBy sendMessageBy)
-        {
+        private object contentObject;
+        private SendMessageBy sendMessageBy;
 
+        public Message(object contentObject, SendMessageBy sendMessageBy)
+        {
+            this.contentObject = contentObject;
+            this.sendMessageBy = sendMessageBy;
 
+            InitializeComponent();
+        }
+        
+        private void InitializeComponent()
+        {
             Border b = new Border()
             {
-                Background = new SolidColorBrush(new Color()
-                { R = 30, G = 30, B = 50, A = 255 }),
-                CornerRadius = new CornerRadius(5),
-                Child = childControl,
+                Background = ProgramBrushes.MediumGray,
                 MaxWidth = 500,
-                MaxHeight = 1000,
-                HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 3, 0, 3)
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
             };
 
+            if (contentObject.GetType() == typeof(string))
+            {
+                TextBlock textBlock = new TextBlock()
+                {
+                    Text = contentObject.ToString(),
+                    Style = TextBlocksStyles.textBlockStyle,
+                    Margin = new Thickness(12, 7, 12, 7)
+                };
+                b.Child = textBlock;
+            }
+            else
+            {
+                ContentPresenter contentPresenter = new ContentPresenter()
+                {
+                    Content = contentObject,
+                    Margin = new Thickness(12, 7, 12, 7)
+                };
+                b.Child = contentPresenter;
+            }
 
+            DesignForMessageBubble designForMessageBubble = new DesignForMessageBubble(10)
+            {
+                Background = b.Background,
+                VerticalAlignment = VerticalAlignment.Bottom
+            };
 
             if (sendMessageBy == SendMessageBy.ByMe)
             {
                 HorizontalAlignment = HorizontalAlignment.Right;
+                b.CornerRadius = new CornerRadius(7, 7, 0, 7);
+                designForMessageBubble.HorizontalAlignment = HorizontalAlignment.Right;
+                designForMessageBubble.Margin = new Thickness(0, 0, -9, 0);
             }
             else if (sendMessageBy == SendMessageBy.ByBot)
             {
                 HorizontalAlignment = HorizontalAlignment.Left;
+                b.CornerRadius = new CornerRadius(7, 7, 7, 0);
+                designForMessageBubble.HorizontalAlignment = HorizontalAlignment.Left;
+                designForMessageBubble.RenderTransform = new ScaleTransform(-1, 1);
             }
 
-            Margin = new Thickness(0, 3, 0, 3);
-            FontSize = 17;
+            Grid g = new Grid() 
+            {
+                Margin = new Thickness(9, 0, 11, 0)
+            };
+            g.Children.Add(b);
+            g.Children.Add(designForMessageBubble);
 
-            Content = b;
+            Margin = new Thickness(0, 5, 0, 5);
+            Content = g;
         }
     }
 }

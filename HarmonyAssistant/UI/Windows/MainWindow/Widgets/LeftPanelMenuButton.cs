@@ -96,8 +96,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             //button.MouseEnter += Button_MouseEnter;
             //button.MouseLeave += Button_MouseLeave;
             button.Content = border;
-            MouseEnter += (s, e) => border.Background = new SolidColorBrush(new Color()
-            { R = 13, G = 27, B = 42, A = 255 });
+            MouseEnter += (s, e) => border.Background = ProgramBrushes.LessDarkBlue;
             MouseLeave += (s, e) => border.Background = Brushes.Transparent;
 
             Content = button;

@@ -57,8 +57,7 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons
 
         private void Button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Background = new SolidColorBrush(new Color()
-            { R = 70, G = 70, B = 70, A = 70 });
+            Background = ProgramBrushes.QuarterTransparentDarkGray;
         }
 
         private void Button_MouseLeave(object sender, MouseEventArgs e)
@@ -68,8 +67,7 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            Background = new SolidColorBrush(new Color()
-            { R = 70, G = 70, B = 70, A = 100 });
+            Background = ProgramBrushes.HalfTransparentDarkGray;
         }
     }
 }

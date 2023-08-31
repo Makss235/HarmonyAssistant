@@ -67,8 +67,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
         {
             Title = "Привет, Иван!";
             Style = windowStyle;
-            Background = new SolidColorBrush(new Color()
-            { R = 15, G = 20, B = 35, A = 255 });
+            Background = ProgramBrushes.DarkerBlue;
             WindowStyle = WindowStyle.SingleBorderWindow;
             ResizeMode = ResizeMode.CanResize;
             Width = 750;
@@ -154,8 +153,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
             mainFieldBorder = new Border()
             {
-                Background = new SolidColorBrush(new Color() 
-                { R = 13, G = 27, B = 42, A = 255 }),
+                Background = ProgramBrushes.LessDarkBlue,
                 CornerRadius = new CornerRadius(10, 0, 0, 0)
             };
             mainFieldBorder.Child = grid;

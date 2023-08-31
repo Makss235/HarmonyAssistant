@@ -63,9 +63,11 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             };
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
-            iconButton.MouseEnter += (s, e) => iconBorder.BorderBrush = new SolidColorBrush(new Color()
-            { R = 50, G = 50, B = 100, A = 255 });
-            iconButton.MouseLeave += (s, e) => iconBorder.BorderBrush = Brushes.Transparent;
+            iconButton.MouseEnter += (s, e) => 
+            iconBorder.BorderBrush = ProgramBrushes.MediumBlue;
+
+            iconButton.MouseLeave += (s, e) => 
+            iconBorder.BorderBrush = Brushes.Transparent;
 
             titleTextBlock = new TextBlock()
             {

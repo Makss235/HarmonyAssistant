@@ -24,22 +24,24 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         private void InitializeComponent()
         {
-            ObservableCollection<Message> messageChat = new ObservableCollection<Message>();
-
-            messageChat.Add(new Message("DADADADADAD", SendMessageBy.ByBot));
-            messageChat.Add(new Message("111", SendMessageBy.ByBot));
+            ObservableCollection<Message> messageChat = new ObservableCollection<Message>
+            {
+                new Message("DADADADADAD", SendMessageBy.ByMe),
+                new Message("111", SendMessageBy.ByBot)
+            };
 
             ItemsControl ic = new ItemsControl()
             {
                 ItemsSource = messageChat,
-                Style = new ItemsControlStyle()
+                Style = new ItemsControlStyle(),
+                Margin = new Thickness(12)
             };
 
             Border border = new Border()
             {
                 Background = Brushes.Transparent,
-                BorderBrush = Brushes.AliceBlue,
-                BorderThickness = new Thickness(0, 0, 0, 1),
+                BorderBrush = ProgramBrushes.DarkerBlue,
+                BorderThickness = new Thickness(0, 0, 0, 3),
                 Child = ic,
             };
             Grid.SetColumn(border, 0);
@@ -50,6 +52,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             {
                 Style = TextBlocksStyles.textBlockStyle,
                 BorderThickness = new Thickness(0),
+                CaretBrush = Brushes.AliceBlue,
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Background = Brushes.Transparent,

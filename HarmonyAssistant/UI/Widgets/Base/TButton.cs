@@ -9,7 +9,7 @@ namespace HarmonyAssistant.UI.Widgets.Base
         public TButton()
         {
             Content = new Border()
-            { Background = new SolidColorBrush(Colors.Transparent) };
+            { Background = Brushes.Transparent };
         }
     }
 }

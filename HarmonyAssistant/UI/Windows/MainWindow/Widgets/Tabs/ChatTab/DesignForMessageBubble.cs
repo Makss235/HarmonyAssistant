@@ -1,25 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Media3D;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows;
 
-namespace HarmonyAssistant.UI.Icons.AuxiliaryIcons
+namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 {
     public class DesignForMessageBubble : ContentControl
     {
+        private Brush _Background;
+
+        public new Brush Background
+        {
+            get => _Background;
+            set
+            {
+                _Background = value;
+                path.Fill = value; 
+                //path.Stroke = value;
+            }
+        }
+
+        private Path path;
+
         public DesignForMessageBubble(double height)
         {
-            Path auxiliaryToChatBubble = new Path()
+            path = new Path()
             {
-                Stroke = Brushes.AliceBlue,
-                Fill = Brushes.AliceBlue,
-                StrokeThickness = 2,
+                //Stroke = Background,
+                Fill = Background,
+                //StrokeThickness = 2,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Bottom,
                 Data = new PathGeometry()
@@ -34,15 +44,13 @@ namespace HarmonyAssistant.UI.Icons.AuxiliaryIcons
                             new LineSegment { Point = new Point(0, 0) }
                         }
                     }}
+                    
                 }
             };
 
-            HorizontalAlignment = HorizontalAlignment.Center;
-            VerticalAlignment = VerticalAlignment.Center;
-
             Width = height - height / 10;
             Height = height - height / 10;
-            Content = auxiliaryToChatBubble;
+            Content = path;
         }
 
     }
