@@ -39,6 +39,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 Margin = new Thickness(12)
             };
 
+            //StreamResourceInfo streamResourceInfo = Application.GetResourceStream(
+            //    new Uri("/Data/Resources/Images/pi.svg", UriKind.Relative));
+
+            //IconFromSVG iconFromSVG = new IconFromSVG(streamResourceInfo.Stream);
+            //iconFromSVG.Width = 500;
+
+            //Canvas canvas = new Canvas();
+            ////canvas.Children.Add(iconFromSVG);
+
             Border border = new Border()
             {
                 Background = Brushes.Transparent,

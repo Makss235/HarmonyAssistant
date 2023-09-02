@@ -24,6 +24,17 @@ namespace HarmonyAssistant.UI.Icons
                     SvgPathSegmentList svgPathSegments = svgPath.PathData;
                     stringPath += $" {svgPathSegments}";
                 }
+                if (element is SvgGroup svgGroup)
+                {
+                    foreach (SvgElement element1 in svgGroup.Children)
+                    {
+                        if (element1 is SvgPath svgPath1)
+                        {
+                            SvgPathSegmentList svgPathSegments = svgPath1.PathData;
+                            stringPath += $" {svgPathSegments}";
+                        }
+                    }
+                }
             }
 
             var path = new System.Windows.Shapes.Path();

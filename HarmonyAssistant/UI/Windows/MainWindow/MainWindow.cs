@@ -6,12 +6,11 @@ using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Shell;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow
@@ -81,12 +80,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             heightScreen = SystemParameters.PrimaryScreenHeight;
             Top = heightScreen - Height - 55;
             Left = widthScreen - Width - 10;
-
-            KeyBinding inputBinding = 
-                new KeyBinding(SystemCommands.CloseWindowCommand, 
-                new KeyGesture(Key.W, ModifierKeys.Alt));
-
-            InputBindings.Add(inputBinding);
         }
 
         private void InitializeComponent()

@@ -1,14 +1,13 @@
 import sounddevice as sd
 import vosk
 import queue
-import os
 import json
 
 q = queue.Queue()
 model = vosk.Model('vosk-model-small-ru')
 fn_sr_result = "STTF.txt"
 
-device = sd.default.device = 1, 3
+device = sd.default.device
 samplerate = int(sd.query_devices(device[0], 'input')['default_samplerate'])
 
 
@@ -26,7 +25,7 @@ def main():
                 result = json.loads(rec.Result())['text']
                 with open(fn_sr_result, 'w', encoding='utf-8') as sr_res:
                     sr_res.write(result)
-                print(result)
+                # print(result)
 
 
 if __name__ == '__main__':
