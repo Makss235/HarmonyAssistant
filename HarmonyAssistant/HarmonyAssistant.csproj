@@ -14,29 +14,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\Resources\Images\send.svg" />
-    <None Remove="Data\Resources\QRDownload.png" />
-    <None Remove="Data\Resources\QRGit.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Data\Resources\Images\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Data\Resources\Files\RU\GreetingWords.json" />
+    <Resource Include="Data\Resources\Files\RU\TriggerWords.json" />
+    <Resource Include="Data\Resources\Files\RU\Words.json" />
     <Resource Include="Data\Resources\Images\Icon.ico" />
-    <Resource Include="Data\Resources\Images\QRDownload.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Data\Resources\Images\QRGit.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Data\Resources\Images\Icon.png" />
+    <Resource Include="Data\Resources\Images\QRDownload.png" />
+    <Resource Include="Data\Resources\Images\QRGit.png" />
     <Resource Include="Data\Resources\Images\send.svg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\TTC\" />
     <Folder Include="Core\Skills\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,9 +43,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Core\STT\stt\main.py">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\FuzzyString\FuzzyString.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Core\STT\stt\main.py" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>
