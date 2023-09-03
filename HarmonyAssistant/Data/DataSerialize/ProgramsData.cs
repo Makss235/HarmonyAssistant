@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace HarmonyAssistant.Data.DataSerialize
 {
-    public class WordsData : DataSerialize<List<WordsObject>>
+    public class ProgramsData : DataSerialize<List<ProgramObject>>
     {
-        public WordsData(string language) : base(language, "Words.json") { }
+        public ProgramsData(string language) : base(language, "Programs.json") { }
     }
 }

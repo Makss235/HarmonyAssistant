@@ -27,6 +27,9 @@ namespace HarmonyAssistant
                 new DictionaryWordsData("RU");
             dictionaryWordsData.Deserialize();
 
+            ProgramsData programsData = new ProgramsData("RU");
+            programsData.Deserialize();
+
             STT sTT = STT.GetInstance();
             sTT.Start();
 

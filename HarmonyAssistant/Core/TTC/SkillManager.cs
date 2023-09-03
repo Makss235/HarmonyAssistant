@@ -2,18 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using HarmonyAssistant.Data.DataSerialize.SerilizeObjects;
 using HarmonyAssistant.Data.DataSerialize;
+using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 
 namespace HarmonyAssistant.Core.TTC
 {
     public class SkillManager
     {
+        public event Action<string> AnswerSpeakChanged;
+        public event Action<object> AnswerPresenterChanged;
+
         private string namespaceSkills = "HarmonyAssistant.Core.Skills.";
         private string nameMethodCallingDefault = "Calling";
-
-        public event Action<string> AnswerSpeakChanged;
-        public event Action<FrameworkElement> AnswerPresenterChanged;
 
         #region Singleton
 
@@ -31,10 +31,10 @@ namespace HarmonyAssistant.Core.TTC
         private SkillManager()
         {
             StateManager stateManager = StateManager.GetInstance();
-            stateManager.SpeechStateVerifiedEvent += NormalizeSentence;
+            stateManager.SpeechStateVerifiedEvent += DefineSkills;
         }
 
-        private void NormalizeSentence(string text)
+        private string NormalizeSentence(string text)
         {
             string[] textArray = text.Split(" ");
             for (int k = 0; k < textArray.Length; k++)
@@ -54,13 +54,14 @@ namespace HarmonyAssistant.Core.TTC
                     }
                 }
             }
-            text = string.Join(" ", textArray);
-            DefineSkills(text);
+            return string.Join(" ", textArray);
         }
 
-        private void DefineSkills(string text)
+        private void DefineSkills(string cleanText)
         {
-            Thread.Sleep(10);
+            string processedText = NormalizeSentence(cleanText);
+            //Thread.Sleep(10);
+
             List<WordsObject> wordsObjectsList = new List<WordsObject>();
             for (int i = 0; i < WordsData.JsonObject.Count; i++)
             {
@@ -68,11 +69,12 @@ namespace HarmonyAssistant.Core.TTC
                 {
                     var triggerWord = WordsData.JsonObject[i].TriggerWords[j];
                     FuzzyString.FuzzyString fuzzyString = new FuzzyString.FuzzyString();
-                    var fuzzy = fuzzyString.FuzzySentence(triggerWord, text);
+                    var fuzzy = fuzzyString.FuzzySentence(triggerWord, processedText);
 
                     if (Equals(fuzzy, triggerWord))
                     {
-                        text = fuzzyString.ReplaceFuzzyWord(triggerWord, text);
+                        processedText = fuzzyString.ReplaceFuzzyWord(
+                            triggerWord, processedText);
                         wordsObjectsList.Add(WordsData.JsonObject[i]);
                         break;
                     }
@@ -81,25 +83,23 @@ namespace HarmonyAssistant.Core.TTC
 
             for (int i = 0; i < wordsObjectsList.Count; i++)
             {
-                CallingSkill(text, wordsObjectsList[i]);
+                ICS iCS = new ICS(processedText, cleanText, wordsObjectsList[i]);
+                CallingSkill(iCS);
             }
         }
 
-        private OCS CallingSkill(string text, WordsObject wordsObject)
+        private OCS CallingSkill(ICS iCS)
         {
-            Type type = Type.GetType(namespaceSkills + wordsObject.Parameters.ClassName + "Skill");
+            Type type = Type.GetType(namespaceSkills + 
+                iCS.WordsObject.Parameters.ClassName + "Skill");
             object instance = Activator.CreateInstance(type);
 
-            if (wordsObject.Parameters.MethodName == null)
-                wordsObject.Parameters.MethodName = nameMethodCallingDefault;
-
-            ICS inputCallingSkills = new ICS(text, wordsObject);
-
+            if (iCS.WordsObject.Parameters.MethodName == null)
+                iCS.WordsObject.Parameters.MethodName = nameMethodCallingDefault;
             try
             {
-                var methodInfo = type.GetMethod(wordsObject.Parameters.MethodName);
-                return (OCS)methodInfo.Invoke(instance, new object[]
-                { inputCallingSkills });
+                var methodInfo = type.GetMethod(iCS.WordsObject.Parameters.MethodName);
+                return (OCS)methodInfo.Invoke(instance, new object[] { iCS });
             }
             catch
             {

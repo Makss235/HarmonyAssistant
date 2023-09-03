@@ -1,15 +1,17 @@
-﻿using HarmonyAssistant.Data.DataSerialize.SerilizeObjects;
+﻿using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 
 namespace HarmonyAssistant.Core.TTC
 {
     public struct ICS
     {
-        public string Text { get; set; }
+        public string ProcessedText { get; set; }
+        public string CleanText { get; set; }
         public WordsObject WordsObject { get; set; }
 
-        public ICS(string text, WordsObject wordsObject)
+        public ICS(string processedText, string cleanText, WordsObject wordsObject)
         {
-            Text = text;
+            ProcessedText = processedText;
+            CleanText = cleanText;
             WordsObject = wordsObject;
         }
     }
