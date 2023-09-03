@@ -14,10 +14,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\Resources\Files\RU\DictionaryWords.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Data\Resources\Images\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Data\Resources\Files\RU\DictionaryWords.json" />
     <Resource Include="Data\Resources\Files\RU\GreetingWords.json" />
     <Resource Include="Data\Resources\Files\RU\TriggerWords.json" />
     <Resource Include="Data\Resources\Files\RU\Words.json" />

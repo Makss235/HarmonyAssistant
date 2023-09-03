@@ -21,6 +21,9 @@ namespace HarmonyAssistant
             GreetingWordsData greetingWordsData = new GreetingWordsData("RU");
             greetingWordsData.Deserialize();
 
+            DictionaryWordsData dictionaryWordsData = new DictionaryWordsData("RU");
+            dictionaryWordsData.Deserialize();
+
             STT sTT = STT.GetInstance();
             sTT.Start();
 
