@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
+﻿using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -283,7 +284,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             mainGrid = new Grid();
             mainGrid.Children.Add(mainStackPanel);
 
-            ScrollViewer scrollViewer = new ScrollViewer();
+            ScrollViewer scrollViewer = new ScrollViewer() {};
             scrollViewer.Content = mainGrid;
 
             Content = scrollViewer;
