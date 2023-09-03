@@ -15,13 +15,16 @@ namespace HarmonyAssistant
             WordsData wordsData = new WordsData("RU");
             wordsData.Deserialize();
 
-            TriggerWordsData triggerWordsData = new TriggerWordsData("RU");
+            TriggerWordsData triggerWordsData = 
+                new TriggerWordsData("RU");
             triggerWordsData.Deserialize();
 
-            GreetingWordsData greetingWordsData = new GreetingWordsData("RU");
+            GreetingWordsData greetingWordsData = 
+                new GreetingWordsData("RU");
             greetingWordsData.Deserialize();
 
-            DictionaryWordsData dictionaryWordsData = new DictionaryWordsData("RU");
+            DictionaryWordsData dictionaryWordsData = 
+                new DictionaryWordsData("RU");
             dictionaryWordsData.Deserialize();
 
             STT sTT = STT.GetInstance();
@@ -32,6 +35,7 @@ namespace HarmonyAssistant
             cCSTTF.Start();
 
             StateManager.GetInstance();
+            SkillManager.GetInstance();
 
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();

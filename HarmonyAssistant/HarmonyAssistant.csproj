@@ -14,10 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\Resources\Files\RU\DictionaryWords.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Data\Resources\Images\Icon.ico" />
   </ItemGroup>
 
@@ -34,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\Skills\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
