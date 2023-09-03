@@ -1,11 +1,13 @@
-﻿using HarmonyAssistant.Core.TTC;
+﻿using HarmonyAssistant.Core.Skills.Base;
+using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace HarmonyAssistant.Core.Skills
 {
-    public class ProgramsSkill
+    public class ProgramsSkill : Skill
     {
         public OCS OpenProgram(ICS iCS)
         {
@@ -41,7 +43,16 @@ namespace HarmonyAssistant.Core.Skills
             //        return oCS;
             //    };
             //}
-            oCS.Result = results.Contains(true);
+            if (results.Contains(true))
+            {
+                oCS.Result = true;
+                oCS.AnswerString = PositiveAnswer(iCS);
+            }
+            else
+            {
+                oCS.Result = false;
+                oCS.AnswerString = NegativeAnswer(iCS);
+            }
             return oCS;
         }
     }

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <None Remove="Data\Resources\Files\RU\Programs.json" />
+    <None Remove="Data\Resources\Files\RU\Sites.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
     <Resource Include="Data\Resources\Files\RU\DictionaryWords.json" />
     <Resource Include="Data\Resources\Files\RU\GreetingWords.json" />
     <Resource Include="Data\Resources\Files\RU\Programs.json" />
+    <Resource Include="Data\Resources\Files\RU\Sites.json" />
     <Resource Include="Data\Resources\Files\RU\TriggerWords.json" />
     <Resource Include="Data\Resources\Files\RU\Words.json" />
     <Resource Include="Data\Resources\Images\Icon.ico" />

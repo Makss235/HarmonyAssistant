@@ -1,0 +1,21 @@
+[
+  {
+    "Names": [
+      "ютуб",
+      "ютюб"
+    ],
+    "Url": "https://www.youtube.com/"
+  },
+  {
+    "Names": [
+      "яндекс"
+    ],
+    "Url": "https://ya.ru/"
+  },
+  {
+    "Names": [
+      "гугл"
+    ],
+    "Url": "https://www.google.com/"
+  }
+]

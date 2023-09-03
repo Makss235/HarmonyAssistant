@@ -30,11 +30,14 @@ namespace HarmonyAssistant
             ProgramsData programsData = new ProgramsData("RU");
             programsData.Deserialize();
 
+            SitesData sitesData = new SitesData("RU");
+            sitesData.Deserialize();
+
             STT sTT = STT.GetInstance();
             sTT.Start();
 
             CCSTTF cCSTTF = CCSTTF.GetInstance();
-            //cCSTTF.ChangingTextSTTFEvent += (s) => MessageBox.Show(s);
+            cCSTTF.ChangingTextSTTFEvent += (s) => MessageBox.Show(s);
             cCSTTF.Start();
 
             StateManager.GetInstance();
