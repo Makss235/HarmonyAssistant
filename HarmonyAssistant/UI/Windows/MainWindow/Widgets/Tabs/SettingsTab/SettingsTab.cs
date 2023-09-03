@@ -19,7 +19,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
             TextBlock tb = new TextBlock()
             {
-                Text = "Блять, звук, сука",
+                Text = "Звук",
                 Style = TextBlocksStyles.textBlockStyle,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(10, 10, 7, 10)
