@@ -84,7 +84,7 @@ namespace HarmonyAssistant.Core.TTC
                     if (fuzzyString.FuzzySentence(triggerWords[i], text).Length
                         == triggerWords[i].Length)
                     {
-                        text.IndexOf()
+                        //text.IndexOf()
                         break;
                     }
                 }
