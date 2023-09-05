@@ -2,6 +2,7 @@
 using HarmonyAssistant.Core.STT;
 using HarmonyAssistant.Data.DataSerialize;
 using System;
+using System.Collections.Generic;
 
 namespace HarmonyAssistant.Core.TTC
 {
@@ -80,10 +81,10 @@ namespace HarmonyAssistant.Core.TTC
                 for (int i = 0; i < triggerWords.Count; i++)
                 {
                     var fuzzyString = new FuzzyString.FuzzyString();
-                    if (fuzzyString.FuzzySentence(text, triggerWords[i]).Length
+                    if (fuzzyString.FuzzySentence(triggerWords[i], text).Length
                         == triggerWords[i].Length)
                     {
-                        quantity += triggerWords[i].Split(' ').Length;
+                        text.IndexOf()
                         break;
                     }
                 }

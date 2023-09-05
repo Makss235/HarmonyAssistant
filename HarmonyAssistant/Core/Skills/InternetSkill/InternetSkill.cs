@@ -1,10 +1,12 @@
 ﻿using HarmonyAssistant.Core.Skills.Base;
+using HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer;
 using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 
-namespace HarmonyAssistant.Core.Skills
+namespace HarmonyAssistant.Core.Skills.InternetSkill
 {
     public class InternetSkill : Skill
     {
@@ -42,6 +44,23 @@ namespace HarmonyAssistant.Core.Skills
                     }
                 }
             }
+            return oCS;
+        }
+
+        public OCS SearchText(ICS iCS)
+        {
+            OCS oCS = new OCS();
+
+            string url = "https://yandex.ru/search/?text=" + string.Join("", iCS.CleanText);
+
+            System.Diagnostics.Process.Start(
+            @"C:\Program Files\Internet Explorer\iexplore.exe", url);
+
+            ParserYandex parseYandex = new ParserYandex(url);
+            parseYandex.ParseIsEnded += () => 
+            MessageBox.Show(parseYandex.Text);
+
+            oCS.Result = true;
             return oCS;
         }
 

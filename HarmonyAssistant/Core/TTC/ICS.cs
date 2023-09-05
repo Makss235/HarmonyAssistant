@@ -8,7 +8,7 @@ namespace HarmonyAssistant.Core.TTC
         public string CleanText { get; set; }
         public WordsObject WordsObject { get; set; }
 
-        public ICS(string processedText, string cleanText, WordsObject wordsObject)
+        public ICS(string processedText, string cleanText, WordsObject wordsObject = null)
         {
             ProcessedText = processedText;
             CleanText = cleanText;

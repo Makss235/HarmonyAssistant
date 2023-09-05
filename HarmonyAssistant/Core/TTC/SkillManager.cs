@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.Data.DataSerialize;
+﻿using HarmonyAssistant.Core.Skills.InternetSkill;
+using HarmonyAssistant.Data.DataSerialize;
 using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using System;
 using System.Collections.Generic;
@@ -82,7 +83,8 @@ namespace HarmonyAssistant.Core.TTC
 
             if (wordsObjectsList.Count == 0)
             {
-
+                InternetSkill internetSkill = new InternetSkill();
+                internetSkill.SearchText(new ICS(processedText, cleanText));
             }
 
             List<OCS> ocses = new List<OCS>();
