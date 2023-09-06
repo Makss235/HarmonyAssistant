@@ -39,7 +39,7 @@ namespace HarmonyAssistant.Core.TTC
             string[] textArray = text.Split(" ");
             for (int k = 0; k < textArray.Length; k++)
             {
-                var victor = DictionaryWordsData.JsonObject;
+                var victor = DictionaryWordsData.GetInstance().JsonObject;
                 for (int i = 0; i < victor.Count; i++)
                 {
                     for (int j = 1; j < victor[i].Count; j++)
@@ -63,11 +63,11 @@ namespace HarmonyAssistant.Core.TTC
             //Thread.Sleep(10);
 
             List<WordsObject> wordsObjectsList = new List<WordsObject>();
-            for (int i = 0; i < WordsData.JsonObject.Count; i++)
+            for (int i = 0; i < WordsData.GetInstance().JsonObject.Count; i++)
             {
-                for (int j = 0; j < WordsData.JsonObject[i].TriggerWords.Count; j++)
+                for (int j = 0; j < WordsData.GetInstance().JsonObject[i].TriggerWords.Count; j++)
                 {
-                    var triggerWord = WordsData.JsonObject[i].TriggerWords[j];
+                    var triggerWord = WordsData.GetInstance().JsonObject[i].TriggerWords[j];
                     FuzzyString.FuzzyString fuzzyString = new FuzzyString.FuzzyString();
                     var fuzzy = fuzzyString.FuzzySentence(triggerWord, processedText);
 
@@ -75,7 +75,7 @@ namespace HarmonyAssistant.Core.TTC
                     {
                         processedText = fuzzyString.ReplaceFuzzyWord(
                             triggerWord, processedText);
-                        wordsObjectsList.Add(WordsData.JsonObject[i]);
+                        wordsObjectsList.Add(WordsData.GetInstance().JsonObject[i]);
                         break;
                     }
                 }

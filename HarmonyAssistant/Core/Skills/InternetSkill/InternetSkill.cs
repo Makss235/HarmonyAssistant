@@ -68,9 +68,9 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill
         {
             List<bool> results = new List<bool>();
 
-            for (int i = 0; i < SitesData.JsonObject.Count; i++)
+            for (int i = 0; i < SitesData.GetInstance().JsonObject.Count; i++)
             {
-                var siteObject = SitesData.JsonObject[i];
+                var siteObject = SitesData.GetInstance().JsonObject[i];
                 for (int j = 0; j < siteObject.Names.Count; j++)
                 {
                     FuzzyString.FuzzyString fuzzyString = new FuzzyString.FuzzyString();

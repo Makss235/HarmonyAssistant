@@ -13,7 +13,7 @@ namespace HarmonyAssistant.Core.Skills
         {
             List<bool> results = new List<bool>();
 
-            foreach (var programObj in ProgramsData.JsonObject)
+            foreach (var programObj in ProgramsData.GetInstance().JsonObject)
             {
                 foreach (var callingNameProgram in programObj.CallingNames)
                 {

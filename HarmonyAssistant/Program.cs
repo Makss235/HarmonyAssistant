@@ -12,26 +12,12 @@ namespace HarmonyAssistant
         [STAThread]
         static void Main(string[] args)
         {
-            WordsData wordsData = new WordsData("RU");
-            wordsData.Deserialize();
-
-            TriggerWordsData triggerWordsData = 
-                new TriggerWordsData("RU");
-            triggerWordsData.Deserialize();
-
-            GreetingWordsData greetingWordsData = 
-                new GreetingWordsData("RU");
-            greetingWordsData.Deserialize();
-
-            DictionaryWordsData dictionaryWordsData = 
-                new DictionaryWordsData("RU");
-            dictionaryWordsData.Deserialize();
-
-            ProgramsData programsData = new ProgramsData("RU");
-            programsData.Deserialize();
-
-            SitesData sitesData = new SitesData("RU");
-            sitesData.Deserialize();
+            WordsData.GetInstance().Initialize();
+            TriggerWordsData.GetInstance().Initialize();
+            DictionaryWordsData.GetInstance().Initialize();
+            GreetingWordsData.GetInstance().Initialize();
+            ProgramsData.GetInstance().Initialize();
+            SitesData.GetInstance().Initialize();
 
             STT sTT = STT.GetInstance();
             sTT.Start();
