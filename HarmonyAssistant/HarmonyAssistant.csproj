@@ -37,6 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Core\Skills\" />
+    <Folder Include="Data\Resources\ResourceDictionaries\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Icons;
+﻿using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Icons;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
@@ -19,6 +20,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
     public class ChatTab : Tab
     {
+        private TabAppearAnim tabAppearAnim;
         public ChatTab()
         {
             InitializeComponent();
@@ -26,6 +28,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         private void InitializeComponent()
         {
+            tabAppearAnim = new TabAppearAnim(this);
+            IsVisibleChanged += ChatTab_IsVisibleChanged;
+
             ObservableCollection<Message> messageChat = new ObservableCollection<Message>
             {
                 new Message("DADADADADAD", SendMessageBy.ByMe),
@@ -94,6 +99,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             grid.Children.Add(textBox);
 
             Content = grid;
+        }
+
+        private void ChatTab_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.Visibility == Visibility.Visible)
+            {
+                tabAppearAnim.StartAnim();
+            }
         }
     }
 }

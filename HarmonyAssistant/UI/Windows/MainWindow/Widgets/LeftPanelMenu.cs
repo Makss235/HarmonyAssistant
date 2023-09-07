@@ -1,4 +1,5 @@
 ﻿using FontAwesome.WPF;
+using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
@@ -31,6 +32,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         private RowDefinition menuRowDefinition;
         private Grid mainGrid;
 
+        private LeftPanelSlideOutAnim lpAnim;
+        private bool isClosed = false;
+
         public LeftPanelMenu(List<Tab> tabs) 
         {
             Tabs = tabs;
@@ -40,6 +44,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void InitializeComponent()
         {
+            
             Border iconBorder = new Border
             {
                 BorderBrush = Brushes.Transparent,
@@ -110,7 +115,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             homeMenuButton.Margin = new Thickness(10, 5, 7, 5);
             buttons.Add(homeMenuButton);
 
-            LeftPanelMenuButton settingsMenuButton = new LeftPanelMenuButton("Настройки", imageAwesome1); // если добавить в текст на один символ больше, начнет прыгать, также блюет от того, что в 3 кнопках разный текст, жопа
+            LeftPanelMenuButton settingsMenuButton = new LeftPanelMenuButton("Настройки", imageAwesome1);
             settingsMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             settingsMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             settingsMenuButton.Margin = new Thickness(10, 5, 7, 5);
@@ -161,6 +166,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             mainGrid.Children.Add(headerBorder);
             mainGrid.Children.Add(menuButtonsStackPanel);
 
+            lpAnim = new LeftPanelSlideOutAnim(this);
+
             Content = mainGrid;
         }
 
@@ -179,17 +186,28 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (headerBorder.Visibility == Visibility.Collapsed)
+            if (/*headerBorder.Visibility == Visibility.Collapsed*/isClosed)
             {
-                headerBorder.Visibility = Visibility.Visible;
-                foreach (var item in buttons)
-                    item.OpenButton();
+                //headerBorder.Visibility = Visibility.Visible;
+
+                //new HeaderRemovelAnim(mainGrid, headerBorder, isClosed);
+                lpAnim.StartAnim(this.ActualWidth, 250);
+                isClosed = false;
+                //foreach (var item in buttons)
+                //    item.OpenButton();
+                //MessageBox.Show(this.ActualWidth.ToString());
             }
             else
             {
-                headerBorder.Visibility = Visibility.Collapsed;
-                foreach (var item in buttons)
-                    item.CloseButton();
+                //headerBorder.Visibility = Visibility.Collapsed;
+
+                new HeaderRemovelAnim(mainGrid, headerBorder, isClosed);
+                lpAnim.StartAnim(this.ActualWidth, 53);
+                isClosed = true;
+                //foreach (var item in buttons)
+                //    item.CloseButton();
+                //MessageBox.Show(this.ActualWidth.ToString());
+
             }
         }
     }
