@@ -1,0 +1,40 @@
+[
+  {
+    "CallingNames": [
+      "блокнот"
+    ],
+    "Path": "notepad.exe"
+  },
+  {
+    "CallingNames": [
+      "калькулятор"
+    ],
+    "Path": "calc.exe"
+  },
+  {
+    "CallingNames": [
+      "командная строка",
+      "терминал"
+    ],
+    "Path": "cmd.exe"
+  },
+  {
+    "CallingNames": [
+      "проводник"
+    ],
+    "Path": "C:\\Windows\\explorer.exe"
+  },
+  {
+    "CallingNames": [
+      "браузер"
+    ],
+    "Path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  },
+  {
+    "CallingNames": [
+      "пэинт",
+      "пэйнт"
+    ],
+    "Path": "mspaint.exe"
+  }
+]

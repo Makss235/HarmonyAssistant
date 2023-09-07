@@ -17,10 +17,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Styles
         private static void InitializeStyles()
         {
             textBlockStyle = new Style();
-            textBlockStyle.Setters.Add(new Setter(TextBlock.FontFamilyProperty, new FontFamily("Segoe UI Semibold")));
-            textBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.Bold));
+            textBlockStyle.Setters.Add(new Setter(TextBlock.FontFamilyProperty, new FontFamily("Segoe UI")));
+            textBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.SemiBold));
             textBlockStyle.Setters.Add(new Setter(TextBlock.ForegroundProperty, Brushes.AliceBlue));
-            textBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)17));
+            textBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)16));
         }
     }
 }

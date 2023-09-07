@@ -3,7 +3,10 @@ using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
 using HarmonyAssistant.UI.Windows.MainWindow;
 using System;
+using System.IO;
+using System.Net;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace HarmonyAssistant
 {
@@ -12,17 +15,12 @@ namespace HarmonyAssistant
         [STAThread]
         static void Main(string[] args)
         {
-            WordsData wordsData = new WordsData("RU");
-            wordsData.Deserialize();
-
-            TriggerWordsData triggerWordsData = new TriggerWordsData("RU");
-            triggerWordsData.Deserialize();
-
-            GreetingWordsData greetingWordsData = new GreetingWordsData("RU");
-            greetingWordsData.Deserialize();
-
-            DictionaryWordsData dictionaryWordsData = new DictionaryWordsData("RU");
-            dictionaryWordsData.Deserialize();
+            WordsData.GetInstance().Initialize();
+            TriggerWordsData.GetInstance().Initialize();
+            DictionaryWordsData.GetInstance().Initialize();
+            GreetingWordsData.GetInstance().Initialize();
+            ProgramsData.GetInstance().Initialize();
+            SitesData.GetInstance().Initialize();
 
             STT sTT = STT.GetInstance();
             sTT.Start();
@@ -32,6 +30,7 @@ namespace HarmonyAssistant
             cCSTTF.Start();
 
             StateManager.GetInstance();
+            SkillManager.GetInstance();
 
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();

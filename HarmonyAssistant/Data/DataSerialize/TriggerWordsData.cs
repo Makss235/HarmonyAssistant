@@ -1,10 +1,38 @@
 ﻿using HarmonyAssistant.Data.DataSerialize.Base;
+using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using System.Collections.Generic;
 
 namespace HarmonyAssistant.Data.DataSerialize
 {
-    public class TriggerWordsData : DataSerialize<List<string>>
+    public class TriggerWordsData : BaseDataSerialize<List<string>>
     {
-        public TriggerWordsData(string language) : base(language, "TriggerWords.json") { }
+        public override List<string> JsonObject 
+        { 
+            get => base.JsonObject; 
+            set => base.JsonObject = value; 
+        }
+
+        #region Singleton
+
+        private static TriggerWordsData instance;
+
+        public static TriggerWordsData GetInstance()
+        {
+            if (instance == null)
+                instance = new TriggerWordsData();
+            return instance;
+        }
+
+        #endregion
+
+        private TriggerWordsData() : base() { }
+
+        public override void Initialize(
+            string language = "RU",
+            string fileName = "TriggerWords.json")
+        {
+            base.Initialize(language, fileName);
+            Deserialize();
+        }
     }
 }

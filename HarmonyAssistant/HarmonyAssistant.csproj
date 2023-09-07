@@ -14,7 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\Resources\Files\RU\DictionaryWords.json" />
+    <None Remove="Data\Resources\Files\RU\Programs.json" />
+    <None Remove="Data\Resources\Files\RU\Sites.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,8 @@
   <ItemGroup>
     <Resource Include="Data\Resources\Files\RU\DictionaryWords.json" />
     <Resource Include="Data\Resources\Files\RU\GreetingWords.json" />
+    <Resource Include="Data\Resources\Files\RU\Programs.json" />
+    <Resource Include="Data\Resources\Files\RU\Sites.json" />
     <Resource Include="Data\Resources\Files\RU\TriggerWords.json" />
     <Resource Include="Data\Resources\Files\RU\Words.json" />
     <Resource Include="Data\Resources\Images\Icon.ico" />
@@ -44,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="1.0.4" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="Svg" Version="3.4.4" />
   </ItemGroup>

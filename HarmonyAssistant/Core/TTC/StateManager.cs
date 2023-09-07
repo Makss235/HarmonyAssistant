@@ -1,7 +1,7 @@
-﻿using FuzzyString;
-using HarmonyAssistant.Core.STT;
+﻿using HarmonyAssistant.Core.STT;
 using HarmonyAssistant.Data.DataSerialize;
 using System;
+using System.Linq;
 
 namespace HarmonyAssistant.Core.TTC
 {
@@ -20,7 +20,7 @@ namespace HarmonyAssistant.Core.TTC
         public event Action<AppSpeechStates> SpeechStateChangedEvent;
         public event Action<string> SpeechStateVerifiedEvent;
 
-        private AppSpeechStates _CurrentSpeechState = AppSpeechStates.SayButtonPressed;
+        private AppSpeechStates _CurrentSpeechState = AppSpeechStates.Hided;
         public AppSpeechStates CurrentSpeechState
         {
             get => _CurrentSpeechState;
@@ -56,8 +56,8 @@ namespace HarmonyAssistant.Core.TTC
 
         private void CheckStates(string text)
         {
-            var triggerWords = TriggerWordsData.JsonObject;
-            var greetingWords = GreetingWordsData.JsonObject;
+            var greetingWords = GreetingWordsData.GetInstance().JsonObject;
+            var triggerWords = TriggerWordsData.GetInstance().JsonObject;
 
             if (CurrentSpeechState == AppSpeechStates.SayButtonPressed)
                 SpeechStateVerifiedEvent?.Invoke(text);
@@ -65,47 +65,41 @@ namespace HarmonyAssistant.Core.TTC
             {
                 for (int i = 0; i < triggerWords.Count; i++)
                 {
-                    var fuzzyString = new FuzzyString.FuzzyString();
-                    if (fuzzyString.FuzzySentence(text, triggerWords[i]).Length
-                        == triggerWords[i].Length)
-                    {
-                        SpeechStateVerifiedEvent?.Invoke(text);
-                        break;
-                    }
+                    if (DeleteExcessWords(ref text, triggerWords[i])) break;
+                    if (i == triggerWords.Count - 1) return;
                 }
+                SpeechStateVerifiedEvent?.Invoke(text);
             }
             else if (CurrentSpeechState == AppSpeechStates.Hided)
             {
-                int quantity = 0;
-                for (int i = 0; i < triggerWords.Count; i++)
-                {
-                    var fuzzyString = new FuzzyString.FuzzyString();
-                    if (fuzzyString.FuzzySentence(text, triggerWords[i]).Length
-                        == triggerWords[i].Length)
-                    {
-                        quantity += triggerWords[i].Split(' ').Length;
-                        break;
-                    }
-                }
                 for (int i = 0; i < greetingWords.Count; i++)
                 {
-                    var fuzzyString = new FuzzyString.FuzzyString();
-                    if (fuzzyString.FuzzySentence(text, greetingWords[i]).Length
-                        == greetingWords[i].Length)
-                    {
-                        quantity += greetingWords[i].Split(' ').Length;
-                        break;
-                    }
+                    if (DeleteExcessWords(ref text, greetingWords[i])) break;
+                    if (i == greetingWords.Count - 1) return;
                 }
 
-                //if (quantity == textRequest.Split(' ').Length)
-                //{
-                //    dataSpeech.TextAnswer = "Я Вас внимательно слушаю";
-                //    ServiceTTS.SpeechSynthesizer.SpeakAsync(dataSpeech.TextAnswer);
-                //}
-                //else
+                for (int i = 0; i < triggerWords.Count; i++)
+                {
+                    if (DeleteExcessWords(ref text, triggerWords[i])) break;
+                    if (i == triggerWords.Count - 1) return;
+                }
                 SpeechStateVerifiedEvent?.Invoke(text);
             }
+        }
+
+        private bool DeleteExcessWords(ref string text, string words)
+        {
+            var fuzzyString = new FuzzyString.FuzzyString();
+            if (fuzzyString.FuzzySentence(text, words).Length == words.Length)
+            {
+                text = fuzzyString.ReplaceFuzzyWord(words, text);
+                var g = text.Split(" ").ToList();
+                var j = words.Split(" ").ToList();
+                g.RemoveRange(0, j.Count);
+                text = string.Join(" ", g);
+                return true;
+            }
+            return false;
         }
     }
 }

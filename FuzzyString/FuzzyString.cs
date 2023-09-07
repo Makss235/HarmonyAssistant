@@ -55,8 +55,8 @@ namespace FuzzyString
         /// - удалены не буквы и не цифры
         /// - удвлены пробелы
         /// </summary>
-        /// <param name="sentence">Слово.</param>
-        /// <returns>Нормализованное слово.</returns>
+        /// <param name="sentence">Слово</param>
+        /// <returns>Нормализованное слово</returns>
         private string NormalizeWord(string sentence)
         {
             var resultContainer = new StringBuilder(100);

@@ -4,26 +4,26 @@ using System.Collections.Generic;
 
 namespace HarmonyAssistant.Data.DataSerialize
 {
-    public class WordsData : BaseDataSerialize<List<WordsObject>>
+    public class ProgramsData : BaseDataSerialize<List<ProgramObject>>
     {
         #region Singleton
 
-        private static WordsData instance;
+        private static ProgramsData instance;
 
-        public static WordsData GetInstance()
+        public static ProgramsData GetInstance()
         {
             if (instance == null)
-                instance = new WordsData();
+                instance = new ProgramsData();
             return instance;
         }
 
         #endregion
 
-        private WordsData() : base() { }
+        private ProgramsData() : base() { }
 
         public override void Initialize(
             string language = "RU",
-            string fileName = "Words.json")
+            string fileName = "Programs.json")
         {
             base.Initialize(language, fileName);
             Deserialize();

@@ -1,0 +1,23 @@
+Вы можете использовать метод `HasClass()` объекта `IElement`, чтобы проверить, содержит ли имя класса элемента указанную часть класса. Вот пример кода:
+
+```csharp
+using AngleSharp;
+using AngleSharp.Dom;
+using AngleSharp.Html.Parser;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var parser = new HtmlParser();
+        var document = parser.ParseDocument("<html><body><div class='my-class'></div></body></html>");
+
+        var element = document.QuerySelector("div");
+        var containsClass = element.HasClass("my");
+
+        Console.WriteLine(containsClass);  // Output: True
+    }
+}
+```
+
+В этом примере мы создали экземпляр `HtmlParser` из библиотеки AngleSharp и использовали его для загрузки и разбора HTML-строки. Затем мы использовали метод `QuerySelector()` для получения первого элемента div на странице и проверили, содержит ли его имя класса часть "my" с помощью метода `HasClass()`. Результатом будет значение `True`, если имя класса содержит "my", и `False` в противном случае.

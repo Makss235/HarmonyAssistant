@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HarmonyAssistant.Data.DataSerialize.SerilizeObjects
+namespace HarmonyAssistant.Data.DataSerialize.SerializeObjects
 {
     public class WordsObject
     {

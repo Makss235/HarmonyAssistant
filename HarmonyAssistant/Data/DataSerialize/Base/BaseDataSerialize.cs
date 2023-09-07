@@ -6,15 +6,17 @@ using System.Windows;
 
 namespace HarmonyAssistant.Data.DataSerialize.Base
 {
-    public abstract class DataSerialize<T>
+    public class BaseDataSerialize<T> where T : class
     {
         protected string language;
         protected string fileName;
         protected string path;
 
-        public static T JsonObject { get; set; }
+        public virtual T JsonObject { get; set; }
 
-        public DataSerialize(string language, string fileName)
+        protected BaseDataSerialize() { }
+
+        public virtual void Initialize(string language, string fileName)
         {
             this.language = language;
             if (string.IsNullOrEmpty(fileName))
