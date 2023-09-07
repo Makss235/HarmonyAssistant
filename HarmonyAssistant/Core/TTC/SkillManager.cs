@@ -3,6 +3,7 @@ using HarmonyAssistant.Data.DataSerialize;
 using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace HarmonyAssistant.Core.TTC
@@ -60,7 +61,6 @@ namespace HarmonyAssistant.Core.TTC
         private void DefineSkills(string cleanText)
         {
             string processedText = NormalizeSentence(cleanText);
-            //Thread.Sleep(10);
 
             List<WordsObject> wordsObjectsList = new List<WordsObject>();
             for (int i = 0; i < WordsData.GetInstance().JsonObject.Count; i++)
@@ -84,7 +84,8 @@ namespace HarmonyAssistant.Core.TTC
             if (wordsObjectsList.Count == 0)
             {
                 InternetSkill internetSkill = new InternetSkill();
-                internetSkill.SearchText(new ICS(processedText, cleanText));
+                var f = internetSkill.SearchText(new ICS(processedText, cleanText));
+                MessageBox.Show(f.AnswerString);
             }
 
             List<OCS> ocses = new List<OCS>();

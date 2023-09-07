@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base
 {
-    public abstract class AnswerParser
+    public abstract class QuickAnswerParser
     {
-        public abstract event Action ParseIsEnded;
+        public abstract event Action ParsedEvent;
 
         public string Text { get; set; }
         public object AnswerPresenter { get; set; }
@@ -15,11 +16,14 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base
         protected string url;
         protected Style TextBlockStyle;
 
-        public AnswerParser(string url)
+        public QuickAnswerParser(string url)
         {
             this.url = url;
-            Text = "";
+
+            InitializeStyles();
         }
+
+        public virtual void ParseAsync() { }
 
         protected virtual void InitializeStyles()
         {
