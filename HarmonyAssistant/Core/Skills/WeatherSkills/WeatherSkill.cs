@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HarmonyAssistant.Core.Skills
+namespace HarmonyAssistant.Core.Skills.WeatherSkills
 {
     internal class WeatherSkill
     {

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace HarmonyAssistant.Core.Skills
+namespace HarmonyAssistant.Core.Skills.ProgramsSkills
 {
     public class ProgramsSkill : Skill
     {

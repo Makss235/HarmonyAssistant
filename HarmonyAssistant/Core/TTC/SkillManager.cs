@@ -1,4 +1,4 @@
-﻿using HarmonyAssistant.Core.Skills.InternetSkill;
+﻿using HarmonyAssistant.Core.Skills.InternetSkills;
 using HarmonyAssistant.Data.DataSerialize;
 using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using System;
@@ -124,8 +124,9 @@ namespace HarmonyAssistant.Core.TTC
 
         private OCS CallingSkill(ICS iCS)
         {
-            Type type = Type.GetType(namespaceSkills + 
-                iCS.WordsObject.Parameters.ClassName + "Skill");
+            string className = iCS.WordsObject.Parameters.ClassName;
+            Type type = Type.GetType(namespaceSkills +
+                className + "Skills." + className + "Skill");
             object instance = Activator.CreateInstance(type);
 
             if (iCS.WordsObject.Parameters.MethodName == null)
