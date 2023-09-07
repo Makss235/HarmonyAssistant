@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+﻿using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Diagnostics;
@@ -14,6 +15,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
     public class AboutProgramTab : Tab
     {
         private Style styleTextBlock;
+        private TabAppearAnim tabAppearAnim;
 
         #region UI Elements
         private TextBlock titleTextBlock;
@@ -75,11 +77,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
         private void InitializeComponent()
         {
+            tabAppearAnim = new TabAppearAnim(this);
+            IsVisibleChanged += AboutProgramTab_IsVisibleChanged;
+
             titleTextBlock = new TextBlock()
             {
                 Text = "О программе",
                 FontSize = 20,
-                HorizontalAlignment = HorizontalAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Center,
             };
 
             #region NameProgram
@@ -284,10 +289,25 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             mainGrid = new Grid();
             mainGrid.Children.Add(mainStackPanel);
 
-            ScrollViewer scrollViewer = new ScrollViewer() {};
-            scrollViewer.Content = mainGrid;
 
+            ResourceDictionary svStyle = new ResourceDictionary()
+            {
+                Source =
+                new Uri("pack://application:,,,/Data/Resources/ResourceDictionaries/ScrollViewerStyle.xaml",
+                UriKind.RelativeOrAbsolute)
+            };
+            ScrollViewer scrollViewer = new ScrollViewer() { Style = svStyle["ScrollViewerStyle"] as Style };
+            scrollViewer.Content = mainGrid;
+            
             Content = scrollViewer;
+        }
+
+        private void AboutProgramTab_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.Visibility == Visibility.Visible)
+            {
+                tabAppearAnim.StartAnim();
+            }
         }
 
         private void DownloadHyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

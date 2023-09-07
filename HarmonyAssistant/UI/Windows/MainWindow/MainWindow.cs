@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shell;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow
@@ -165,7 +166,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             clientZoneRowDefinition = new RowDefinition()
             { Height = new GridLength(1, GridUnitType.Star) };
 
-            mainGrid = new Grid();
+            mainGrid = new Grid() { Background = ProgramBrushes.DarkerBlue };
             mainGrid.ColumnDefinitions.Add(leftMenuColumnDefinition);
             mainGrid.ColumnDefinitions.Add(mainFieldColumnDefinition);
             mainGrid.RowDefinitions.Add(headerRowDefinition);
