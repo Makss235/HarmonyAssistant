@@ -1,8 +1,11 @@
-﻿using HarmonyAssistant.Core.Skills.InternetSkills;
+﻿using HarmonyAssistant.Core.Base;
+using HarmonyAssistant.Core.Skills.InternetSkills;
 using HarmonyAssistant.Data.DataSerialize;
 using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -89,6 +92,22 @@ namespace HarmonyAssistant.Core.TTC
                 {
                     if (!string.IsNullOrEmpty(oCS.AnswerString))
                         AnswerPresenterChanged?.Invoke(oCS.AnswerString);
+                    else
+                    {
+                        File.WriteAllText("IGPTF.txt", cleanText);
+
+                        CatchingChangesFile catchingChangesFile = new CatchingChangesFile("OGPTF.txt");
+                        catchingChangesFile.FileChanged += (s) =>
+                        {
+                            AnswerPresenterChanged?.Invoke(s);
+                            AnswerStringChanged?.Invoke(s);
+                            catchingChangesFile.Stop();
+                        };
+                        catchingChangesFile.Start();
+
+                        Process.Start("gpt.exe");
+                        return;
+                    }
                 }
                 else AnswerPresenterChanged?.Invoke(oCS.AnswerPresenter);
                 AnswerStringChanged?.Invoke(oCS.AnswerString);

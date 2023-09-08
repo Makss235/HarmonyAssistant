@@ -49,7 +49,7 @@ namespace HarmonyAssistant.Core.TTC
         private StateManager()
         {
             CCSTTF cCSTTF = CCSTTF.GetInstance();
-            cCSTTF.ChangingTextSTTFEvent += (text) =>
+            cCSTTF.FileChanged += (text) =>
             {
                 if (!string.IsNullOrEmpty(text))
                     CheckStates(text);

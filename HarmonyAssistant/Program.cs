@@ -1,12 +1,11 @@
-﻿using HarmonyAssistant.Core.STT;
+﻿using HarmonyAssistant.Core.Base;
+using HarmonyAssistant.Core.STT;
 using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
 using HarmonyAssistant.UI.Windows.MainWindow;
 using System;
-using System.IO;
-using System.Net;
+using System.Diagnostics;
 using System.Windows;
-using System.Xml.Linq;
 
 namespace HarmonyAssistant
 {
