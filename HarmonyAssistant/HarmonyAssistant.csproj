@@ -42,13 +42,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\TTS\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AngleSharp" Version="1.0.4" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="Svg" Version="3.4.4" />
+    <PackageReference Include="System.Speech" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

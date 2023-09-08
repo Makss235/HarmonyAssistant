@@ -41,8 +41,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         public void SendMessage(object content, SendMessageBy sendMessageBy)
         {
             Application.Current.Dispatcher.Invoke(() =>
-                Messages.Add(new Message(content, sendMessageBy)));
-            //scrollViewer.ScrollToEnd();
+            {
+                Messages.Add(new Message(content, sendMessageBy));
+                scrollViewer.ScrollToEnd();
+            });
         }
 
         private void InitializeComponent()

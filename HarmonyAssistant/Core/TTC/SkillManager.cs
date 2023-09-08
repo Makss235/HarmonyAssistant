@@ -36,6 +36,8 @@ namespace HarmonyAssistant.Core.TTC
         private SkillManager()
         {
             StateManager.GetInstance().SpeechStateVerifiedEvent += DefineSkills;
+
+            AnswerStringChanged += (s) => TTS.TTS.GetInstance().Speak(s);
         }
 
         private string NormalizeSentence(string text)
