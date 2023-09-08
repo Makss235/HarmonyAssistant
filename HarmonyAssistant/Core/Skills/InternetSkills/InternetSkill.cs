@@ -29,7 +29,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         YandexParser parseYandex = new YandexParser(url);
-                        parseYandex.ParseAsync();
+                        parseYandex.Parse();
 
                         oCS.AnswerPresenter = parseYandex.AnswerPresenter;
                         oCS.AnswerString = parseYandex.Text;
@@ -63,7 +63,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
             Application.Current.Dispatcher.Invoke(() =>
             {
                 YandexParser parseYandex = new YandexParser(url);
-                parseYandex.ParseAsync();
+                parseYandex.Parse();
 
                 oCS.AnswerPresenter = parseYandex.AnswerPresenter;
                 oCS.AnswerString = parseYandex.Text;
@@ -92,10 +92,12 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
                                 @"C:\Program Files\Internet Explorer\iexplore.exe",
                                 siteObject.Url);
                             results.Add(true);
+                            break;
                         }
                         catch
                         {
                             results.Add(false);
+                            break;
                         }
 
                     }

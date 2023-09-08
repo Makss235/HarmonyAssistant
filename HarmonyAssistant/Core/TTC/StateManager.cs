@@ -17,8 +17,10 @@ namespace HarmonyAssistant.Core.TTC
 
     public class StateManager
     {
+        public delegate void HH(string text);
+
         public event Action<AppSpeechStates> SpeechStateChangedEvent;
-        public event Action<string> SpeechStateVerifiedEvent;
+        public event HH SpeechStateVerifiedEvent;
 
         private AppSpeechStates _CurrentSpeechState = AppSpeechStates.Hided;
         public AppSpeechStates CurrentSpeechState
@@ -83,7 +85,8 @@ namespace HarmonyAssistant.Core.TTC
                     if (DeleteExcessWords(ref text, triggerWords[i])) break;
                     if (i == triggerWords.Count - 1) return;
                 }
-                SpeechStateVerifiedEvent?.Invoke(text);
+                if (!string.IsNullOrEmpty(text.Trim()))
+                    SpeechStateVerifiedEvent?.Invoke(text);
             }
         }
 

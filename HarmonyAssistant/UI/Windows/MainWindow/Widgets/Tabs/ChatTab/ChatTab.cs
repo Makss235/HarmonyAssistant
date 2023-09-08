@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Animations;
+﻿using HarmonyAssistant.Core.TTC;
+using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Icons;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
@@ -20,10 +21,25 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
     public class ChatTab : Tab
     {
+        public ObservableCollection<Message> Messages;
+
         private TabAppearAnim tabAppearAnim;
+
         public ChatTab()
         {
+            Messages = new ObservableCollection<Message>();
+            StateManager.GetInstance().SpeechStateVerifiedEvent += (s) =>
+                SendMessage(s, SendMessageBy.ByMe);
+            SkillManager.GetInstance().AnswerPresenterChanged += (s) =>
+                SendMessage(s, SendMessageBy.ByBot);
+
             InitializeComponent();
+        }
+
+        public void SendMessage(object content, SendMessageBy sendMessageBy)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+                Messages.Add(new Message(content, sendMessageBy)));
         }
 
         private void InitializeComponent()
@@ -31,15 +47,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             tabAppearAnim = new TabAppearAnim(this);
             IsVisibleChanged += ChatTab_IsVisibleChanged;
 
-            ObservableCollection<Message> messageChat = new ObservableCollection<Message>
-            {
-                new Message("DADADADADAD", SendMessageBy.ByMe),
-                new Message("111", SendMessageBy.ByBot)
-            };
-
             ItemsControl ic = new ItemsControl()
             {
-                ItemsSource = messageChat,
+                ItemsSource = Messages,
                 Style = new ItemsControlStyle(),
                 Margin = new Thickness(12)
             };
@@ -66,14 +76,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
             TextBox textBox = new TextBox()
             {
-                Style = TextBlocksStyles.textBlockStyle,
+                Style = TextBlocksStyles.TextBlockStyle,
                 BorderThickness = new Thickness(0),
                 CaretBrush = Brushes.AliceBlue,
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Background = Brushes.Transparent,
-                Margin = new Thickness(20, 0, 20, 0),
-
+                Margin = new Thickness(20, 0, 20, 0)
             };
             Grid.SetColumn(textBox, 0);
             Grid.SetRow(textBox, 1);
@@ -103,10 +112,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         private void ChatTab_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (this.Visibility == Visibility.Visible)
-            {
+            if (Visibility == Visibility.Visible)
                 tabAppearAnim.StartAnim();
-            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,7 +15,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base
         public object AnswerPresenter { get; set; }
 
         protected string url;
-        protected Style TextBlockStyle;
+        protected Style HeaderTextBlockStyle;
 
         public QuickAnswerParser(string url)
         {
@@ -23,16 +24,15 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base
             InitializeStyles();
         }
 
-        public virtual void ParseAsync() { }
+        public virtual void Parse() { }
 
         protected virtual void InitializeStyles()
         {
-            TextBlockStyle = new Style(typeof(TextBlock));
-            TextBlockStyle.Setters.Add(new Setter(TextBlock.FontFamilyProperty, new FontFamily("Segoe UI")));
-            TextBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.SemiBold));
-            TextBlockStyle.Setters.Add(new Setter(TextBlock.ForegroundProperty, Brushes.AliceBlue));
-            TextBlockStyle.Setters.Add(new Setter(TextBlock.TextWrappingProperty, TextWrapping.Wrap));
-            TextBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)16));
+            HeaderTextBlockStyle = new Style(
+                targetType: typeof(TextBlock), 
+                basedOn: TextBlocksStyles.TextBlockStyle);
+            HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.Bold));
+            HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)17));
         }
     }
 }
