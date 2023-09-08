@@ -40,8 +40,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                 var elem = elems[i];
 
                 if (elem.ClassList.Contains("Fact-Summarize") ||
-                    elem.ClassList.Contains("Fact-ECTitle") ||
-                    elem.ClassList.Contains("Fact-Answer"))
+                    elem.ClassList.Contains("Fact-ECTitle"))
                 {
                     if (!string.IsNullOrEmpty(elem.Text()))
                     {
@@ -62,7 +61,8 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                     stackPanel.Children.Add(element);
                 }
                 else if (elem.ClassList.Contains("Fact-ECFragment") ||
-                         elem.ClassList.Contains("Fact-Description"))
+                         elem.ClassList.Contains("Fact-Description") ||
+                         elem.ClassList.Contains("Fact-Answer"))
                 {
                     if (elem.Children.Length > 0)
                     {
