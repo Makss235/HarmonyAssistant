@@ -3,6 +3,7 @@ using HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer;
 using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace HarmonyAssistant.Core.Skills.InternetSkills
@@ -18,29 +19,37 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
             foreach (var requestString in iCS.WordsObject.TriggerWords)
             {
                 int indexOfSearch = iCS.ProcessedText.IndexOf(requestString);
-                if (indexOfSearch != -1)
+                if (indexOfSearch == -1) continue;
+                try
                 {
-                    try
+                    char[] charArraySearch = iCS.ProcessedText.ToCharArray()
+                    [(indexOfSearch + requestString.Length + 1)..iCS.ProcessedText.Length];
+
+                    string url = "https://yandex.ru/search/?text=" + string.Join("", charArraySearch);
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        char[] charArraySearch = iCS.ProcessedText.ToCharArray()
-                        [(indexOfSearch + requestString.Length + 1)..iCS.ProcessedText.Length];
+                        YandexParser parseYandex = new YandexParser(url);
+                        parseYandex.Parse();
+
+                        oCS.AnswerPresenter = parseYandex.AnswerPresenter;
+                        oCS.AnswerString = parseYandex.Text;
+                    });
+
+                    if (oCS.AnswerPresenter == null)
+                    {
                         System.Diagnostics.Process.Start(
                             @"C:\Program Files\Internet Explorer\iexplore.exe",
                             "https://yandex.ru/search/?text=" + string.Join("", charArraySearch));
-
-                        //Parce parce = new Parce();
-                        //oCS.AnswerPresenter = parce;
-
-                        oCS.Result = true;
                         oCS.AnswerString = PositiveAnswer(iCS);
-                        return oCS;
                     }
-                    catch
-                    {
-                        oCS.Result = false;
-                        oCS.AnswerString = NegativeAnswer(iCS);
-                        return oCS;
-                    }
+                    oCS.Result = true;
+                    return oCS;
+                }
+                catch
+                {
+                    oCS.Result = false;
+                    oCS.AnswerString = NegativeAnswer(iCS);
+                    return oCS;
                 }
             }
             return oCS;
@@ -49,14 +58,15 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
         public OCS SearchText(ICS iCS)
         {
             OCS oCS = new OCS();
-
             string url = "https://yandex.ru/search/?text=" + string.Join("", iCS.CleanText);
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                ParserYandex parseYandex = new ParserYandex(url);
-                parseYandex.ParseIsEnded += () =>
-                MessageBox.Show(parseYandex.Text);
+                YandexParser parseYandex = new YandexParser(url);
+                parseYandex.Parse();
+
+                oCS.AnswerPresenter = parseYandex.AnswerPresenter;
+                oCS.AnswerString = parseYandex.Text;
             });
 
             oCS.Result = true;
@@ -82,11 +92,14 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
                                 @"C:\Program Files\Internet Explorer\iexplore.exe",
                                 siteObject.Url);
                             results.Add(true);
+                            break;
                         }
                         catch
                         {
                             results.Add(false);
+                            break;
                         }
+
                     }
                 }
             }

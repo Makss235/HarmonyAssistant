@@ -3,13 +3,15 @@ using HarmonyAssistant.Data.DataSerialize;
 using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace HarmonyAssistant.Core.TTC
 {
     public class SkillManager
     {
-        public event Action<string> AnswerSpeakChanged;
+        public event Action<string> AnswerStringChanged;
         public event Action<object> AnswerPresenterChanged;
 
         private string namespaceSkills = "HarmonyAssistant.Core.Skills.";
@@ -30,8 +32,7 @@ namespace HarmonyAssistant.Core.TTC
 
         private SkillManager()
         {
-            StateManager stateManager = StateManager.GetInstance();
-            stateManager.SpeechStateVerifiedEvent += DefineSkills;
+            StateManager.GetInstance().SpeechStateVerifiedEvent += DefineSkills;
         }
 
         private string NormalizeSentence(string text)
@@ -57,10 +58,9 @@ namespace HarmonyAssistant.Core.TTC
             return string.Join(" ", textArray);
         }
 
-        private void DefineSkills(string cleanText)
+        private async void DefineSkills(string cleanText)
         {
             string processedText = NormalizeSentence(cleanText);
-            //Thread.Sleep(10);
 
             List<WordsObject> wordsObjectsList = new List<WordsObject>();
             for (int i = 0; i < WordsData.GetInstance().JsonObject.Count; i++)
@@ -84,20 +84,29 @@ namespace HarmonyAssistant.Core.TTC
             if (wordsObjectsList.Count == 0)
             {
                 InternetSkill internetSkill = new InternetSkill();
-                internetSkill.SearchText(new ICS(processedText, cleanText));
+                OCS oCS = internetSkill.SearchText(new ICS(processedText, cleanText));
+                if (oCS.AnswerPresenter == null)
+                {
+                    if (!string.IsNullOrEmpty(oCS.AnswerString))
+                        AnswerPresenterChanged?.Invoke(oCS.AnswerString);
+                }
+                else AnswerPresenterChanged?.Invoke(oCS.AnswerPresenter);
+                AnswerStringChanged?.Invoke(oCS.AnswerString);
             }
 
             List<OCS> ocses = new List<OCS>();
             for (int i = 0; i < wordsObjectsList.Count; i++)
             {
                 ICS iCS = new ICS(processedText, cleanText, wordsObjectsList[i]);
-                ocses.Add(CallingSkill(iCS));
+                var hh = await Task.Run(() =>
+                {
+                    return CallingSkill(iCS);
+                });
+                ocses.Add(hh);
             }
 
             if (ocses.Count == 1)
-            {
-                MessageBox.Show(ocses[0].AnswerString);
-            }
+                AnswerStringChanged?.Invoke(ocses[0].AnswerString);
             else if (ocses.Count > 1)
             {
                 List<bool> results = new List<bool>();
@@ -105,20 +114,20 @@ namespace HarmonyAssistant.Core.TTC
                 if (results.Contains(true))
                 {
                     int count = 0;
-                    OCS index = new OCS();
+                    OCS oCSTrue = new OCS();
                     for (int i = 0; i < ocses.Count; i++)
                     {
                         if (ocses[i].Result)
                         {
-                            index = ocses[i];
+                            oCSTrue = ocses[i];
                             count++;
                         }
                     }
                     if (count == 1)
-                        MessageBox.Show(index.AnswerString);
-                    else  MessageBox.Show("Выполнено");
+                        AnswerStringChanged?.Invoke(oCSTrue.AnswerString);
+                    else AnswerStringChanged?.Invoke("Выполнено");
                 }
-                else MessageBox.Show("Не выполнено");
+                else AnswerStringChanged?.Invoke("Не выполнено");
             }
         }
 

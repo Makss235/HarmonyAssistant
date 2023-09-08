@@ -43,7 +43,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             TextBlock themeTB = new TextBlock()
             {
                 Text = "Тема",
-                Style = TextBlocksStyles.textBlockStyle,
+                Style = TextBlocksStyles.TextBlockStyle,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(10, 10, 7, 10)
             };

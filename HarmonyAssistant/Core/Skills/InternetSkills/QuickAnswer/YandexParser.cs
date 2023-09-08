@@ -1,32 +1,34 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
 using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base;
+using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
 {
-    public class ParserYandex : AnswerParser
+    public class YandexParser : QuickAnswerParser
     {
-        public override event Action ParseIsEnded;
+        public override event Action ParsedEvent;
 
-        public ParserYandex(string url) : base(url)
+        public YandexParser(string url) : base(url) { }
+
+        public override void Parse()
         {
-            InitializeStyles();
-            ParseAsync();
-        }
+            var doc = Task.Run(async () =>
+            {
+                HttpClient client = new HttpClient();
+                string page = await client.GetStringAsync(url);
 
-        protected async void ParseAsync()
-        {
-            HttpClient client = new HttpClient();
-            string page = await client.GetStringAsync(url);
+                var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
+                var doc = await context.OpenAsync(req => req.Content(page));
+                return doc;
+            });
 
-            var context = BrowsingContext.New(Configuration.Default);
-            var doc = await context.OpenAsync(req => req.Content(page));
-
-            var quickAnswer = doc.GetElementsByClassName("Fact Fact_flexSize_no");
+            var quickAnswer = doc.Result.GetElementsByClassName("Fact Fact_flexSize_no");
             if (quickAnswer.Length == 0)
                 return;
 
@@ -41,20 +43,23 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                     elem.ClassList.Contains("Fact-ECTitle") ||
                     elem.ClassList.Contains("Fact-Answer"))
                 {
-                    TextBlock mainTextBlock = new TextBlock()
+                    if (!string.IsNullOrEmpty(elem.Text()))
                     {
-                        Style = TextBlockStyle,
-                        Text = elem.Text(),
-                        FontSize = 17,
-                        FontWeight = FontWeights.Bold
-                    };
-                    stackPanel.Children.Add(mainTextBlock);
+                        TextBlock mainTextBlock = new TextBlock()
+                        {
+                            Style = HeaderTextBlockStyle,
+                            Text = elem.Text()
+                        };
+                        stackPanel.Children.Add(mainTextBlock);
 
-                    Text += elem.Text() + "\n";
+                        Text += elem.Text() + "\n";
+                    }
                 }
                 else if (elem.ClassList.Contains("Fact-ECFragment_marker_number"))
                 {
-                    stackPanel.Children.Add(ListItemPresenter(elem));
+                    FrameworkElement element = ListItemPresenter(elem);
+                    ChechMarginElement(element, stackPanel);
+                    stackPanel.Children.Add(element);
                 }
                 else if (elem.ClassList.Contains("Fact-ECFragment") ||
                          elem.ClassList.Contains("Fact-Description"))
@@ -69,19 +74,31 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                             {
                                 if (childrenOfList[j].ClassList.Contains("List-Item"))
                                 {
-                                    stackPanel.Children.Add(ListItemPresenter(childrenOfList[j]));
+                                    FrameworkElement element = ListItemPresenter(childrenOfList[j]);
+                                    ChechMarginElement(element, stackPanel);
+                                    stackPanel.Children.Add(element);
                                 }
                             }
+                        }
+                        else
+                        {
+                            TextBlock mainTextBlock = new TextBlock()
+                            {
+                                Style = TextBlocksStyles.TextBlockStyle,
+                                Text = elem.Text()
+                            };
+                            ChechMarginElement(mainTextBlock, stackPanel);
+                            stackPanel.Children.Add(mainTextBlock);
                         }
                     }
                     else
                     {
                         TextBlock mainTextBlock = new TextBlock()
                         {
-                            Style = TextBlockStyle,
-                            Margin = new Thickness(10, 4, 10, 4),
+                            Style = TextBlocksStyles.TextBlockStyle,
                             Text = elem.Text()
                         };
+                        ChechMarginElement(mainTextBlock, stackPanel);
                         stackPanel.Children.Add(mainTextBlock);
                     }
 
@@ -89,14 +106,41 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                 }
             }
             AnswerPresenter = stackPanel;
-            ParseIsEnded?.Invoke();
+            ParsedEvent?.Invoke();
         }
 
-        private UIElement ListItemPresenter(IElement element)
+        private void ChechMarginElement(FrameworkElement element, Panel parent)
+        {
+            if (parent.Children.Count > 0)
+            {
+                foreach (var child in parent.Children)
+                {
+                    try
+                    {
+                        if ((child as FrameworkElement).Style == HeaderTextBlockStyle)
+                        {
+                            element.Margin = new Thickness(10, 4, 10, 4);
+                            break;
+                        }
+                        else
+                        {
+                            element.Margin = new Thickness(0, 6, 0, 0);
+                            break;
+                        }
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                }
+            }
+        }
+
+        private FrameworkElement ListItemPresenter(IElement element)
         {
             TextBlock mainTextBlock = new TextBlock()
             {
-                Style = TextBlockStyle,
+                Style = TextBlocksStyles.TextBlockStyle,
                 Text = element.Text()
             };
             Text += element.Text() + "\n";
@@ -107,7 +151,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                 TextBlock positionTextBlock = new TextBlock()
                 {
                     Text = dataPositionAttr.Value,
-                    Style = TextBlockStyle,
+                    Style = TextBlocksStyles.TextBlockStyle,
                     Margin = new Thickness(0, 0, 5, 0)
                 };
                 Grid.SetColumn(positionTextBlock, 0);
@@ -121,19 +165,14 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                 ColumnDefinition mainColumnDefinition = new ColumnDefinition()
                 { Width = new GridLength(1, GridUnitType.Star) };
 
-                Grid grid = new Grid()
-                { Margin = new Thickness(10, 4, 10, 4) };
+                Grid grid = new Grid();
                 grid.ColumnDefinitions.Add(positionColumnDefinition);
                 grid.ColumnDefinitions.Add(mainColumnDefinition);
                 grid.Children.Add(positionTextBlock);
                 grid.Children.Add(mainTextBlock);
                 return grid;
             }
-            else
-            {
-                mainTextBlock.Margin = new Thickness(10, 4, 10, 4);
-                return mainTextBlock;
-            }
+            else return mainTextBlock;
         }
     }
 }

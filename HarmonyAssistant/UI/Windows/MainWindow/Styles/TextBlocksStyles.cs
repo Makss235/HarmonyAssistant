@@ -7,7 +7,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Styles
 {
     public class TextBlocksStyles 
     {
-        public static Style textBlockStyle;
+        public static Style TextBlockStyle;
 
         static TextBlocksStyles()
         {
@@ -16,11 +16,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Styles
 
         private static void InitializeStyles()
         {
-            textBlockStyle = new Style();
-            textBlockStyle.Setters.Add(new Setter(TextBlock.FontFamilyProperty, new FontFamily("Segoe UI")));
-            textBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.SemiBold));
-            textBlockStyle.Setters.Add(new Setter(TextBlock.ForegroundProperty, Brushes.AliceBlue));
-            textBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)16));
+            TextBlockStyle = new Style(/*targetType: typeof(TextBlock)*/);
+            TextBlockStyle.Setters.Add(new Setter(TextBlock.FontFamilyProperty, new FontFamily("Segoe UI")));
+            TextBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.SemiBold));
+            TextBlockStyle.Setters.Add(new Setter(TextBlock.ForegroundProperty, Brushes.AliceBlue));
+            TextBlockStyle.Setters.Add(new Setter(TextBlock.TextWrappingProperty, TextWrapping.Wrap));
+            TextBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)16));
         }
     }
 }

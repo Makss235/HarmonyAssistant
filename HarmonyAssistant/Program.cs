@@ -26,14 +26,13 @@ namespace HarmonyAssistant
             sTT.Start();
 
             CCSTTF cCSTTF = CCSTTF.GetInstance();
-            //cCSTTF.ChangingTextSTTFEvent += (s) => MessageBox.Show(s);
             cCSTTF.Start();
-
-            StateManager.GetInstance();
-            SkillManager.GetInstance();
 
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
+
+            StateManager.GetInstance();
+            SkillManager.GetInstance();
 
             Application application = new Application();
             application.MainWindow = mainWindow;
