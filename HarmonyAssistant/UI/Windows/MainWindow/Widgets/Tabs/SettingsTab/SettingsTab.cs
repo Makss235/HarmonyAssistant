@@ -71,7 +71,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             TextBlock soundTB = new TextBlock()
             {
                 Text = "Звук",
-                Style = TextBlocksStyles.textBlockStyle,
+                Style = TextBlocksStyles.TextBlockStyle,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(10, 10, 7, 10)
             };
@@ -90,17 +90,42 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetColumn(soundSlider, 1);
             Grid.SetRow(soundSlider, 2);
 
+            TextBlock searchSystTB = new TextBlock()
+            {
+                Text = "Поисковая система",
+                Style = TextBlocksStyles.TextBlockStyle,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(10, 10, 7, 10)
+            };
+            Grid.SetColumn(searchSystTB, 0);
+            Grid.SetRow(searchSystTB, 3);
+
+            SomeButton searchSystBtnGoogle = new SomeButton("Google") 
+            { Height = 35 };
+            SomeButton searchSystBtnYandex = new SomeButton("Яндекс")
+            { Height = 35 };
+
+            StackPanel searchSystSP = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Children = { searchSystBtnGoogle, searchSystBtnYandex }
+            };
+            Grid.SetColumn(searchSystSP, 1);
+            Grid.SetRow(searchSystSP, 3);
 
             ColumnDefinition leftColumnDfn = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Auto) };
             ColumnDefinition rightColumnDfn = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };
 
-            RowDefinition soundRowDfn = new RowDefinition()
+            RowDefinition userRowDfn = new RowDefinition()
             { Height = new GridLength(1, GridUnitType.Auto) };
             RowDefinition themeRowDfn = new RowDefinition()
             { Height = new GridLength(1, GridUnitType.Auto) };
-            RowDefinition userRowDfn = new RowDefinition()
+            RowDefinition soundRowDfn = new RowDefinition()
+            { Height = new GridLength(1, GridUnitType.Auto) };
+            RowDefinition searchSystRowDfn = new RowDefinition()
             { Height = new GridLength(1, GridUnitType.Auto) };
 
             Grid mainGrid = new Grid() 
@@ -110,11 +135,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             mainGrid.RowDefinitions.Add(soundRowDfn);
             mainGrid.RowDefinitions.Add(themeRowDfn);
             mainGrid.RowDefinitions.Add(userRowDfn);
-            mainGrid.Children.Add(soundTB);
-            mainGrid.Children.Add(soundSlider);
+            mainGrid.RowDefinitions.Add(searchSystRowDfn);
+            mainGrid.Children.Add(userTable);
             mainGrid.Children.Add(themeTB);
             mainGrid.Children.Add(themeStackPanel);
-            mainGrid.Children.Add(userTable);
+            mainGrid.Children.Add(soundTB);
+            mainGrid.Children.Add(soundSlider);
+            mainGrid.Children.Add(searchSystTB);
+            mainGrid.Children.Add(searchSystSP);
 
             ResourceDictionary svStyle = new ResourceDictionary()
             {

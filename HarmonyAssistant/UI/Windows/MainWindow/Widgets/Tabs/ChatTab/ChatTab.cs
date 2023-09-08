@@ -25,6 +25,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         private TabAppearAnim tabAppearAnim;
 
+        private ScrollViewer scrollViewer;
+
         public ChatTab()
         {
             Messages = new ObservableCollection<Message>();
@@ -40,6 +42,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         {
             Application.Current.Dispatcher.Invoke(() =>
                 Messages.Add(new Message(content, sendMessageBy)));
+            //scrollViewer.ScrollToEnd();
         }
 
         private void InitializeComponent()
@@ -53,6 +56,16 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 Style = new ItemsControlStyle(),
                 Margin = new Thickness(12)
             };
+
+            ResourceDictionary svStyle = new ResourceDictionary()
+            {
+                Source =
+                new Uri("pack://application:,,,/Data/Resources/ResourceDictionaries/ScrollViewerStyle.xaml",
+                UriKind.RelativeOrAbsolute)
+            };
+            scrollViewer = new ScrollViewer()
+            { Style = svStyle["ScrollViewerStyle"] as Style };
+            scrollViewer.Content = ic;
 
             //StreamResourceInfo streamResourceInfo = Application.GetResourceStream(
             //    new Uri("/Data/Resources/Images/pi.svg", UriKind.Relative));
@@ -68,7 +81,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 Background = Brushes.Transparent,
                 BorderBrush = ProgramBrushes.DarkerBlue,
                 BorderThickness = new Thickness(0, 0, 0, 3),
-                Child = ic,
+                Child = scrollViewer,
             };
             Grid.SetColumn(border, 0);
             Grid.SetColumnSpan(border, 2);
