@@ -28,7 +28,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
             {
                 Text = userName,
                 Background = Brushes.Transparent,
-                Style = TextBlocksStyles.textBlockStyle
+                Style = TextBlocksStyles.TextBlockStyle
             };
 
             UserButton userButton = new UserButton();
