@@ -1,6 +1,7 @@
 ﻿using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Icons;
+using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
@@ -26,6 +27,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         private TabAppearAnim tabAppearAnim;
 
         private ScrollViewer scrollViewer;
+        private TextBox textBox;
+        private Border border;
 
         public ChatTab()
         {
@@ -69,6 +72,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             { Style = svStyle["ScrollViewerStyle"] as Style };
             scrollViewer.Content = ic;
 
+            #region MyRegion
             //StreamResourceInfo streamResourceInfo = Application.GetResourceStream(
             //    new Uri("/Data/Resources/Images/pi.svg", UriKind.Relative));
 
@@ -76,9 +80,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             //iconFromSVG.Width = 500;
 
             //Canvas canvas = new Canvas();
-            ////canvas.Children.Add(iconFromSVG);
+            ////canvas.Children.Add(iconFromSVG); 
+            #endregion
 
-            Border border = new Border()
+            border = new Border()
             {
                 Background = Brushes.Transparent,
                 BorderBrush = ProgramBrushes.DarkerBlue,
@@ -89,7 +94,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             Grid.SetColumnSpan(border, 2);
             Grid.SetRow(border, 0);
 
-            TextBox textBox = new TextBox()
+            textBox = new TextBox()
             {
                 Style = TextBlocksStyles.TextBlockStyle,
                 BorderThickness = new Thickness(0),
@@ -97,10 +102,18 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Background = Brushes.Transparent,
-                Margin = new Thickness(20, 0, 20, 0)
+                Margin = new Thickness(10, 5, 10, 5)
             };
             Grid.SetColumn(textBox, 0);
             Grid.SetRow(textBox, 1);
+
+            Button button = new Button()
+            {
+
+            };
+            button.Click += Button_Click;
+            Grid.SetColumn(button, 1);
+            Grid.SetRow(button, 1);
 
             ColumnDefinition columnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };
@@ -121,8 +134,19 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             grid.RowDefinitions.Add(rowDefinition1);
             grid.Children.Add(border);
             grid.Children.Add(textBox);
+            grid.Children.Add(button);
 
             Content = grid;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox.Text))
+            {
+                SendMessage(textBox.Text, SendMessageBy.ByMe);
+                SkillManager.GetInstance().DefineSkills(textBox.Text);
+                textBox.Clear();
+            }
         }
 
         private void ChatTab_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
