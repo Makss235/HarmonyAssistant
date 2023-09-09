@@ -2,6 +2,8 @@
 using HarmonyAssistant.Core.STT;
 using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes;
 using HarmonyAssistant.UI.Windows.MainWindow;
 using System;
 using System.Diagnostics;
@@ -14,6 +16,10 @@ namespace HarmonyAssistant
         [STAThread]
         static void Main(string[] args)
         {
+            ThemesManager.Resources.Add(DarkGrayBrushes.GetInstance().ResourceDictionary);
+            ThemesManager.Resources.Add(DarkBlueBrushes.GetInstance().ResourceDictionary);
+            ThemesManager.Current = DarkGrayBrushes.GetInstance().ResourceDictionary;
+
             WordsData.GetInstance().Initialize();
             TriggerWordsData.GetInstance().Initialize();
             DictionaryWordsData.GetInstance().Initialize();
@@ -35,6 +41,9 @@ namespace HarmonyAssistant
 
             Application application = new Application();
             application.MainWindow = mainWindow;
+
+            //ThemesManager.AddResourceSource(application);
+
             application.Run();
         }
     }

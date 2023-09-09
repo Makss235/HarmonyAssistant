@@ -1,4 +1,7 @@
 ﻿using FontAwesome.WPF;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
@@ -91,12 +94,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             };
             border.Child = mainGrid;
 
+            ThemesManager.AddResourceSource(border);
+
             TButton button = new TButton();
             button.Click += Button_Click;
-            //button.MouseEnter += Button_MouseEnter;
-            //button.MouseLeave += Button_MouseLeave;
             button.Content = border;
-            MouseEnter += (s, e) => border.Background = ProgramBrushes.LessDarkBlue;
+
+            MouseEnter += (s, e) => border.Background =
+                (Brush)border.TryFindResource(nameof(IAppBrushes.TabBackgroundBrush));
             MouseLeave += (s, e) => border.Background = Brushes.Transparent;
 
             Content = button;

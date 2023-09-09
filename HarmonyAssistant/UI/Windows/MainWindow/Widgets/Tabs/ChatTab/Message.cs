@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+﻿using HarmonyAssistant.UI.Themes.AppBrushes;
+using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -22,7 +23,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         {
             Border b = new Border()
             {
-                Background = ProgramBrushes.MediumGray,
+                Background = CommonBrushes.MediumGray,
                 MaxWidth = 500,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center

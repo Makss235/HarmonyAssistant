@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 {
-    public class ThemeButton : ContentControl
+    public class ThemeButton : ButtonBase
     {
-        public ThemeButton(SolidColorBrush themeBrush)
+        public ThemeButton(Brush themeBrush)
         {
             Border mainBorder = new Border()
             {

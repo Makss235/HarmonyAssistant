@@ -1,20 +1,16 @@
 ﻿using HarmonyAssistant.Core.STT;
-using HarmonyAssistant.UI.Icons.CaptionButtonIcons;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Widgets.CaptionButtons;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shell;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow
@@ -70,7 +66,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
         {
             Title = "Привет, Иван!";
             Style = windowStyle;
-            Background = ProgramBrushes.DarkerBlue;
+            ThemesManager.AddResourceSource(this);
+            SetResourceReference(Window.BackgroundProperty, 
+                nameof(IAppBrushes.CommonBackgroundBrush));
             WindowStyle = WindowStyle.SingleBorderWindow;
             ResizeMode = ResizeMode.CanResize;
             Width = 750;
@@ -104,11 +102,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             minimizeButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             Grid.SetColumn(minimizeButton, 0);
 
-            MaximizeButton minimizeButton1 = new MaximizeButton(this, new MaximizeIcon(10));
-            minimizeButton1.VerticalAlignment = VerticalAlignment.Stretch;
-            minimizeButton1.HorizontalAlignment = HorizontalAlignment.Stretch;
-            Grid.SetColumn(minimizeButton1, 1);
-
             CloseButton minimizeButton2 = new CloseButton(this);
             minimizeButton.VerticalAlignment = VerticalAlignment.Stretch;
             minimizeButton.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -116,10 +109,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
             ColumnDefinition columnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };
-            
-            ColumnDefinition columnDefinition1 = new ColumnDefinition()
-            { Width = new GridLength(1, GridUnitType.Star) };
-            
+
             ColumnDefinition columnDefinition2 = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };
 
@@ -130,10 +120,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
                 VerticalAlignment = VerticalAlignment.Stretch,
             };
             grid1.ColumnDefinitions.Add(columnDefinition);
-            //grid1.ColumnDefinitions.Add(columnDefinition1);
             grid1.ColumnDefinitions.Add(columnDefinition2);
             grid1.Children.Add(minimizeButton);
-            //grid1.Children.Add(minimizeButton1);
             grid1.Children.Add(minimizeButton2);
             Grid.SetColumn(grid1, 1);
             Grid.SetRow(grid1, 0);
@@ -149,13 +137,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             grid.Children.Add(aboutProgramTab);
 
             mainFieldBorder = new Border()
-            {
-                Background = ProgramBrushes.LessDarkBlue,
-                CornerRadius = new CornerRadius(10, 0, 0, 0)
-            };
+            { CornerRadius = new CornerRadius(10, 0, 0, 0) };
             mainFieldBorder.Child = grid;
             Grid.SetColumn(mainFieldBorder, 1);
             Grid.SetRow(mainFieldBorder, 1);
+
+            ThemesManager.AddResourceSource(mainFieldBorder);
+            mainFieldBorder.SetResourceReference(Window.BackgroundProperty,
+                nameof(IAppBrushes.TabBackgroundBrush));
 
             leftMenuColumnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Auto) };
@@ -165,11 +154,11 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
             headerRowDefinition = new RowDefinition()
             { Height = new GridLength(40, GridUnitType.Pixel) };
-            
+
             clientZoneRowDefinition = new RowDefinition()
             { Height = new GridLength(1, GridUnitType.Star) };
 
-            mainGrid = new Grid() { Background = ProgramBrushes.DarkerBlue };
+            mainGrid = new Grid();
             mainGrid.ColumnDefinitions.Add(leftMenuColumnDefinition);
             mainGrid.ColumnDefinitions.Add(mainFieldColumnDefinition);
             mainGrid.RowDefinitions.Add(headerRowDefinition);

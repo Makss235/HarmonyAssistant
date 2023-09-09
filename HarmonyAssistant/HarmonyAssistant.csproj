@@ -39,6 +39,7 @@
   <ItemGroup>
     <Folder Include="Data\Resources\ResourceDictionaries\" />
     <Folder Include="Properties\" />
+    <Folder Include="UI\Themes\Base\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,6 @@
 ﻿using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools;
@@ -50,9 +52,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetColumn(themeTB, 0);
             Grid.SetRow(themeTB, 1);
             
-            ThemeButton themeBRed = new ThemeButton(Brushes.Red);
-            themeBRed.PreviewMouseLeftButtonDown += (s, e) => ProgramBrushes.LessDarkBlue = Brushes.Green;
-            ThemeButton themeBYellow = new ThemeButton(Brushes.Yellow);
+            ThemeButton themeBRed = new ThemeButton(
+                DarkGrayBrushes.GetInstance().TabBackgroundBrush);
+            themeBRed.Click += (s, e) => ThemesManager.Current = 
+            DarkGrayBrushes.GetInstance().ResourceDictionary;
+
+            ThemeButton themeBYellow = new ThemeButton(
+                DarkBlueBrushes.GetInstance().TabBackgroundBrush);
+            themeBYellow.Click += (s, e) => ThemesManager.Current =
+            DarkBlueBrushes.GetInstance().ResourceDictionary;
 
             WrapPanel themeStackPanel = new WrapPanel()
             { 

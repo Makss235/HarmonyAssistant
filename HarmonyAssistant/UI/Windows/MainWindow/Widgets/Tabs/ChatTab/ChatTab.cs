@@ -1,16 +1,16 @@
 ﻿using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.UI.Animations;
-using HarmonyAssistant.UI.Icons;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Resources;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 {
@@ -86,13 +86,16 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             border = new Border()
             {
                 Background = Brushes.Transparent,
-                BorderBrush = ProgramBrushes.DarkerBlue,
                 BorderThickness = new Thickness(0, 0, 0, 3),
                 Child = scrollViewer,
             };
             Grid.SetColumn(border, 0);
             Grid.SetColumnSpan(border, 2);
             Grid.SetRow(border, 0);
+
+            ThemesManager.AddResourceSource(border);
+            border.SetResourceReference(Border.BorderBrushProperty,
+                nameof(IAppBrushes.CommonBackgroundBrush));
 
             textBox = new TextBox()
             {

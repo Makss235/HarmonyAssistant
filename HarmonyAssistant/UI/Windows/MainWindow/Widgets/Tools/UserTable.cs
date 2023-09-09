@@ -1,4 +1,7 @@
-﻿using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+﻿using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -85,7 +88,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
             Border mainBorder = new Border()
             {
                 CornerRadius = new CornerRadius(5),
-                Background = ProgramBrushes.LessDarkBlue,
                 BorderBrush = Brushes.Transparent,
                 BorderThickness = new Thickness(1),
                 Height = 25,
@@ -93,6 +95,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
             };
             mainBorder.MouseEnter += (s, e) => mainBorder.BorderBrush = Brushes.AliceBlue;
             mainBorder.MouseLeave += (s, e) => mainBorder.BorderBrush = Brushes.Transparent;
+
+            ThemesManager.AddResourceSource(mainBorder);
+            mainBorder.SetResourceReference(Window.BackgroundProperty,
+                nameof(IAppBrushes.TabBackgroundBrush));
 
             Content = mainBorder;
         }

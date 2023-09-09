@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.UI.Icons.CaptionButtonIcons;
+using HarmonyAssistant.UI.Themes.AppBrushes;
 using HarmonyAssistant.UI.Widgets.CaptionButtons.Base;
 using System.Windows;
 using System.Windows.Input;
@@ -33,7 +34,7 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons
 
         private void Button_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Background = ProgramBrushes.HalfTransparentRed;
+            Background = CommonBrushes.HalfTransparentRed;
         }
 
         private void Button_MouseLeave(object sender, MouseEventArgs e)
@@ -43,7 +44,7 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            Background = ProgramBrushes.BrightRed;
+            Background = CommonBrushes.BrightRed;
         }
     }
 }

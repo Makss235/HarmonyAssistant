@@ -1,5 +1,8 @@
 ﻿using FontAwesome.WPF;
 using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
@@ -44,7 +47,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void InitializeComponent()
         {
-            
             Border iconBorder = new Border
             {
                 BorderBrush = Brushes.Transparent,
@@ -56,8 +58,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                     Source = new BitmapImage(
                     new Uri("pack://application:,,,/Data/Resources/Images/Icon.png",
                     UriKind.RelativeOrAbsolute))
-                },
+                }
             };
+
+            ThemesManager.AddResourceSource(iconBorder);
 
             iconButton = new TButton()
             {
@@ -68,8 +72,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             };
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
-            iconButton.MouseEnter += (s, e) => 
-            iconBorder.BorderBrush = ProgramBrushes.MediumBlue;
+            iconButton.MouseEnter += (s, e) => iconBorder.BorderBrush = 
+            (Brush)iconBorder.TryFindResource(nameof(IAppBrushes.HighlightingIcon));
 
             iconButton.MouseLeave += (s, e) => 
             iconBorder.BorderBrush = Brushes.Transparent;
