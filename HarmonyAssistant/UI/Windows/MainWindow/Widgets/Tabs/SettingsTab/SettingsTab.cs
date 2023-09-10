@@ -1,9 +1,9 @@
 ﻿using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes;
-using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+using HarmonyAssistant.UI.Widgets;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,25 +42,18 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetRow(userTable, 0);
             Grid.SetColumnSpan(userTable, 2);
 
-            TextBlock themeTB = new TextBlock()
+            CommonTextBlockStyled themeTB = new CommonTextBlockStyled()
             {
                 Text = "Тема",
-                Style = TextBlocksStyles.TextBlockStyle,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(10, 10, 7, 10)
             };
             Grid.SetColumn(themeTB, 0);
             Grid.SetRow(themeTB, 1);
             
-            ThemeButton themeBRed = new ThemeButton(
-                DarkGrayBrushes.GetInstance().TabBackgroundBrush);
-            themeBRed.Click += (s, e) => ThemesManager.Current = 
-            DarkGrayBrushes.GetInstance().ResourceDictionary;
-
-            ThemeButton themeBYellow = new ThemeButton(
-                DarkBlueBrushes.GetInstance().TabBackgroundBrush);
-            themeBYellow.Click += (s, e) => ThemesManager.Current =
-            DarkBlueBrushes.GetInstance().ResourceDictionary;
+            ThemeButton themeBRed = new ThemeButton(DarkGrayBrushes.GetInstance());
+            ThemeButton themeBYellow = new ThemeButton(DarkBlueBrushes.GetInstance());
+            ThemeButton themeBYellow1 = new ThemeButton(LightTurquoiseBrushes.GetInstance());
 
             WrapPanel themeStackPanel = new WrapPanel()
             { 
@@ -71,15 +64,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
                 {
                     themeBRed,
                     themeBYellow,
+                    themeBYellow1,
                 }
             };
             Grid.SetColumn(themeStackPanel, 1);
             Grid.SetRow(themeStackPanel, 1);
 
-            TextBlock soundTB = new TextBlock()
+            CommonTextBlockStyled soundTB = new CommonTextBlockStyled()
             {
                 Text = "Звук",
-                Style = TextBlocksStyles.TextBlockStyle,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(10, 10, 7, 10)
             };
@@ -98,10 +91,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetColumn(soundSlider, 1);
             Grid.SetRow(soundSlider, 2);
 
-            TextBlock searchSystTB = new TextBlock()
+            CommonTextBlockStyled searchSystTB = new CommonTextBlockStyled()
             {
                 Text = "Поисковая система",
-                Style = TextBlocksStyles.TextBlockStyle,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(10, 10, 7, 10)
             };

@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+﻿using HarmonyAssistant.UI.Styles;
+using HarmonyAssistant.UI.Widgets;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,9 +29,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base
 
         protected virtual void InitializeStyles()
         {
-            HeaderTextBlockStyle = new Style(
-                targetType: typeof(TextBlock), 
-                basedOn: TextBlocksStyles.TextBlockStyle);
+            HeaderTextBlockStyle = new Style(typeof(CommonTextBlockStyled));
             HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.Bold));
             HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)17));
         }

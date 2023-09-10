@@ -1,5 +1,9 @@
-﻿using HarmonyAssistant.UI.Themes.AppBrushes;
-using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+﻿using HarmonyAssistant.UI.Styles;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using HarmonyAssistant.UI.Widgets;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -23,18 +27,20 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         {
             Border b = new Border()
             {
-                Background = CommonBrushes.MediumGray,
                 MaxWidth = 500,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
 
+            ThemeManager.AddResourceReference(b);
+            b.SetResourceReference(Border.BackgroundProperty,
+                nameof(IAppBrushes.ChatMessageBrush));
+
             if (contentObject.GetType() == typeof(string))
             {
-                TextBlock textBlock = new TextBlock()
+                CommonTextBlockStyled textBlock = new CommonTextBlockStyled()
                 {
                     Text = contentObject.ToString(),
-                    Style = TextBlocksStyles.TextBlockStyle,
                     Margin = new Thickness(12, 7, 12, 7)
                 };
                 b.Child = textBlock;
@@ -51,9 +57,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
             DesignForMessageBubble designForMessageBubble = new DesignForMessageBubble(10)
             {
-                Background = b.Background,
                 VerticalAlignment = VerticalAlignment.Bottom
             };
+
+            ThemeManager.AddResourceReference(designForMessageBubble);
+            designForMessageBubble.SetResourceReference(BackgroundProperty,
+                nameof(IAppBrushes.ChatMessageBrush));
 
             if (sendMessageBy == SendMessageBy.ByMe)
             {

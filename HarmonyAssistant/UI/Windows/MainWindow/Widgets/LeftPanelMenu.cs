@@ -1,10 +1,10 @@
 ﻿using FontAwesome.WPF;
 using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
-using HarmonyAssistant.UI.Themes.AppBrushes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using HarmonyAssistant.UI.Widgets;
 using HarmonyAssistant.UI.Widgets.Base;
-using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Collections.Generic;
@@ -61,7 +61,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 }
             };
 
-            ThemesManager.AddResourceSource(iconBorder);
+            ThemeManager.AddResourceReference(iconBorder);
 
             iconButton = new TButton()
             {
@@ -73,7 +73,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             iconButton.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             iconButton.Click += Button_Click;
             iconButton.MouseEnter += (s, e) => iconBorder.BorderBrush = 
-            (Brush)iconBorder.TryFindResource(nameof(IAppBrushes.HighlightingIcon));
+            (Brush)iconBorder.TryFindResource(nameof(IAppBrushes.HighlightingIconBrush));
 
             iconButton.MouseLeave += (s, e) => 
             iconBorder.BorderBrush = Brushes.Transparent;
@@ -81,7 +81,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             titleTextBlock = new TextBlock()
             {
                 Text = "Привет, Иван!",
-                Style = TextBlocksStyles.TextBlockStyle,
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Bottom,
                 Margin = new Thickness(20, 5, 5, 7),
@@ -97,21 +97,29 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
             ImageAwesome imageAwesome = new ImageAwesome()
             {
-                Icon = FontAwesomeIcon.Home,
-                Foreground = Brushes.AliceBlue
+                Icon = FontAwesomeIcon.Home
             };
-            
+            ThemeManager.AddResourceReference(imageAwesome);
+            imageAwesome.SetResourceReference(ImageAwesome.ForegroundProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
+
             ImageAwesome imageAwesome1 = new ImageAwesome()
             {
                 Icon = FontAwesomeIcon.Gear,
                 Foreground = Brushes.AliceBlue
             };
-            
+            ThemeManager.AddResourceReference(imageAwesome1);
+            imageAwesome1.SetResourceReference(ImageAwesome.ForegroundProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
+
             ImageAwesome imageAwesome2 = new ImageAwesome()
             {
                 Icon = FontAwesomeIcon.Info,
                 Foreground = Brushes.AliceBlue
             };
+            ThemeManager.AddResourceReference(imageAwesome2);
+            imageAwesome2.SetResourceReference(ImageAwesome.ForegroundProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
 
             LeftPanelMenuButton homeMenuButton = new LeftPanelMenuButton("Главная", imageAwesome);
             homeMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;

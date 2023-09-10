@@ -10,7 +10,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes.Base
         public Brush CommonForegroundBrush { get; }
         public Brush TabBackgroundBrush { get; }
         public Brush ChatMessageBrush { get; }
-        public Brush HighlightingIcon { get; }
+        public Brush HighlightingIconBrush { get; }
 
         public ResourceDictionary ResourceDictionary { get; }
     }

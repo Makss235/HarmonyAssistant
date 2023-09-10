@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -11,7 +12,6 @@ namespace HarmonyAssistant.UI.Icons.CaptionButtonIcons
         {
             Path minimizeIcon = new Path()
             {
-                Stroke = Brushes.AliceBlue,
                 StrokeThickness = 2,
                 Data = new GeometryGroup()
                 {
@@ -21,6 +21,13 @@ namespace HarmonyAssistant.UI.Icons.CaptionButtonIcons
                     }
                 }
             };
+            minimizeIcon.SetBinding(Shape.StrokeProperty, new Binding()
+            {
+                Source = this,
+                Path = new PropertyPath("Background"),
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            });
+
             Content = minimizeIcon;
         }
     }

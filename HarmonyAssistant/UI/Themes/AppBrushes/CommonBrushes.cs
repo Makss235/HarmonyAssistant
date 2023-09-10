@@ -7,7 +7,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
         //public static Brush DarkerBlue { get; set; }
         //public static Brush LessDarkBlue { get; set; }
         //public static Brush MediumBlue { get; set; }
-        public static Brush MediumGray { get; set; }
+        //public static Brush MediumGray { get; set; }
         public static Brush QuarterTransparentDarkGray { get; set; }
         public static Brush HalfTransparentDarkGray { get; set; }
         public static Brush HalfTransparentRed { get; set; }
@@ -24,8 +24,8 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
             //MediumBlue = new SolidColorBrush(new Color()
             //{ R = 50, G = 50, B = 100, A = 255 });
 
-            MediumGray = new SolidColorBrush(new Color()
-            { R = 60, G = 60, B = 70, A = 255 });
+            //MediumGray = new SolidColorBrush(new Color()
+            //{ R = 60, G = 60, B = 70, A = 255 });
 
             QuarterTransparentDarkGray = new SolidColorBrush(new Color()
             { R = 70, G = 70, B = 70, A = 70 });

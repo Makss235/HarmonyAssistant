@@ -66,17 +66,16 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
         {
             Title = "Привет, Иван!";
             Style = windowStyle;
-            ThemesManager.AddResourceSource(this);
+
+            ThemeManager.AddResourceReference(this);
             SetResourceReference(Window.BackgroundProperty, 
                 nameof(IAppBrushes.CommonBackgroundBrush));
+
             WindowStyle = WindowStyle.SingleBorderWindow;
             ResizeMode = ResizeMode.CanResize;
-            Width = 750;
-            Height = 650;
-            MinWidth = 600;
-            MinHeight = 400;
-            MaxWidth = 1000;
-            MaxHeight = 800;
+            Width = 750; Height = 650;
+            MinWidth = 600; MinHeight = 400;
+            MaxWidth = 1000; MaxHeight = 800;
             WindowStartupLocation = WindowStartupLocation.Manual;
             widthScreen = SystemParameters.PrimaryScreenWidth;
             heightScreen = SystemParameters.PrimaryScreenHeight;
@@ -142,7 +141,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             Grid.SetColumn(mainFieldBorder, 1);
             Grid.SetRow(mainFieldBorder, 1);
 
-            ThemesManager.AddResourceSource(mainFieldBorder);
+            ThemeManager.AddResourceReference(mainFieldBorder);
             mainFieldBorder.SetResourceReference(Window.BackgroundProperty,
                 nameof(IAppBrushes.TabBackgroundBrush));
 

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -11,7 +12,6 @@ namespace HarmonyAssistant.UI.Icons.CaptionButtonIcons
         {
             Path normalStateIcon = new Path()
             {
-                Stroke = Brushes.AliceBlue,
                 StrokeThickness = 1.5,
                 Data = new GeometryGroup()
                 {
@@ -21,6 +21,12 @@ namespace HarmonyAssistant.UI.Icons.CaptionButtonIcons
                     }
                 }
             };
+            normalStateIcon.SetBinding(Shape.StrokeProperty, new Binding()
+            {
+                Source = this,
+                Path = new PropertyPath("Background"),
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            });
 
             Margin = new Thickness(0, 0, 0, 3);
             Content = normalStateIcon;

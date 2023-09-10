@@ -1,4 +1,6 @@
-﻿using HarmonyAssistant.UI.Widgets.Base;
+﻿using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Widgets.Base;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -11,6 +13,8 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons.Base
 {
     public class CaptionButton : ContentControl, INotifyPropertyChanged
     {
+        #region NPC
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
@@ -26,6 +30,10 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons.Base
             return true;
         }
 
+        #endregion
+
+        #region Background
+
         private Brush _Background;
 
         public new Brush Background
@@ -34,6 +42,10 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons.Base
             set => SetProperty(ref _Background, value);
         }
 
+        #endregion
+
+        #region Icon
+
         private ContentControl _Icon;
 
         public ContentControl Icon
@@ -41,6 +53,8 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons.Base
             get => _Icon;
             set => SetProperty(ref _Icon, value);
         }
+
+        #endregion
 
         public event RoutedEventHandler Click;
         public new event MouseButtonEventHandler PreviewMouseLeftButtonDown;
@@ -60,6 +74,10 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons.Base
         {
             Icon.HorizontalAlignment = HorizontalAlignment.Center;
             Icon.VerticalAlignment = VerticalAlignment.Center;
+
+            ThemeManager.AddResourceReference(Icon);
+            Icon.SetResourceReference(BackgroundProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
 
             border = new Border()
             {

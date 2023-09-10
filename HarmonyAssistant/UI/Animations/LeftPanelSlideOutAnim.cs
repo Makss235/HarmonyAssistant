@@ -15,6 +15,7 @@ namespace HarmonyAssistant.UI.Animations
 {
     public class LeftPanelSlideOutAnim : FrameworkElement
     {
+        #region MyRegion
         //private Storyboard sb;
         //private PathGeometry pg;
         //public LeftPanelSlideOutAnim(FrameworkElement container, Grid border, bool startpose)
@@ -74,7 +75,8 @@ namespace HarmonyAssistant.UI.Animations
 
         //    sb = new Storyboard();
         //    sb.Children.Add(anim);
-        //    sb.Begin(container);
+        //    sb.Begin(container); 
+        #endregion
 
         private LeftPanelMenu grid;
         private DoubleAnimation anim;
@@ -84,7 +86,7 @@ namespace HarmonyAssistant.UI.Animations
             EasingMode em = EasingMode.EaseInOut;
 
             anim = new DoubleAnimation
-            { Duration = TimeSpan.FromSeconds(0.5) };
+            { Duration = TimeSpan.FromSeconds(0.1) };
 
             //anim = new DoubleAnimation
             //{ Duration = TimeSpan.FromSeconds(0.5) };

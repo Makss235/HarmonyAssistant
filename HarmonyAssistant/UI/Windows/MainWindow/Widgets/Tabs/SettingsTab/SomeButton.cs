@@ -7,14 +7,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
+namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
     public class SomeButton : ContentControl
     {
-        public SomeButton(string text/*, double height, double width*/) 
+        public SomeButton(string text/*, double height, double width*/)
         {
             Label content = new Label()
-            { 
+            {
                 Content = text,
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center,

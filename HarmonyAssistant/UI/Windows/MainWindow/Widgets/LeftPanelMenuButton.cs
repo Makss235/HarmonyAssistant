@@ -1,9 +1,10 @@
 ﻿using FontAwesome.WPF;
+using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using HarmonyAssistant.UI.Widgets;
 using HarmonyAssistant.UI.Widgets.Base;
-using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Windows;
@@ -21,7 +22,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         private string text;
         private ImageAwesome icon;
 
-        private TextBlock titleTextBlock;
+        private CommonTextBlockStyled titleTextBlock;
         private Border border1;
         Border border;
 
@@ -55,10 +56,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             };
             Grid.SetColumn(iconBorder, 0);
 
-            titleTextBlock = new TextBlock()
+            titleTextBlock = new CommonTextBlockStyled()
             {
                 Text = text,
-                Style = TextBlocksStyles.TextBlockStyle,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(20, 0, 0, 0)
@@ -94,7 +94,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             };
             border.Child = mainGrid;
 
-            ThemesManager.AddResourceSource(border);
+            ThemeManager.AddResourceReference(border);
 
             TButton button = new TButton();
             button.Click += Button_Click;

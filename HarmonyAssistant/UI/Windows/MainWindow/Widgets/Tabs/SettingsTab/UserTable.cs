@@ -1,13 +1,14 @@
-﻿using HarmonyAssistant.UI.Themes;
+﻿using HarmonyAssistant.UI.Styles;
+using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
-using HarmonyAssistant.UI.Windows.MainWindow.Styles;
+using HarmonyAssistant.UI.Widgets;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
+namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
     public class UserTable : ContentControl
     {
@@ -27,11 +28,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 
             Grid.SetColumn(userImage, 0);
 
-            TextBlock userNameTB = new TextBlock()
+            CommonTextBlockStyled userNameTB = new CommonTextBlockStyled()
             {
                 Text = userName,
-                Background = Brushes.Transparent,
-                Style = TextBlocksStyles.TextBlockStyle
+                Background = Brushes.Transparent
             };
 
             UserButton userButton = new UserButton();
@@ -67,15 +67,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
         public UserButton()
         {
             Style ellipseST = new Style(targetType: typeof(Ellipse));
-            ellipseST.Setters.Add(new Setter(Ellipse.StrokeProperty, Brushes.AliceBlue));
-            ellipseST.Setters.Add(new Setter(Ellipse.FillProperty, Brushes.AliceBlue));
-            ellipseST.Setters.Add(new Setter(Ellipse.WidthProperty, (double)7));
-            ellipseST.Setters.Add(new Setter(Ellipse.HeightProperty, (double)7));
-            ellipseST.Setters.Add(new Setter(Ellipse.MarginProperty, new Thickness(2.5, 0, 2.5, 0)));
+            ellipseST.Setters.Add(new Setter(Shape.StrokeProperty, Brushes.AliceBlue));
+            ellipseST.Setters.Add(new Setter(Shape.FillProperty, Brushes.AliceBlue));
+            ellipseST.Setters.Add(new Setter(WidthProperty, (double)7));
+            ellipseST.Setters.Add(new Setter(HeightProperty, (double)7));
+            ellipseST.Setters.Add(new Setter(MarginProperty, new Thickness(2.5, 0, 2.5, 0)));
 
-            Ellipse circle1 = new Ellipse(){ Style = ellipseST };
-            Ellipse circle2 = new Ellipse(){ Style = ellipseST };
-            Ellipse circle3 = new Ellipse(){ Style = ellipseST };
+            Ellipse circle1 = new Ellipse() { Style = ellipseST };
+            Ellipse circle2 = new Ellipse() { Style = ellipseST };
+            Ellipse circle3 = new Ellipse() { Style = ellipseST };
 
 
             StackPanel mainSP = new StackPanel()
@@ -96,8 +96,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
             mainBorder.MouseEnter += (s, e) => mainBorder.BorderBrush = Brushes.AliceBlue;
             mainBorder.MouseLeave += (s, e) => mainBorder.BorderBrush = Brushes.Transparent;
 
-            ThemesManager.AddResourceSource(mainBorder);
-            mainBorder.SetResourceReference(Window.BackgroundProperty,
+            ThemeManager.AddResourceReference(mainBorder);
+            mainBorder.SetResourceReference(BackgroundProperty,
                 nameof(IAppBrushes.TabBackgroundBrush));
 
             Content = mainBorder;

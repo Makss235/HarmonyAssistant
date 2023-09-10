@@ -10,7 +10,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
         public Brush CommonForegroundBrush { get; }
         public Brush TabBackgroundBrush { get; }
         public Brush ChatMessageBrush { get; }
-        public Brush HighlightingIcon { get; }
+        public Brush HighlightingIconBrush { get; }
 
         public ResourceDictionary ResourceDictionary { get; private set; }
 
@@ -40,7 +40,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
             ChatMessageBrush = new SolidColorBrush(new Color()
             { R = 43, G = 82, B = 120, A = 255 });
 
-            HighlightingIcon = new SolidColorBrush(new Color()
+            HighlightingIconBrush = new SolidColorBrush(new Color()
             { R = 50, G = 50, B = 100, A = 255 });
 
             ResourceDictionary = new ResourceDictionary
@@ -49,7 +49,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
                 { nameof(CommonForegroundBrush), CommonForegroundBrush },
                 { nameof(TabBackgroundBrush), TabBackgroundBrush },
                 { nameof(ChatMessageBrush), ChatMessageBrush },
-                { nameof(HighlightingIcon), HighlightingIcon }
+                { nameof(HighlightingIconBrush), HighlightingIconBrush }
             };
         }
     }

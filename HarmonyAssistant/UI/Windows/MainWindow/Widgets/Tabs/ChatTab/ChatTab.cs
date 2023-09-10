@@ -1,8 +1,11 @@
-﻿using HarmonyAssistant.Core.TTC;
+﻿using FontAwesome.WPF;
+using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using HarmonyAssistant.UI.Widgets;
 using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
@@ -10,6 +13,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
@@ -27,7 +31,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         private TabAppearAnim tabAppearAnim;
 
         private ScrollViewer scrollViewer;
-        private TextBox textBox;
+        private CommonTextBoxStyled textBox;
         private Border border;
 
         public ChatTab()
@@ -93,22 +97,24 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             Grid.SetColumnSpan(border, 2);
             Grid.SetRow(border, 0);
 
-            ThemesManager.AddResourceSource(border);
+            ThemeManager.AddResourceReference(border);
             border.SetResourceReference(Border.BorderBrushProperty,
                 nameof(IAppBrushes.CommonBackgroundBrush));
 
-            textBox = new TextBox()
+            textBox = new CommonTextBoxStyled()
             {
-                Style = TextBlocksStyles.TextBlockStyle,
                 BorderThickness = new Thickness(0),
-                CaretBrush = Brushes.AliceBlue,
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Background = Brushes.Transparent,
-                Margin = new Thickness(10, 5, 10, 5)
+                Margin = new Thickness(15, 5, 15, 5)
             };
             Grid.SetColumn(textBox, 0);
             Grid.SetRow(textBox, 1);
+
+            ThemeManager.AddResourceReference(textBox);
+            textBox.SetResourceReference(TextBoxBase.CaretBrushProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
 
             Button button = new Button()
             {

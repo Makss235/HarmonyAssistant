@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,15 +10,15 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
+namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
     public class ThemeButton : ButtonBase
     {
-        public ThemeButton(Brush themeBrush)
+        public ThemeButton(IAppBrushes appBrushes)
         {
             Border mainBorder = new Border()
             {
-                Background = themeBrush,
+                Background = appBrushes.ChatMessageBrush,
                 BorderBrush = Brushes.AliceBlue,
                 Width = 25,
                 Height = 25,
@@ -26,6 +28,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
             };
             mainBorder.MouseEnter += (s, e) => mainBorder.BorderThickness = new Thickness(2);
             mainBorder.MouseLeave += (s, e) => mainBorder.BorderThickness = new Thickness(1);
+
+            Click += (s, e) => ThemeManager.CurrentTheme = appBrushes.ResourceDictionary;
 
             Content = mainBorder;
         }
