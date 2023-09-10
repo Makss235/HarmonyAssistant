@@ -22,7 +22,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         private string text;
         private ImageAwesome icon;
 
-        private CommonTextBlockStyled titleTextBlock;
+        private TextBlock titleTextBlock;
         private Border border1;
         Border border;
 
@@ -56,9 +56,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             };
             Grid.SetColumn(iconBorder, 0);
 
-            titleTextBlock = new CommonTextBlockStyled()
+            titleTextBlock = new TextBlock()
             {
                 Text = text,
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(20, 0, 0, 0)

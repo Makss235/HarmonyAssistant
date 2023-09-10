@@ -38,9 +38,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
             if (contentObject.GetType() == typeof(string))
             {
-                CommonTextBlockStyled textBlock = new CommonTextBlockStyled()
+                TextBlock textBlock = new TextBlock()
                 {
                     Text = contentObject.ToString(),
+                    Style = TextBlockStyles.CommonTextBlockStyle,
                     Margin = new Thickness(12, 7, 12, 7)
                 };
                 b.Child = textBlock;

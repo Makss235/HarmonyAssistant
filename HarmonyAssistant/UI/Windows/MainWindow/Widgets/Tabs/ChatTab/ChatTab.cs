@@ -31,7 +31,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         private TabAppearAnim tabAppearAnim;
 
         private ScrollViewer scrollViewer;
-        private CommonTextBoxStyled textBox;
+        private TextBox textBox;
         private Border border;
 
         public ChatTab()
@@ -101,8 +101,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             border.SetResourceReference(Border.BorderBrushProperty,
                 nameof(IAppBrushes.CommonBackgroundBrush));
 
-            textBox = new CommonTextBoxStyled()
+            textBox = new TextBox()
             {
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 BorderThickness = new Thickness(0),
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,

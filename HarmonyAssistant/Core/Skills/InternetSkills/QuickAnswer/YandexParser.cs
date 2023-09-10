@@ -83,16 +83,22 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                         }
                         else
                         {
-                            CommonTextBlockStyled mainTextBlock = new CommonTextBlockStyled()
-                            { Text = elem.Text() };
+                            TextBlock mainTextBlock = new TextBlock()
+                            {
+                                Text = elem.Text(),
+                                Style = TextBlockStyles.CommonTextBlockStyle
+                            };
                             ChechMarginElement(mainTextBlock, stackPanel);
                             stackPanel.Children.Add(mainTextBlock);
                         }
                     }
                     else
                     {
-                        CommonTextBlockStyled mainTextBlock = new CommonTextBlockStyled()
-                        { Text = elem.Text() };
+                        TextBlock mainTextBlock = new TextBlock()
+                        {
+                            Text = elem.Text(),
+                            Style = TextBlockStyles.CommonTextBlockStyle
+                        };
                         ChechMarginElement(mainTextBlock, stackPanel);
                         stackPanel.Children.Add(mainTextBlock);
                     }
@@ -133,18 +139,20 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
 
         private FrameworkElement ListItemPresenter(IElement element)
         {
-            CommonTextBlockStyled mainTextBlock = 
-                new CommonTextBlockStyled()
-            { Text = element.Text() };
+            TextBlock mainTextBlock = new TextBlock()
+            {
+                Text = element.Text(),
+                Style = TextBlockStyles.CommonTextBlockStyle
+            };
             Text += element.Text() + "\n";
 
             var dataPositionAttr = element.Attributes["data-position"];
             if (dataPositionAttr != null)
             {
-                CommonTextBlockStyled positionTextBlock = 
-                    new CommonTextBlockStyled()
+                TextBlock positionTextBlock = new TextBlock()
                 {
                     Text = dataPositionAttr.Value,
+                    Style = TextBlockStyles.CommonTextBlockStyle,
                     Margin = new Thickness(0, 0, 5, 0)
                 };
                 Grid.SetColumn(positionTextBlock, 0);

@@ -38,7 +38,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
             { R = 235, G = 235, B = 255, A = 255 });
 
             ChatMessageBrush = new SolidColorBrush(new Color()
-            { R = 110, G = 135, B = 140, A = 255 });
+            { R = 140, G = 200, B = 160, A = 255 });
 
             HighlightingIconBrush = new SolidColorBrush(new Color()
             { R = 110, G = 135, B = 140, A = 255 });

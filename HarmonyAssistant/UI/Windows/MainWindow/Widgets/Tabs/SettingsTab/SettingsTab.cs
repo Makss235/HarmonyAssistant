@@ -42,9 +42,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetRow(userTable, 0);
             Grid.SetColumnSpan(userTable, 2);
 
-            CommonTextBlockStyled themeTB = new CommonTextBlockStyled()
+            TextBlock themeTB = new TextBlock()
             {
                 Text = "Тема",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(10, 10, 7, 10)
             };
@@ -70,9 +71,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetColumn(themeStackPanel, 1);
             Grid.SetRow(themeStackPanel, 1);
 
-            CommonTextBlockStyled soundTB = new CommonTextBlockStyled()
+            TextBlock soundTB = new TextBlock()
             {
                 Text = "Звук",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(10, 10, 7, 10)
             };
@@ -91,9 +93,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetColumn(soundSlider, 1);
             Grid.SetRow(soundSlider, 2);
 
-            CommonTextBlockStyled searchSystTB = new CommonTextBlockStyled()
+            TextBlock searchSystTB = new TextBlock()
             {
                 Text = "Поисковая система",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(10, 10, 7, 10)
             };

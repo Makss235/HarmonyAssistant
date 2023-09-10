@@ -28,9 +28,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
             Grid.SetColumn(userImage, 0);
 
-            CommonTextBlockStyled userNameTB = new CommonTextBlockStyled()
+            TextBlock userNameTB = new TextBlock()
             {
                 Text = userName,
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 Background = Brushes.Transparent
             };
 

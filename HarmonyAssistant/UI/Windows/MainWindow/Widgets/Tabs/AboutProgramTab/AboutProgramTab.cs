@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Widgets;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
@@ -19,42 +20,41 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
         #region UI Elements
 
-        private CommonTextBlockStyled titleTextBlock;
+        private TextBlock titleTextBlock;
 
-        private CommonTextBlockStyled nameProgramLocTextBlock;
-        private CommonTextBlockStyled nameProgramTextBlock;
+        private TextBlock nameProgramLocTextBlock;
+        private TextBlock nameProgramTextBlock;
         private WrapPanel nameProgramWrapPanel;
 
-        private CommonTextBlockStyled nameBuildLocTextBlock;
-        private CommonTextBlockStyled nameBuildTextBlock;
+        private TextBlock nameBuildLocTextBlock;
+        private TextBlock nameBuildTextBlock;
         private WrapPanel nameBuildWrapPanel;
 
-        private CommonTextBlockStyled versionLocTextBlock;
-        private CommonTextBlockStyled versionTextBlock;
+        private TextBlock versionLocTextBlock;
+        private TextBlock versionTextBlock;
         private WrapPanel versionWrapPanel;
 
-        private CommonTextBlockStyled authorsLocTextBlock;
-        private CommonTextBlockStyled makssAuthorTextBlock;
-        private CommonTextBlockStyled mrVeserAuthorTextBlock;
-        private CommonTextBlockStyled cripol1AuthorTextBlock;
+        private TextBlock authorsLocTextBlock;
+        private TextBlock makssAuthorTextBlock;
+        private TextBlock mrVeserAuthorTextBlock;
+        private TextBlock cripol1AuthorTextBlock;
         private StackPanel authorsStackPanel;
         private WrapPanel authorsWrapPanel;
 
-        private CommonTextBlockStyled downloadLinkLocTextBlock;
+        private TextBlock downloadLinkLocTextBlock;
         private Hyperlink downloadHyperlink;
-        private CommonTextBlockStyled downloadHyperlinkTextBlock;
+        private TextBlock downloadHyperlinkTextBlock;
         private Label downloadQRLabel;
         private StackPanel downloadHyperlinkStackPanel;
         
-        private CommonTextBlockStyled githubLinkLocTextBlock;
+        private TextBlock githubLinkLocTextBlock;
         private Hyperlink githubHyperlink;
-        private CommonTextBlockStyled githubHyperlinkTextBlock;
+        private TextBlock githubHyperlinkTextBlock;
         private Label githubQRLabel;
         private StackPanel githubHyperlinkStackPanel;
 
         private WrapPanel linksWrapPanel;
 
-        private CommonTextBlockStyled warningTextBlock;
         private StackPanel mainStackPanel;
         private Grid mainGrid;
 
@@ -70,9 +70,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             tabAppearAnim = new TabAppearAnim(this);
             IsVisibleChanged += AboutProgramTab_IsVisibleChanged;
 
-            titleTextBlock = new CommonTextBlockStyled()
+            titleTextBlock = new TextBlock()
             {
                 Text = "О программе",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 FontSize = 20,
                 FontWeight = FontWeights.Bold,
                 HorizontalAlignment = HorizontalAlignment.Center,
@@ -80,14 +81,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
             #region NameProgram
 
-            nameProgramLocTextBlock = new CommonTextBlockStyled()
+            nameProgramLocTextBlock = new TextBlock()
             {
-                Text = "Название программы:"
+                Text = "Название программы:",
+                Style = TextBlockStyles.CommonTextBlockStyle
             };
-            nameProgramTextBlock = new CommonTextBlockStyled()
+            nameProgramTextBlock = new TextBlock()
             {
-                // TODO: Makss localize
                 Text = "Привет, Иван!",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(10, 0, 0, 0)
             };
@@ -104,13 +106,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
             #region NameBuild
 
-            nameBuildLocTextBlock = new CommonTextBlockStyled()
+            nameBuildLocTextBlock = new TextBlock()
             {
-                Text = "Название сборки:"
+                Text = "Название сборки:",
+                Style = TextBlockStyles.CommonTextBlockStyle
             };
-            nameBuildTextBlock = new CommonTextBlockStyled()
+            nameBuildTextBlock = new TextBlock()
             {
                 Text = "HarmonyAssistant",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(10, 0, 0, 0)
             };
@@ -127,13 +131,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
             #region Version
 
-            versionLocTextBlock = new CommonTextBlockStyled()
+            versionLocTextBlock = new TextBlock()
             {
-                Text = "Версия:"
+                Text = "Версия:",
+                Style = TextBlockStyles.CommonTextBlockStyle
             };
-            versionTextBlock = new CommonTextBlockStyled()
+            versionTextBlock = new TextBlock()
             {
                 Text = "0.1.0.0",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(10, 0, 0, 0)
             };
@@ -150,24 +156,28 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
             #region Authors
 
-            authorsLocTextBlock = new CommonTextBlockStyled()
+            authorsLocTextBlock = new TextBlock()
             {
-                Text = "Авторы:"
+                Text = "Авторы:",
+                Style = TextBlockStyles.CommonTextBlockStyle
             };
 
-            makssAuthorTextBlock = new CommonTextBlockStyled()
-            { 
+            makssAuthorTextBlock = new TextBlock()
+            {
                 Text = "Makss (Широков Максим)",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 FontWeight = FontWeights.Bold
             };
-            mrVeserAuthorTextBlock = new CommonTextBlockStyled()
-            { 
+            mrVeserAuthorTextBlock = new TextBlock()
+            {
                 Text = "MrVeser (Кузнецов Виктор)",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 FontWeight = FontWeights.Bold
             };
-            cripol1AuthorTextBlock = new CommonTextBlockStyled()
-            { 
+            cripol1AuthorTextBlock = new TextBlock()
+            {
                 Text = "Cripol1 (Инкин Максим)",
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 FontWeight = FontWeights.Bold
             };
 
@@ -192,18 +202,22 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
             #region Links
 
-            downloadLinkLocTextBlock = new CommonTextBlockStyled()
-            { Text = "Ссылка на скачивание:" };
+            downloadLinkLocTextBlock = new TextBlock()
+            { 
+                Text = "Ссылка на скачивание:",
+                Style = TextBlockStyles.CommonTextBlockStyle
+            };
 
             downloadHyperlink = new Hyperlink()
             { 
                 NavigateUri = new Uri("https://clck.ru/335ThJ"),
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 Foreground = Brushes.CornflowerBlue
             };
             downloadHyperlink.RequestNavigate += DownloadHyperlink_RequestNavigate;
             downloadHyperlink.Inlines.Add("https://clck.ru/335ThJ");
 
-            downloadHyperlinkTextBlock = new CommonTextBlockStyled();
+            downloadHyperlinkTextBlock = new TextBlock();
             downloadHyperlinkTextBlock.Inlines.Add(downloadHyperlink);
 
             downloadQRLabel = new Label()
@@ -229,18 +243,22 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             downloadHyperlinkStackPanel.Children.Add(downloadQRLabel);
 
 
-            githubLinkLocTextBlock = new CommonTextBlockStyled()
-            { Text = "Ссылка на GitHub:" };
+            githubLinkLocTextBlock = new TextBlock()
+            {
+                Text = "Ссылка на GitHub:",
+                Style = TextBlockStyles.CommonTextBlockStyle
+            };
 
             githubHyperlink = new Hyperlink()
             { 
                 NavigateUri = new Uri("https://clck.ru/35WELg"),
+                Style = TextBlockStyles.CommonTextBlockStyle,
                 Foreground = Brushes.CornflowerBlue
             };
             githubHyperlink.RequestNavigate += GithubHyperlink_RequestNavigate;
             githubHyperlink.Inlines.Add("https://clck.ru/35WELg");
 
-            githubHyperlinkTextBlock = new CommonTextBlockStyled();
+            githubHyperlinkTextBlock = new TextBlock();
             githubHyperlinkTextBlock.Inlines.Add(githubHyperlink);
 
             githubQRLabel = new Label()
