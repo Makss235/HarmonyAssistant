@@ -30,15 +30,15 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
         private LightTurquoiseBrushes()
         {
             CommonBackgroundBrush = new SolidColorBrush(new Color()
-            { R = 90, G = 220, B = 250, A = 255 });
+            { R = 113, G = 201, B = 206, A = 255 });
 
             CommonForegroundBrush = Brushes.Black;
 
             TabBackgroundBrush = new SolidColorBrush(new Color()
-            { R = 235, G = 235, B = 255, A = 255 });
+            { R = 227, G = 253, B = 253, A = 255 });
 
             ChatMessageBrush = new SolidColorBrush(new Color()
-            { R = 140, G = 200, B = 160, A = 255 });
+            { R = 166, G = 227, B = 233, A = 255 });
 
             HighlightingIconBrush = new SolidColorBrush(new Color()
             { R = 110, G = 135, B = 140, A = 255 });
