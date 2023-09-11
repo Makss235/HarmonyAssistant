@@ -41,7 +41,8 @@ namespace HarmonyAssistant.UI.Themes
             {
                 { nameof(DarkGrayBrushes), DarkGrayBrushes.GetInstance() },
                 { nameof(DarkBlueBrushes), DarkBlueBrushes.GetInstance() },
-                { nameof(LightTurquoiseBrushes), LightTurquoiseBrushes.GetInstance() }
+                { nameof(LightTurquoiseBrushes), LightTurquoiseBrushes.GetInstance() },
+                { nameof(GreyBrushes), GreyBrushes.GetInstance() }
             };
             elements = new List<FrameworkElement>();
 

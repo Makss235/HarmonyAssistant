@@ -57,6 +57,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             ThemeButton darkGrayThemeButton = new ThemeButton(DarkGrayBrushes.GetInstance());
             ThemeButton darkBlueThemeButton = new ThemeButton(DarkBlueBrushes.GetInstance());
             ThemeButton lightTurquoiseThemeButton = new ThemeButton(LightTurquoiseBrushes.GetInstance());
+            ThemeButton greyThemeButton = new ThemeButton(GreyBrushes.GetInstance());
 
             WrapPanel themeStackPanel = new WrapPanel()
             { 
@@ -68,6 +69,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
                     darkGrayThemeButton,
                     darkBlueThemeButton,
                     lightTurquoiseThemeButton,
+                    greyThemeButton,
                 }
             };
             Grid.SetColumn(themeStackPanel, 1);

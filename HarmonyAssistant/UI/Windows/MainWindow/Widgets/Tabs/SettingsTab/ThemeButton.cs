@@ -23,7 +23,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
             Border mainBorder = new Border()
             {
-                Background = AppBrushes.ChatMessageBrush,
+                Background = AppBrushes.CommonBackgroundBrush,
                 BorderBrush = Brushes.AliceBlue,
                 Width = 25,
                 Height = 25,
