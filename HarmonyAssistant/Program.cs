@@ -16,11 +16,7 @@ namespace HarmonyAssistant
         [STAThread]
         static void Main(string[] args)
         {
-            ThemeManager.Resources.Add(DarkGrayBrushes.GetInstance().ResourceDictionary);
-            ThemeManager.Resources.Add(DarkBlueBrushes.GetInstance().ResourceDictionary);
-            ThemeManager.Resources.Add(LightTurquoiseBrushes.GetInstance().ResourceDictionary);
-            ThemeManager.CurrentTheme = DarkGrayBrushes.GetInstance().ResourceDictionary;
-
+            SettingsData.GetInstance().Initialize();
             WordsData.GetInstance().Initialize();
             TriggerWordsData.GetInstance().Initialize();
             DictionaryWordsData.GetInstance().Initialize();

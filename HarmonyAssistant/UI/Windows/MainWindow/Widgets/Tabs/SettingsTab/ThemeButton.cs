@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Themes;
+﻿using HarmonyAssistant.Data.DataSerialize;
+using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
     public class ThemeButton : ButtonBase
     {
+        public IAppBrushes AppBrushes { get; set; }
+
         public ThemeButton(IAppBrushes appBrushes)
         {
+            AppBrushes = appBrushes;
+
             Border mainBorder = new Border()
             {
-                Background = appBrushes.ChatMessageBrush,
+                Background = AppBrushes.ChatMessageBrush,
                 BorderBrush = Brushes.AliceBlue,
                 Width = 25,
                 Height = 25,
@@ -29,7 +34,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             mainBorder.MouseEnter += (s, e) => mainBorder.BorderThickness = new Thickness(2);
             mainBorder.MouseLeave += (s, e) => mainBorder.BorderThickness = new Thickness(1);
 
-            Click += (s, e) => ThemeManager.CurrentTheme = appBrushes.ResourceDictionary;
+            Click += (s, e) =>
+            {
+                ThemeManager.CurrentTheme = AppBrushes;
+                //SettingsData.GetInstance().JsonObject.Theme = appBrushes.GetType().Name;
+                //SettingsData.GetInstance().Serialize();
+            };
 
             Content = mainBorder;
         }

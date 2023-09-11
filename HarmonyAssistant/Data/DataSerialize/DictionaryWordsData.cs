@@ -30,7 +30,7 @@ namespace HarmonyAssistant.Data.DataSerialize
             string language = "RU", 
             string fileName = "DictionaryWords.json")
         {
-            base.Initialize(language, fileName);
+            base.Initialize(fileName, language);
             Deserialize();
         }
     }
