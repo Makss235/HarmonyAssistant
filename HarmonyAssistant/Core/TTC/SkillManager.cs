@@ -118,15 +118,18 @@ namespace HarmonyAssistant.Core.TTC
             for (int i = 0; i < wordsObjectsList.Count; i++)
             {
                 ICS iCS = new ICS(processedText, cleanText, wordsObjectsList[i]);
-                var hh = await Task.Run(() =>
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    return CallingSkill(iCS);
+                    ocses.Add(CallingSkill(iCS));
                 });
-                ocses.Add(hh);
             }
 
             if (ocses.Count == 1)
+            {
+                if (ocses[0].AnswerPresenter != null)
+                    AnswerPresenterChanged?.Invoke(ocses[0].AnswerPresenter);
                 AnswerStringChanged?.Invoke(ocses[0].AnswerString);
+            }
             else if (ocses.Count > 1)
             {
                 List<bool> results = new List<bool>();

@@ -2,7 +2,6 @@
 using AngleSharp.Dom;
 using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base;
 using HarmonyAssistant.UI.Styles;
-using HarmonyAssistant.UI.Widgets;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -41,7 +40,8 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                 var elem = elems[i];
 
                 if (elem.ClassList.Contains("Fact-Summarize") ||
-                    elem.ClassList.Contains("Fact-ECTitle"))
+                    elem.ClassList.Contains("Fact-ECTitle") ||
+                    elem.ClassList.Contains("Fact-Answer"))
                 {
                     if (!string.IsNullOrEmpty(elem.Text()))
                     {
@@ -62,8 +62,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
                     stackPanel.Children.Add(element);
                 }
                 else if (elem.ClassList.Contains("Fact-ECFragment") ||
-                         elem.ClassList.Contains("Fact-Description") ||
-                         elem.ClassList.Contains("Fact-Answer"))
+                         elem.ClassList.Contains("Fact-Description"))
                 {
                     if (elem.Children.Length > 0)
                     {

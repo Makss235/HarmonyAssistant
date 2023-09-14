@@ -1,6 +1,28 @@
 [
     {
         "Parameters": {
+            "ClassName": "Weather",
+            "MethodName": "WhatWeather",
+            "Args":[
+                
+            ]
+        },
+        "TriggerWords": [
+            "какая погода"
+        ],
+        "Answers": {
+            "Positive": [
+                "Отличная, сейчас гляну",
+                "Хорошая, тебе бы посмотреть",
+                "Сам посмотри, хватит за компьютером сидеть!"
+            ],
+            "Negative": [
+                "Ошибка!"
+            ]
+        }
+    },
+    {
+        "Parameters": {
             "ClassName": "Programs",
             "MethodName": "OpenProgram",
             "Args":[
