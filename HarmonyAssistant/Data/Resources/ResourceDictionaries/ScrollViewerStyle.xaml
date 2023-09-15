@@ -150,28 +150,28 @@
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="true"/>
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="true"/>
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Fill" TargetName="ArrowBottom" Value="Red"/>
+                            <Setter Property="Fill" TargetName="ArrowBottom" Value="AliceBlue"/>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="true"/>
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="true"/>
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Fill" TargetName="ArrowTop" Value="Red"/>
+                            <Setter Property="Fill" TargetName="ArrowTop" Value="AliceBlue"/>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="true"/>
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="false"/>
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Fill" TargetName="ArrowBottom" Value="Red"/>
+                            <Setter Property="Fill" TargetName="ArrowBottom" Value="AliceBlue"/>
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="true"/>
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="false"/>
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="Fill" TargetName="ArrowTop" Value="Red"/>
+                            <Setter Property="Fill" TargetName="ArrowTop" Value="AliceBlue"/>
                         </MultiDataTrigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Fill" TargetName="ArrowTop" Value="{DynamicResource ScrollBar.Disabled.Glyph}"/>

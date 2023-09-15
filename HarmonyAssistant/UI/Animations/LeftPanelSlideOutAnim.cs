@@ -83,14 +83,12 @@ namespace HarmonyAssistant.UI.Animations
         public LeftPanelSlideOutAnim(LeftPanelMenu grid)
         {
             this.grid = grid;
-            EasingMode em = EasingMode.EaseInOut;
 
             anim = new DoubleAnimation
-            { Duration = TimeSpan.FromSeconds(0.1) };
-
-            //anim = new DoubleAnimation
-            //{ Duration = TimeSpan.FromSeconds(0.5) };
-
+            { 
+                Duration = TimeSpan.FromSeconds(0.1),
+                DecelerationRatio = 1,
+            };
         }
         public void StartAnim(double actualWidth, double nextWidth)
         {

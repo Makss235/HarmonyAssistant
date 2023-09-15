@@ -9,8 +9,10 @@ using HarmonyAssistant.UI.Widgets;
 using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -33,6 +35,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         private ScrollViewer scrollViewer;
         private TextBox textBox;
         private Border border;
+        private SendButton button;
 
         public ChatTab()
         {
@@ -76,17 +79,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             { Style = svStyle["ScrollViewerStyle"] as Style };
             scrollViewer.Content = ic;
 
-            #region MyRegion
-            //StreamResourceInfo streamResourceInfo = Application.GetResourceStream(
-            //    new Uri("/Data/Resources/Images/pi.svg", UriKind.Relative));
-
-            //IconFromSVG iconFromSVG = new IconFromSVG(streamResourceInfo.Stream);
-            //iconFromSVG.Width = 500;
-
-            //Canvas canvas = new Canvas();
-            ////canvas.Children.Add(iconFromSVG); 
-            #endregion
-
             border = new Border()
             {
                 Background = Brushes.Transparent,
@@ -117,13 +109,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             textBox.SetResourceReference(TextBoxBase.CaretBrushProperty,
                 nameof(IAppBrushes.CommonForegroundBrush));
 
-            Button button = new Button()
-            {
-
+            button = new SendButton(35) 
+            { 
+                _SendButtonForm = SendButtonForm.plane
             };
+            //button._SendButtonForm = SendButtonForm.plane;
             button.Click += Button_Click;
             Grid.SetColumn(button, 1);
             Grid.SetRow(button, 1);
+
 
             ColumnDefinition columnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };
@@ -156,6 +150,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 SendMessage(textBox.Text, SendMessageBy.ByMe);
                 SkillManager.GetInstance().DefineSkills(textBox.Text);
                 textBox.Clear();
+                button._SendButtonForm = SendButtonForm.plane;
             }
         }
 
