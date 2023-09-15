@@ -14,9 +14,42 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\Resources\Files\RU\Programs.json" />
-    <None Remove="Data\Resources\Files\RU\Sites.json" />
-    <None Remove="Data\Resources\Images\microphone.svg" />
+    <None Remove="Data\Resources\Images\Weather\cloudy.png" />
+    <None Remove="Data\Resources\Images\Weather\cloud_moon_rain.png" />
+    <None Remove="Data\Resources\Images\Weather\cloud_moon_thunder.png" />
+    <None Remove="Data\Resources\Images\Weather\cloud_rainy.png" />
+    <None Remove="Data\Resources\Images\Weather\cloud_rainy_rain.png" />
+    <None Remove="Data\Resources\Images\Weather\cloud_snow.png" />
+    <None Remove="Data\Resources\Images\Weather\cloud_star_moon.png" />
+    <None Remove="Data\Resources\Images\Weather\cloud_thunderstorm.png" />
+    <None Remove="Data\Resources\Images\Weather\cloud_windy.png" />
+    <None Remove="Data\Resources\Images\Weather\evening.png" />
+    <None Remove="Data\Resources\Images\Weather\full_moon.png" />
+    <None Remove="Data\Resources\Images\Weather\meteor.png" />
+    <None Remove="Data\Resources\Images\Weather\moon.png" />
+    <None Remove="Data\Resources\Images\Weather\moonrise.png" />
+    <None Remove="Data\Resources\Images\Weather\moon_half.png" />
+    <None Remove="Data\Resources\Images\Weather\moon_rain.png" />
+    <None Remove="Data\Resources\Images\Weather\morning.png" />
+    <None Remove="Data\Resources\Images\Weather\mountain.png" />
+    <None Remove="Data\Resources\Images\Weather\rainbow.png" />
+    <None Remove="Data\Resources\Images\Weather\rainy.png" />
+    <None Remove="Data\Resources\Images\Weather\rainy_cloud_moon.png" />
+    <None Remove="Data\Resources\Images\Weather\rain_cloudy.png" />
+    <None Remove="Data\Resources\Images\Weather\rain_humidity.png" />
+    <None Remove="Data\Resources\Images\Weather\snow.png" />
+    <None Remove="Data\Resources\Images\Weather\spring_rainbow.png" />
+    <None Remove="Data\Resources\Images\Weather\star_moon.png" />
+    <None Remove="Data\Resources\Images\Weather\sunny.png" />
+    <None Remove="Data\Resources\Images\Weather\sun_cloudy.png" />
+    <None Remove="Data\Resources\Images\Weather\sun_cloud_thunder.png" />
+    <None Remove="Data\Resources\Images\Weather\thunder.png" />
+    <None Remove="Data\Resources\Images\Weather\thunder_cloud.png" />
+    <None Remove="Data\Resources\Images\Weather\tornado.png" />
+    <None Remove="Data\Resources\Images\Weather\umbrella.png" />
+    <None Remove="Data\Resources\Images\Weather\umbrella_rainy.png" />
+    <None Remove="Data\Resources\Images\Weather\windy.png" />
+    <None Remove="Data\Resources\Images\Weather\windy_sun.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,18 +57,48 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Data\Resources\Files\RU\DictionaryWords.json" />
-    <Resource Include="Data\Resources\Files\RU\GreetingWords.json" />
-    <Resource Include="Data\Resources\Files\RU\Programs.json" />
-    <Resource Include="Data\Resources\Files\RU\Sites.json" />
-    <Resource Include="Data\Resources\Files\RU\TriggerWords.json" />
-    <Resource Include="Data\Resources\Files\RU\Words.json" />
     <Resource Include="Data\Resources\Images\Icon.ico" />
     <Resource Include="Data\Resources\Images\Icon.png" />
     <Resource Include="Data\Resources\Images\microphone.svg" />
     <Resource Include="Data\Resources\Images\QRDownload.png" />
     <Resource Include="Data\Resources\Images\QRGit.png" />
     <Resource Include="Data\Resources\Images\send.svg" />
+    <Resource Include="Data\Resources\Images\Weather\cloudy.png" />
+    <Resource Include="Data\Resources\Images\Weather\cloud_moon_rain.png" />
+    <Resource Include="Data\Resources\Images\Weather\cloud_moon_thunder.png" />
+    <Resource Include="Data\Resources\Images\Weather\cloud_rainy.png" />
+    <Resource Include="Data\Resources\Images\Weather\cloud_rainy_rain.png" />
+    <Resource Include="Data\Resources\Images\Weather\cloud_snow.png" />
+    <Resource Include="Data\Resources\Images\Weather\cloud_star_moon.png" />
+    <Resource Include="Data\Resources\Images\Weather\cloud_thunderstorm.png" />
+    <Resource Include="Data\Resources\Images\Weather\cloud_windy.png" />
+    <Resource Include="Data\Resources\Images\Weather\evening.png" />
+    <Resource Include="Data\Resources\Images\Weather\full_moon.png" />
+    <Resource Include="Data\Resources\Images\Weather\meteor.png" />
+    <Resource Include="Data\Resources\Images\Weather\moon.png" />
+    <Resource Include="Data\Resources\Images\Weather\moonrise.png" />
+    <Resource Include="Data\Resources\Images\Weather\moon_half.png" />
+    <Resource Include="Data\Resources\Images\Weather\moon_rain.png" />
+    <Resource Include="Data\Resources\Images\Weather\morning.png" />
+    <Resource Include="Data\Resources\Images\Weather\mountain.png" />
+    <Resource Include="Data\Resources\Images\Weather\rainbow.png" />
+    <Resource Include="Data\Resources\Images\Weather\rainy.png" />
+    <Resource Include="Data\Resources\Images\Weather\rainy_cloud_moon.png" />
+    <Resource Include="Data\Resources\Images\Weather\rain_cloudy.png" />
+    <Resource Include="Data\Resources\Images\Weather\rain_humidity.png" />
+    <Resource Include="Data\Resources\Images\Weather\snow.png" />
+    <Resource Include="Data\Resources\Images\Weather\spring_rainbow.png" />
+    <Resource Include="Data\Resources\Images\Weather\star_moon.png" />
+    <Resource Include="Data\Resources\Images\Weather\sunny.png" />
+    <Resource Include="Data\Resources\Images\Weather\sun_cloudy.png" />
+    <Resource Include="Data\Resources\Images\Weather\sun_cloud_thunder.png" />
+    <Resource Include="Data\Resources\Images\Weather\thunder.png" />
+    <Resource Include="Data\Resources\Images\Weather\thunder_cloud.png" />
+    <Resource Include="Data\Resources\Images\Weather\tornado.png" />
+    <Resource Include="Data\Resources\Images\Weather\umbrella.png" />
+    <Resource Include="Data\Resources\Images\Weather\umbrella_rainy.png" />
+    <Resource Include="Data\Resources\Images\Weather\windy.png" />
+    <Resource Include="Data\Resources\Images\Weather\windy_sun.png" />
   </ItemGroup>
 
   <ItemGroup>

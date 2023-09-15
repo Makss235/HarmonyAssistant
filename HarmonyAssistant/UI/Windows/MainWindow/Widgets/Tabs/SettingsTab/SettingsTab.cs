@@ -1,4 +1,6 @@
-﻿using HarmonyAssistant.UI.Animations;
+﻿using HarmonyAssistant.Data.DataSerialize;
+using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
+using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes;
@@ -52,9 +54,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetColumn(themeTB, 0);
             Grid.SetRow(themeTB, 1);
             
-            ThemeButton themeBRed = new ThemeButton(DarkGrayBrushes.GetInstance());
-            ThemeButton themeBYellow = new ThemeButton(DarkBlueBrushes.GetInstance());
-            ThemeButton themeBYellow1 = new ThemeButton(LightTurquoiseBrushes.GetInstance());
+            ThemeButton darkGrayThemeButton = new ThemeButton(DarkGrayBrushes.GetInstance());
+            ThemeButton darkBlueThemeButton = new ThemeButton(DarkBlueBrushes.GetInstance());
+            ThemeButton lightTurquoiseThemeButton = new ThemeButton(LightTurquoiseBrushes.GetInstance());
+            ThemeButton greyThemeButton = new ThemeButton(GreyBrushes.GetInstance());
 
             WrapPanel themeStackPanel = new WrapPanel()
             { 
@@ -63,13 +66,24 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
                 Margin = new Thickness(10, 10, 7, 10),
                 Children =
                 {
-                    themeBRed,
-                    themeBYellow,
-                    themeBYellow1,
+                    darkGrayThemeButton,
+                    darkBlueThemeButton,
+                    lightTurquoiseThemeButton,
+                    greyThemeButton,
                 }
             };
             Grid.SetColumn(themeStackPanel, 1);
             Grid.SetRow(themeStackPanel, 1);
+
+            foreach (ThemeButton item in themeStackPanel.Children)
+            {
+                item.Click += (s, e) =>
+                {
+                    SettingsData.GetInstance().JsonObject.Theme =
+                    item.AppBrushes.GetType().Name;
+                    SettingsData.GetInstance().Serialize();
+                };
+            }
 
             TextBlock soundTB = new TextBlock()
             {
@@ -157,6 +171,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             mainScrollViewer.Content = mainGrid;
 
             Content = mainScrollViewer;
+        }
+
+        private void SaveSettings(SettingsObject settingsObject)
+        {
+            SettingsData.GetInstance().JsonObject = settingsObject;
+            SettingsData.GetInstance().Serialize();
         }
 
         private void SettingsTab_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

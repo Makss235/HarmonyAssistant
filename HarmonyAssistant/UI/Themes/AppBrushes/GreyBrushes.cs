@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace HarmonyAssistant.UI.Themes.AppBrushes
 {
-    public class LightTurquoiseBrushes : IAppBrushes
+    public class GreyBrushes : IAppBrushes
     {
         public Brush CommonBackgroundBrush { get; }
         public Brush CommonForegroundBrush { get; }
@@ -16,32 +16,32 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
 
         #region Singleton
 
-        private static LightTurquoiseBrushes instance;
+        private static GreyBrushes instance;
 
-        public static LightTurquoiseBrushes GetInstance()
+        public static GreyBrushes GetInstance()
         {
             if (instance == null)
-                instance = new LightTurquoiseBrushes();
+                instance = new GreyBrushes();
             return instance;
         }
 
         #endregion
 
-        private LightTurquoiseBrushes()
+        private GreyBrushes()
         {
             CommonBackgroundBrush = new SolidColorBrush(new Color()
-            { R = 113, G = 201, B = 206, A = 255 });
+            { R = 32, G = 32, B = 32, A = 255 });
 
-            CommonForegroundBrush = Brushes.Black;
+            CommonForegroundBrush = Brushes.AliceBlue;
 
             TabBackgroundBrush = new SolidColorBrush(new Color()
-            { R = 227, G = 253, B = 253, A = 255 });
+            { R = 39, G = 39, B = 39, A = 255 });
 
             ChatMessageBrush = new SolidColorBrush(new Color()
-            { R = 166, G = 227, B = 233, A = 255 });
+            { R = 64, G = 64, B = 66, A = 255 });
 
             HighlightingIconBrush = new SolidColorBrush(new Color()
-            { R = 110, G = 135, B = 140, A = 255 });
+            { R = 64, G = 64, B = 66, A = 255 });
 
             ResourceDictionary = new ResourceDictionary
             {
