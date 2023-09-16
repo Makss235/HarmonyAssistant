@@ -59,10 +59,10 @@
   <ItemGroup>
     <Resource Include="Data\Resources\Images\Icon.ico" />
     <Resource Include="Data\Resources\Images\Icon.png" />
-    <Resource Include="Data\Resources\Images\microphone.svg" />
+    <Resource Include="Data\Resources\Images\Microphone.svg" />
     <Resource Include="Data\Resources\Images\QRDownload.png" />
     <Resource Include="Data\Resources\Images\QRGit.png" />
-    <Resource Include="Data\Resources\Images\send.svg" />
+    <Resource Include="Data\Resources\Images\Send.svg" />
     <Resource Include="Data\Resources\Images\Weather\cloudy.png" />
     <Resource Include="Data\Resources\Images\Weather\cloud_moon_rain.png" />
     <Resource Include="Data\Resources\Images\Weather\cloud_moon_thunder.png" />

@@ -65,14 +65,28 @@ namespace HarmonyAssistant.Core.Skills.WeatherSkills
             WeatherToday.WindString = dt[3].Text();
             WeatherToday.WindSpeed = dd[3].Text().Trim();
 
-            WeatherToday.GustsOfWindString = dt[4].Text();
-            WeatherToday.GustsOfWindSpeed = dd[4].Text();
+            try
+            {
+                WeatherToday.GustsOfWindString = dt[4].Text();
+                WeatherToday.GustsOfWindSpeed = dd[4].Text();
 
-            WeatherToday.CloudCoverString = dt[5].Text();
-            WeatherToday.CloudCoverPercent = dd[5].Text();
+                WeatherToday.CloudCoverString = dt[5].Text();
+                WeatherToday.CloudCoverPercent = dd[5].Text();
 
-            WeatherToday.VisibilityString = dt[6].Text();
-            WeatherToday.VisibilityDistance = dd[6].Text();
+                WeatherToday.VisibilityString = dt[6].Text();
+                WeatherToday.VisibilityDistance = dd[6].Text();
+            }
+            catch
+            {
+                WeatherToday.GustsOfWindString = "Порывы ветра";
+                WeatherToday.GustsOfWindSpeed = "Неизвестно";
+
+                WeatherToday.CloudCoverString = "Облачность";
+                WeatherToday.CloudCoverPercent = "Неизвестно";
+
+                WeatherToday.VisibilityString = "Видимость";
+                WeatherToday.VisibilityDistance = "Неизвестно";
+            }
 
             #endregion
 

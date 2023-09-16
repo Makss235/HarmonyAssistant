@@ -1,12 +1,8 @@
-﻿using FontAwesome.WPF;
-using HarmonyAssistant.Core.TTC;
+﻿using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
-using HarmonyAssistant.UI.Themes.AppBrushes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
-using HarmonyAssistant.UI.Widgets;
-using HarmonyAssistant.UI.Widgets.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools;
@@ -16,6 +12,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
@@ -30,6 +27,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
     {
         public ObservableCollection<Message> Messages;
 
+        public event Action<string> TextMessageChanged;
+
+        private string _Text;
+        public string TextMessage
+        {
+            get => _Text;
+            set => SetProperty(ref _Text, value);
+        }
+
         private TabAppearAnim tabAppearAnim;
 
         private ScrollViewer scrollViewer;
@@ -40,6 +46,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         public ChatTab()
         {
             Messages = new ObservableCollection<Message>();
+
+            PropertyChanged += ChatTab_PropertyChanged;
+            IsVisibleChanged += ChatTab_IsVisibleChanged;
+
             StateManager.GetInstance().SpeechStateVerifiedEvent += (s) =>
                 SendMessage(s, SendMessageBy.ByMe);
             SkillManager.GetInstance().AnswerPresenterChanged += (s) =>
@@ -60,7 +70,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         private void InitializeComponent()
         {
             tabAppearAnim = new TabAppearAnim(this);
-            IsVisibleChanged += ChatTab_IsVisibleChanged;
 
             ItemsControl ic = new ItemsControl()
             {
@@ -102,6 +111,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 Background = Brushes.Transparent,
                 Margin = new Thickness(15, 5, 15, 5)
             };
+
+            textBox.SetBinding(TextBox.TextProperty, new Binding()
+            {
+                Source = this,
+                Path = new PropertyPath(nameof(TextMessage)),
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            });
             Grid.SetColumn(textBox, 0);
             Grid.SetRow(textBox, 1);
 
@@ -109,11 +125,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             textBox.SetResourceReference(TextBoxBase.CaretBrushProperty,
                 nameof(IAppBrushes.CommonForegroundBrush));
 
-            button = new SendButton(35) 
-            { 
-                _SendButtonForm = SendButtonForm.plane
-            };
-            //button._SendButtonForm = SendButtonForm.plane;
+            button = new SendButton();
             button.Click += Button_Click;
             Grid.SetColumn(button, 1);
             Grid.SetRow(button, 1);
@@ -150,7 +162,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 SendMessage(textBox.Text, SendMessageBy.ByMe);
                 SkillManager.GetInstance().DefineSkills(textBox.Text);
                 textBox.Clear();
-                button._SendButtonForm = SendButtonForm.plane;
+                button.SendButtonIcon = SendButtonIcon.MicrophoneIcon;
             }
         }
 
@@ -158,6 +170,19 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         {
             if (Visibility == Visibility.Visible)
                 tabAppearAnim.StartAnim();
+        }
+
+
+        private void ChatTab_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(TextMessage):
+                    if (string.IsNullOrEmpty(TextMessage))
+                        button.SendButtonIcon = SendButtonIcon.MicrophoneIcon;
+                    else button.SendButtonIcon = SendButtonIcon.SendIcon;
+                    break;
+            }
         }
     }
 }

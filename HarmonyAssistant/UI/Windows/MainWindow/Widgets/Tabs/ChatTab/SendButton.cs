@@ -1,28 +1,24 @@
-﻿using System.Windows.Controls;
-using System.Windows.Shapes;
-using System.Windows;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media;
-using HarmonyAssistant.UI.Icons;
-using System.Windows.Resources;
-using System;
-using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+﻿using HarmonyAssistant.UI.Icons;
 using HarmonyAssistant.UI.Themes;
-using System.Windows.Data;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Resources;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 {
-    public enum SendButtonForm
+    public enum SendButtonIcon
     {
-        microphone,
-        plane,
+        MicrophoneIcon,
+        SendIcon
     }
 
     public class SendButton : ButtonBase, INotifyPropertyChanged
     {
-
         #region NPC
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -42,76 +38,93 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 
         #endregion
 
-        #region SendButtonForm
+        #region SendButtonIcon
 
-        private SendButtonForm sendButtonForm;
-        public SendButtonForm _SendButtonForm
+        private SendButtonIcon _SendButtonIcon;
+        public SendButtonIcon SendButtonIcon
         {
-            get => sendButtonForm;
-            set => SetProperty(ref sendButtonForm, value);
+            get => _SendButtonIcon;
+            set => SetProperty(ref _SendButtonIcon, value);
         }
 
         #endregion
-        public SendButton(double size)
+
+        private Label l;
+        private Label l2;
+
+        public SendButton()
+        {
+            PropertyChanged += SendButton_PropertyChanged;
+
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
         {
             StreamResourceInfo streamResourceInfo = Application.GetResourceStream(
-                new Uri("/Data/Resources/Images/send.svg", UriKind.Relative));
+                new Uri("/Data/Resources/Images/Send.svg", UriKind.Relative));
 
-            IconFromSVG iconFromSVG = new IconFromSVG(streamResourceInfo.Stream);
-            iconFromSVG.Width = size;
-            iconFromSVG.Height = size;
-            iconFromSVG.Background = Brushes.Black;
-            //ThemeManager.AddResourceReference(iconFromSVG);
-            //iconFromSVG.SetResourceReference(Border.BackgroundProperty,
-            //    nameof(IAppBrushes.CommonForegroundBrush));
+            IconFromSVG iconFromSVG = new IconFromSVG(streamResourceInfo.Stream)
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                Margin = new Thickness(0, 8, 15, 8)
+            };
+            ThemeManager.AddResourceReference(iconFromSVG);
+            iconFromSVG.SetResourceReference(Border.BackgroundProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
 
             StreamResourceInfo streamResourceInfo2 = Application.GetResourceStream(
-                new Uri("/Data/Resources/Images/send.svg", UriKind.Relative));
+                new Uri("/Data/Resources/Images/Microphone.svg", UriKind.Relative));
 
-            IconFromSVG iconFromSVG2 = new IconFromSVG(streamResourceInfo2.Stream);
-            iconFromSVG2.Width = size;
-            iconFromSVG2.Height = size;
-            iconFromSVG2.Background = Brushes.Yellow;
-            //ThemeManager.AddResourceReference(iconFromSVG2);
-            //iconFromSVG2.SetResourceReference(Border.BackgroundProperty,
-            //    nameof(IAppBrushes.CommonForegroundBrush));
-
-            Label l = new Label
+            IconFromSVG iconFromSVG2 = new IconFromSVG(streamResourceInfo2.Stream)
             {
-                Content = "plane"
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                Margin = new Thickness(0, 8, 15, 8)
             };
-            Label l2 = new Label
+            ThemeManager.AddResourceReference(iconFromSVG2);
+            iconFromSVG2.SetResourceReference(Border.BackgroundProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
+
+            l = new Label
             {
-                Content = "micro"
+                Content = iconFromSVG,
+                Visibility = Visibility.Collapsed
+            };
+            l2 = new Label
+            {
+                Content = iconFromSVG2
             };
 
-            Canvas canvas = new Canvas();
-            canvas.Width = size;
-            canvas.Height = size;
-            //canvas.Children.Add(iconFromSVG);
-            switch(sendButtonForm)
-            {
-                case SendButtonForm.plane:
-                    canvas.Children.Clear();
-                    canvas.Children.Add(l);
-                    break;
-
-                case SendButtonForm.microphone:
-                    canvas.Children.Clear();
-                    canvas.Children.Add(l2);
-                    break;
-            }
-                
 
             Grid mainGrid = new Grid
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Children = { canvas }
+                Children = { l, l2 }
             };
 
             Content = mainGrid;
         }
 
+        private void SendButton_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(SendButtonIcon):
+                    if (SendButtonIcon == SendButtonIcon.MicrophoneIcon)
+                    {
+                        l2.Visibility = Visibility.Visible;
+                        l.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        l2.Visibility = Visibility.Collapsed;
+                        l.Visibility = Visibility.Visible;
+                    }
+                    break;
+            }
+        }
     }
 }
