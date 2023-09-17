@@ -1,4 +1,6 @@
 ﻿using HarmonyAssistant.Core.STT;
+using HarmonyAssistant.Core.TTC;
+using HarmonyAssistant.Core.TTC.States;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Widgets.CaptionButtons;
@@ -35,10 +37,20 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
         public MainWindow()
         {
             Closing += MainWindow_Closing;
+            StateChanged += MainWindow_StateChanged;
 
             InitializeStyles();
             InitializeWindow();
             InitializeComponent();
+        }
+
+        private void MainWindow_StateChanged(object? sender, System.EventArgs e)
+        {
+            var stateManager = StateManager.GetInstance();
+            if (WindowState == WindowState.Normal)
+                stateManager.CurrentState = stateManager.GetState<OpenedState>();
+            else if (WindowState == WindowState.Minimized)
+                stateManager.CurrentState = stateManager.GetState<HiddenState>();
         }
 
         private void MainWindow_Closing(object? sender, CancelEventArgs e)

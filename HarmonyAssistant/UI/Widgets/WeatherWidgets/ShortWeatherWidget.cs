@@ -1,13 +1,13 @@
-﻿using Fizzler;
-using HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData;
+﻿using HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData;
 using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Widgets.WeatherWidgets.Base;
+using System;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows;
-using System;
-using System.Windows.Media;
 
 namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
 {
@@ -29,7 +29,6 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
                 index = 0;
 
             var probability = WeatherToday.WeatherDays[0].QuatersOfDay[index].ProbabilityOfPrecipitation;
-
 
             Label label = new Label()
             {

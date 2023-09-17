@@ -1,38 +1,38 @@
 ﻿using HarmonyAssistant.Core.STT;
+using HarmonyAssistant.Core.TTC.States;
+using HarmonyAssistant.Core.TTC.States.Base;
 using HarmonyAssistant.Data.DataSerialize;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace HarmonyAssistant.Core.TTC
 {
-    public enum AppSpeechStates
-    {
-        /// <summary>Программа находится в трее</summary>
-        Hided,
-        /// <summary>Программа открыта на панели задач</summary>
-        Opened,
-        /// <summary>Нажата кнопка "говорить"</summary>
-        SayButtonPressed
-    }
-
     public class StateManager
     {
-        public delegate void HH(string text);
+        public event Action<string> SpeechStateVerifiedEvent;
 
-        public event Action<AppSpeechStates> SpeechStateChangedEvent;
-        public event HH SpeechStateVerifiedEvent;
+        private Dictionary<Type, IState> StatesMap;
 
-        private AppSpeechStates _CurrentSpeechState = AppSpeechStates.Hided;
-        public AppSpeechStates CurrentSpeechState
+        #region CurrentState
+
+        private IState _CurrentState;
+        public IState CurrentState
         {
-            get => _CurrentSpeechState;
+            get => _CurrentState;
             set
             {
-                _CurrentSpeechState = value;
-                SpeechStateChangedEvent?.Invoke(_CurrentSpeechState);
+                if (_CurrentState == value) return;
+                if (_CurrentState != null)
+                    _CurrentState.Exit();
+
+                _CurrentState = value;
+                _CurrentState.Enter();
             }
         }
 
+        #endregion
+        
         #region Singleton
 
         private static StateManager instance;
@@ -48,6 +48,17 @@ namespace HarmonyAssistant.Core.TTC
 
         private StateManager()
         {
+            InitStates();
+            CurrentState = GetState<OpenedState>();
+        }
+
+        public IState GetState<T>() where T : IState
+        {
+            return StatesMap[typeof(T)];
+        }
+
+        public void InitCheckStates()
+        {
             CCSTTF cCSTTF = CCSTTF.GetInstance();
             cCSTTF.FileChanged += (text) =>
             {
@@ -61,9 +72,9 @@ namespace HarmonyAssistant.Core.TTC
             var greetingWords = GreetingWordsData.GetInstance().JsonObject;
             var triggerWords = TriggerWordsData.GetInstance().JsonObject;
 
-            if (CurrentSpeechState == AppSpeechStates.SayButtonPressed)
+            if (CurrentState == GetState<SayButtonPressedState>())
                 SpeechStateVerifiedEvent?.Invoke(text);
-            else if (CurrentSpeechState == AppSpeechStates.Opened)
+            else if (CurrentState == GetState<OpenedState>())
             {
                 for (int i = 0; i < triggerWords.Count; i++)
                 {
@@ -72,7 +83,7 @@ namespace HarmonyAssistant.Core.TTC
                 }
                 SpeechStateVerifiedEvent?.Invoke(text);
             }
-            else if (CurrentSpeechState == AppSpeechStates.Hided)
+            else if (CurrentState == GetState<HiddenState>())
             {
                 for (int i = 0; i < greetingWords.Count; i++)
                 {
@@ -93,16 +104,31 @@ namespace HarmonyAssistant.Core.TTC
         private bool DeleteExcessWords(ref string text, string words)
         {
             var fuzzyString = new FuzzyString.FuzzyString();
-            if (fuzzyString.FuzzySentence(text, words).Length == words.Length)
+
+            if (fuzzyString.FuzzySentence(words, text).Length == words.Length)
             {
                 text = fuzzyString.ReplaceFuzzyWord(words, text);
-                var g = text.Split(" ").ToList();
-                var j = words.Split(" ").ToList();
-                g.RemoveRange(0, j.Count);
-                text = string.Join(" ", g);
+                var g = text.ToList();
+                var j = words.ToList();
+
+                int index = text.IndexOf(words);
+                if (index == -1) return false;
+
+                g.RemoveRange(index, j.Count + 1);
+                text = string.Join("", g);
                 return true;
             }
             return false;
+        }
+
+        private void InitStates()
+        {
+            StatesMap = new Dictionary<Type, IState>
+            {
+                { typeof(HiddenState), new HiddenState() },
+                { typeof(OpenedState), new OpenedState() },
+                { typeof(SayButtonPressedState), new SayButtonPressedState() }
+            };
         }
     }
 }

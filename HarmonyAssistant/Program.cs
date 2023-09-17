@@ -24,6 +24,8 @@ namespace HarmonyAssistant
             ProgramsData.GetInstance().Initialize();
             SitesData.GetInstance().Initialize();
 
+            StateManager.GetInstance();
+
             STT sTT = STT.GetInstance();
             sTT.Start();
 
@@ -33,7 +35,7 @@ namespace HarmonyAssistant
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
 
-            StateManager.GetInstance();
+            StateManager.GetInstance().InitCheckStates();
             SkillManager.GetInstance();
 
             Application application = new Application();

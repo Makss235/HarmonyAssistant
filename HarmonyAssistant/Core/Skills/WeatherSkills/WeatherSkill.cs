@@ -1,13 +1,6 @@
 ﻿using HarmonyAssistant.Core.Skills.Base;
 using HarmonyAssistant.Core.TTC;
-using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Widgets.WeatherWidgets;
-using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HarmonyAssistant.Core.Skills.WeatherSkills
 {
