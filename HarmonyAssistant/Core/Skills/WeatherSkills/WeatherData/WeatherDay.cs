@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HarmonyAssistant.Core.Skills.WeatherSkills
+namespace HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData
 {
     public class WeatherDay
     {
@@ -12,6 +12,6 @@ namespace HarmonyAssistant.Core.Skills.WeatherSkills
         public string NightTemperature { get; set; }
 
         public List<string> Header { get; set; }
-        public List<QuaterOfDay> QuatersOfDay { get; set; }
+        public List<WeatherQuaterOfDay> QuatersOfDay { get; set; }
     }
 }

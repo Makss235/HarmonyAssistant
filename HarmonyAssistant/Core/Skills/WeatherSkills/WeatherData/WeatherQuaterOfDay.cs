@@ -1,6 +1,6 @@
-﻿namespace HarmonyAssistant.Core.Skills.WeatherSkills
+﻿namespace HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData
 {
-    public class QuaterOfDay
+    public class WeatherQuaterOfDay
     {
         public string QuaterOfDayName { get; set; }
         public string AtmosphericPhenomena { get; set; }

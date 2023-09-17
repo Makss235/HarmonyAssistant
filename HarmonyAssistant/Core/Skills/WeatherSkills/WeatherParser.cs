@@ -1,5 +1,6 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
+using HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -137,13 +138,13 @@ namespace HarmonyAssistant.Core.Skills.WeatherSkills
 
                 #endregion
 
-                weatherDay.QuatersOfDay = new List<QuaterOfDay>();
+                weatherDay.QuatersOfDay = new List<WeatherQuaterOfDay>();
                 var currentTable = panes[i + 1].GetElementsByTagName("tr").ToList();
                 for (int j = 0; j < currentTable.Count; j++)
                 {
                     #region QuaterOfDay
 
-                    QuaterOfDay quaterOfDay = new QuaterOfDay();
+                    WeatherQuaterOfDay quaterOfDay = new WeatherQuaterOfDay();
 
                     quaterOfDay.QuaterOfDayName = currentTable[j].
                         GetElementsByClassName("weather-day")[0].Text();

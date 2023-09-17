@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace HarmonyAssistant.Core.Skills.WeatherSkills
+namespace HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData
 {
     public class WeatherToday
     {
-        public string CurrentCity { get; set;  }
+        public string CurrentCity { get; set; }
         public string LastUpdateDate { get; set; }
         public string AtmosphericPhenomena { get; set; }
         public string CurrentTemperature { get; set; }
