@@ -13,8 +13,9 @@ using System.Windows.Shapes;
 
 namespace HarmonyAssistant.UI.Animations
 {
-    public class LeftPanelSlideOutAnim : FrameworkElement
+    public class LeftPanelSlideOutAnim : DoubleAnimation
     {
+
         #region MyRegion
         //private Storyboard sb;
         //private PathGeometry pg;
@@ -79,22 +80,18 @@ namespace HarmonyAssistant.UI.Animations
         #endregion
 
         private LeftPanelMenu grid;
-        private DoubleAnimation anim;
         public LeftPanelSlideOutAnim(LeftPanelMenu grid)
         {
             this.grid = grid;
 
-            anim = new DoubleAnimation
-            { 
-                Duration = TimeSpan.FromSeconds(0.1),
-                DecelerationRatio = 1,
-            };
+            this.Duration = TimeSpan.FromSeconds(0.1);
+            //this.DecelerationRatio = 1;
         }
         public void StartAnim(double actualWidth, double nextWidth)
         {
-            anim.From = actualWidth;
-            anim.To = nextWidth;
-            grid.BeginAnimation(Grid.WidthProperty, anim);
+            this.From = actualWidth;
+            this.To = nextWidth;
+            grid.BeginAnimation(Grid.WidthProperty, this);
         }
     
     }
