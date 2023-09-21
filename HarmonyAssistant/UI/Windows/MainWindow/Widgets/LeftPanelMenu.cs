@@ -181,7 +181,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             mainGrid.Children.Add(menuButtonsStackPanel);
 
             lpAnim = new LeftPanelSlideOutAnim(this);
-            //lpAnim.Completed += (s, e) => MessageBox.Show("Anim was complete");
 
             Content = mainGrid;
         }
@@ -209,7 +208,6 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
                 isClosed = false;
                 foreach (var item in buttons)
                     item.OpenButton();
-                MessageBox.Show(mainColumnDefinition.ActualWidth.ToString());
             }
             else
             {
