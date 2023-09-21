@@ -114,8 +114,8 @@ namespace HarmonyAssistant.Core.TTC
                 int index = text.IndexOf(words);
                 if (index == -1) return false;
 
-                g.RemoveRange(index, j.Count + 1);
-                text = string.Join("", g);
+                g.RemoveRange(index, j.Count);
+                text = string.Join("", g).Trim();
                 return true;
             }
             return false;

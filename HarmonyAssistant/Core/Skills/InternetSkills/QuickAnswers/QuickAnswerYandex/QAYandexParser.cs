@@ -1,6 +1,6 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
-using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base;
+using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.Base;
 using HarmonyAssistant.UI.Styles;
 using System;
 using System.Net.Http;
@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer
+namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYandex
 {
-    public class YandexParser : QuickAnswerParser
+    public class QAYandexParser : QAParser
     {
         public override event Action ParsedEvent;
 
-        public YandexParser(string url) : base(url) { }
+        public QAYandexParser(string url) : base(url) { }
 
         public override void Parse()
         {

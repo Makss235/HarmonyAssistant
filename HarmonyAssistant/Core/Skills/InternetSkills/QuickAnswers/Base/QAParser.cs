@@ -1,14 +1,11 @@
 ﻿using HarmonyAssistant.UI.Styles;
-using HarmonyAssistant.UI.Widgets;
 using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
-namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base
+namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.Base
 {
-    public abstract class QuickAnswerParser
+    public abstract class QAParser
     {
         public abstract event Action ParsedEvent;
 
@@ -18,7 +15,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswer.Base
         protected string url;
         protected Style HeaderTextBlockStyle;
 
-        public QuickAnswerParser(string url)
+        public QAParser(string url)
         {
             this.url = url;
 

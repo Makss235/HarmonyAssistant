@@ -1,5 +1,5 @@
 ﻿using HarmonyAssistant.Core.Skills.Base;
-using HarmonyAssistant.Core.Skills.InternetSkill.QuickAnswer;
+using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYandex;
 using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
 using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
                     string url = "https://yandex.ru/search/?text=" + string.Join("", charArraySearch);
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        YandexParser parseYandex = new YandexParser(url);
+                        QAYandexParser parseYandex = new QAYandexParser(url);
                         parseYandex.Parse();
 
                         oCS.AnswerPresenter = parseYandex.AnswerPresenter;
@@ -62,7 +62,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                YandexParser parseYandex = new YandexParser(url);
+                QAYandexParser parseYandex = new QAYandexParser(url);
                 parseYandex.Parse();
 
                 oCS.AnswerPresenter = parseYandex.AnswerPresenter;
