@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Icons;
+﻿using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Icons;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using System;
@@ -49,8 +50,11 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 
         #endregion
 
-        private Label l;
-        private Label l2;
+        private Label planeLabel;
+        private Label microphoneLabel;
+
+        private SendButtonChangeAnim toPlaneAnim;
+        private SendButtonChangeAnim toMicroAnim;
 
         public SendButton()
         {
@@ -61,48 +65,49 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 
         private void InitializeComponent()
         {
-            StreamResourceInfo streamResourceInfo = Application.GetResourceStream(
+            StreamResourceInfo streamPlaneResInfo = Application.GetResourceStream(
                 new Uri("/Data/Resources/Images/Send.svg", UriKind.Relative));
 
-            IconFromSVG iconFromSVG = new IconFromSVG(streamResourceInfo.Stream)
+            IconFromSVG planeIcon = new IconFromSVG(streamPlaneResInfo.Stream)
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
                 Margin = new Thickness(0, 8, 15, 8)
             };
-            ThemeManager.AddResourceReference(iconFromSVG);
-            iconFromSVG.SetResourceReference(Border.BackgroundProperty,
+            ThemeManager.AddResourceReference(planeIcon);
+            planeIcon.SetResourceReference(Border.BackgroundProperty,
                 nameof(IAppBrushes.CommonForegroundBrush));
 
-            StreamResourceInfo streamResourceInfo2 = Application.GetResourceStream(
+            StreamResourceInfo streamMicroResInfo = Application.GetResourceStream(
                 new Uri("/Data/Resources/Images/Microphone.svg", UriKind.Relative));
 
-            IconFromSVG iconFromSVG2 = new IconFromSVG(streamResourceInfo2.Stream)
+            IconFromSVG microIcon = new IconFromSVG(streamMicroResInfo.Stream)
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
                 Margin = new Thickness(0, 8, 15, 8)
             };
-            ThemeManager.AddResourceReference(iconFromSVG2);
-            iconFromSVG2.SetResourceReference(Border.BackgroundProperty,
+            ThemeManager.AddResourceReference(microIcon);
+            microIcon.SetResourceReference(Border.BackgroundProperty,
                 nameof(IAppBrushes.CommonForegroundBrush));
 
-            l = new Label
+            planeLabel = new Label
             {
-                Content = iconFromSVG,
-                Visibility = Visibility.Collapsed
+                Content = planeIcon,
             };
-            l2 = new Label
+            microphoneLabel = new Label
             {
-                Content = iconFromSVG2
+                Content = microIcon
             };
 
+            toMicroAnim = new SendButtonChangeAnim(planeLabel, microphoneLabel);
+            toPlaneAnim = new SendButtonChangeAnim(microphoneLabel, planeLabel);
 
             Grid mainGrid = new Grid
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Children = { l, l2 }
+                Children = { planeLabel, microphoneLabel }
             };
 
             Content = mainGrid;
@@ -115,13 +120,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
                 case nameof(SendButtonIcon):
                     if (SendButtonIcon == SendButtonIcon.MicrophoneIcon)
                     {
-                        l2.Visibility = Visibility.Visible;
-                        l.Visibility = Visibility.Collapsed;
+                        toMicroAnim.StartAnim(true);
+                        toPlaneAnim.StartAnim(false);
                     }
                     else
                     {
-                        l2.Visibility = Visibility.Collapsed;
-                        l.Visibility = Visibility.Visible;
+                        toPlaneAnim.StartAnim(true);
+                        toMicroAnim.StartAnim(false);
                     }
                     break;
             }

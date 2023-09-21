@@ -36,11 +36,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         private Grid mainGrid;
 
         private LeftPanelSlideOutAnim lpAnim;
-        private bool isClosed = false;
+        private bool isClosed;
+        private double requiredWidth;
 
         public LeftPanelMenu(List<Tab> tabs) 
         {
             Tabs = tabs;
+            isClosed = false;
 
             InitializeComponent();
         }
@@ -179,6 +181,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             mainGrid.Children.Add(menuButtonsStackPanel);
 
             lpAnim = new LeftPanelSlideOutAnim(this);
+            //lpAnim.Completed += (s, e) => MessageBox.Show("Anim was complete");
 
             Content = mainGrid;
         }
@@ -198,27 +201,24 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (/*headerBorder.Visibility == Visibility.Collapsed*/isClosed)
+            if (isClosed)
             {
-                //headerBorder.Visibility = Visibility.Visible;
+                headerBorder.Visibility = Visibility.Visible;
 
-                //new HeaderRemovelAnim(mainGrid, headerBorder, isClosed);
                 lpAnim.StartAnim(this.ActualWidth, 250);
                 isClosed = false;
-                //foreach (var item in buttons)
-                //    item.OpenButton();
-                //MessageBox.Show(this.ActualWidth.ToString());
+                foreach (var item in buttons)
+                    item.OpenButton();
+                MessageBox.Show(mainColumnDefinition.ActualWidth.ToString());
             }
             else
             {
-                //headerBorder.Visibility = Visibility.Collapsed;
+                headerBorder.Visibility = Visibility.Collapsed;
 
-                new HeaderRemovelAnim(mainGrid, headerBorder, isClosed);
-                lpAnim.StartAnim(this.ActualWidth, 53);
+                lpAnim.StartAnim(this.ActualWidth, leftColumnDefinition.ActualWidth);
                 isClosed = true;
-                //foreach (var item in buttons)
-                //    item.CloseButton();
-                //MessageBox.Show(this.ActualWidth.ToString());
+                foreach (var item in buttons)
+                    item.CloseButton();
 
             }
         }
