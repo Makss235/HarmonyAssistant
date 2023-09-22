@@ -95,10 +95,15 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
             {
                 Content = planeIcon,
             };
+            planeLabel.MouseEnter += (s, e) => planeLabel.Opacity = 0.7;
+            planeLabel.MouseLeave += (s, e) => planeLabel.Opacity = 1;
+
             microphoneLabel = new Label
             {
                 Content = microIcon
             };
+            microphoneLabel.MouseEnter += (s, e) => microphoneLabel.Opacity = 0.7;
+            microphoneLabel.MouseLeave += (s, e) => microphoneLabel.Opacity = 1;
 
             toMicroAnim = new SendButtonChangeAnim(planeLabel, microphoneLabel);
             toPlaneAnim = new SendButtonChangeAnim(microphoneLabel, planeLabel);
