@@ -24,9 +24,9 @@ namespace HarmonyAssistant.UI.Animations
             canClick = true;
             this.fromLabel = fromLabel;
             this.toLabel = toLabel;
-            fromLabel.RenderTransformOrigin = new Point(0.4, 0.5);
+            fromLabel.RenderTransformOrigin = new Point(0.5, 0.5);
             fromLabel.RenderTransform = new ScaleTransform(1.0, 1.0);
-            toLabel.RenderTransformOrigin = new Point(0.4, 0.5);
+            toLabel.RenderTransformOrigin = new Point(0.5, 0.5);
             toLabel.RenderTransform = new ScaleTransform(0, 0);
 
             animDecrease = new DoubleAnimation()

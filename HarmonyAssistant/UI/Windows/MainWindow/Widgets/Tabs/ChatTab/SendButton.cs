@@ -8,7 +8,9 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 using System.Windows.Resources;
+using System.Windows.Shapes;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 {
@@ -55,6 +57,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 
         private SendButtonChangeAnim toPlaneAnim;
         private SendButtonChangeAnim toMicroAnim;
+        private SendBtnEllipseAnim ellipseAnim;
 
         public SendButton()
         {
@@ -65,6 +68,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 
         private void InitializeComponent()
         {
+            Ellipse el = new Ellipse
+            {
+                Fill = Brushes.Blue,
+                Width = 45,
+                Height = 45,
+                //Margin = new Thickness(0, 8, 15, 8)
+            };
+
             StreamResourceInfo streamPlaneResInfo = Application.GetResourceStream(
                 new Uri("/Data/Resources/Images/Send.svg", UriKind.Relative));
 
@@ -72,7 +83,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
-                Margin = new Thickness(0, 8, 15, 8)
+                Margin = new Thickness(5, 8, 0, 8)
             };
             ThemeManager.AddResourceReference(planeIcon);
             planeIcon.SetResourceReference(Border.BackgroundProperty,
@@ -85,7 +96,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
-                Margin = new Thickness(0, 8, 15, 8)
+                Margin = new Thickness(10.2, 8, 0, 8)
             };
             ThemeManager.AddResourceReference(microIcon);
             microIcon.SetResourceReference(Border.BackgroundProperty,
@@ -100,22 +111,36 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
 
             microphoneLabel = new Label
             {
-                Content = microIcon
+                Content = microIcon,
             };
             microphoneLabel.MouseEnter += (s, e) => microphoneLabel.Opacity = 0.7;
             microphoneLabel.MouseLeave += (s, e) => microphoneLabel.Opacity = 1;
 
             toMicroAnim = new SendButtonChangeAnim(planeLabel, microphoneLabel);
             toPlaneAnim = new SendButtonChangeAnim(microphoneLabel, planeLabel);
+            ellipseAnim = new SendBtnEllipseAnim(el);
 
             Grid mainGrid = new Grid
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Children = { planeLabel, microphoneLabel }
+                Children = { el, planeLabel, microphoneLabel },
             };
+            PreviewKeyDown += MainGrid_KeyDown;
 
             Content = mainGrid;
+        }
+
+        private void MainGrid_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key == System.Windows.Input.Key.A)
+            {
+                ellipseAnim.StartAnim();
+            }
+            else if(e.Key == System.Windows.Input.Key.W)
+            {
+                ellipseAnim.StopAnim();
+            }
         }
 
         private void SendButton_PropertyChanged(object? sender, PropertyChangedEventArgs e)
