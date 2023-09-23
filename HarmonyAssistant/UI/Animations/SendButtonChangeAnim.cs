@@ -16,14 +16,18 @@ namespace HarmonyAssistant.UI.Animations
         private DoubleAnimation animDecrease;
         private Storyboard sb;
         private Storyboard sb2;
+        private Label fromLabel;
+        private Label toLabel;
         private bool canClick;
-        public SendButtonChangeAnim(Label l, Label l2)
+        public SendButtonChangeAnim(Label fromLabel, Label toLabel)
         {
             canClick = true;
-            l.RenderTransformOrigin = new Point(0.5, 0.5);
-            l.RenderTransform = new ScaleTransform(1.0, 1.0);
-            l2.RenderTransformOrigin = new Point(0.5, 0.5);
-            l2.RenderTransform = new ScaleTransform(0, 0);
+            this.fromLabel = fromLabel;
+            this.toLabel = toLabel;
+            fromLabel.RenderTransformOrigin = new Point(0.5, 0.5);
+            fromLabel.RenderTransform = new ScaleTransform(1.0, 1.0);
+            toLabel.RenderTransformOrigin = new Point(0.5, 0.5);
+            toLabel.RenderTransform = new ScaleTransform(0, 0);
 
             animDecrease = new DoubleAnimation()
             {
@@ -42,8 +46,8 @@ namespace HarmonyAssistant.UI.Animations
             sb.Children.Add(animDecrease);
             sb2 = new Storyboard();
             sb2.Children.Add(animIncrease);
-            Storyboard.SetTarget(animDecrease, l);
-            Storyboard.SetTarget(animIncrease, l2);
+            Storyboard.SetTarget(animDecrease, fromLabel);
+            Storyboard.SetTarget(animIncrease, toLabel);
             sb.Completed += Sb_Completed;
             sb2.Completed += (s, e) => canClick = true;
         }
@@ -56,6 +60,7 @@ namespace HarmonyAssistant.UI.Animations
                 sb.Begin();
                 Storyboard.SetTargetProperty(animDecrease, new PropertyPath("RenderTransform.ScaleX"));
                 sb.Begin();
+                fromLabel.BeginAnimation(Label.OpacityProperty, animDecrease);
             }
         }
 
@@ -65,6 +70,7 @@ namespace HarmonyAssistant.UI.Animations
             sb2.Begin();
             Storyboard.SetTargetProperty(animIncrease, new PropertyPath("RenderTransform.ScaleX"));
             sb2.Begin();
+            toLabel.BeginAnimation(Label.OpacityProperty, animIncrease);
         }
     }
 }

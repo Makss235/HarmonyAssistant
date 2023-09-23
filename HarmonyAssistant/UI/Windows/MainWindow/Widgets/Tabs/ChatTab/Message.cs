@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Styles;
+﻿using HarmonyAssistant.UI.Animations;
+using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
@@ -87,8 +88,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             g.Children.Add(b);
             g.Children.Add(designForMessageBubble);
 
+            ChatBubbleAppearAnim appearAnim = new ChatBubbleAppearAnim(this);
+            this.Loaded += (s, e) => appearAnim.StartAnim(sendMessageBy);
+
             Margin = new Thickness(0, 5, 0, 5);
             Content = g;
+
         }
     }
 }
