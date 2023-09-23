@@ -36,6 +36,22 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
         public MainWindow()
         {
+            var stateManager = StateManager.GetInstance();
+            stateManager.GetState<OpenedState>().StateEnter += () =>
+            {
+                Application.Current.Dispatcher.Invoke(() => 
+                {
+                    WindowState = WindowState.Normal;
+                });
+            };
+            stateManager.GetState<HiddenState>().StateEnter += () =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    WindowState = WindowState.Minimized;
+                });
+            };
+
             Closing += MainWindow_Closing;
             StateChanged += MainWindow_StateChanged;
 

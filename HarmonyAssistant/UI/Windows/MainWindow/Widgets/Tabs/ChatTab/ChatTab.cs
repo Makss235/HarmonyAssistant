@@ -61,6 +61,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         public void SendMessage(object content, SendMessageBy sendMessageBy)
         {
+            var stateManager = StateManager.GetInstance();
+            stateManager.CurrentState = stateManager.GetState<OpenedState>();
+
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Messages.Add(new Message(content, sendMessageBy));
