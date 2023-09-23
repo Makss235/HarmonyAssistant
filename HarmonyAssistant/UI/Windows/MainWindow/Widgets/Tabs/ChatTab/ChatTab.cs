@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.Core.TTC;
+using HarmonyAssistant.Core.TTC.States;
 using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
@@ -157,12 +158,21 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var sm = StateManager.GetInstance();
+
             if (!string.IsNullOrEmpty(textBox.Text))
             {
                 SendMessage(textBox.Text, SendMessageBy.ByMe);
                 SkillManager.GetInstance().DefineSkills(textBox.Text);
                 textBox.Clear();
                 button.SendButtonIcon = SendButtonIcon.MicrophoneIcon;
+            }
+            else
+            {
+                if (sm.CurrentState == sm.GetState<OpenedState>())
+                    sm.CurrentState = sm.GetState<SayButtonPressedState>();
+                else if (sm.CurrentState == sm.GetState<SayButtonPressedState>())
+                    sm.CurrentState = sm.GetState<OpenedState>();
             }
         }
 
@@ -175,12 +185,18 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         private void ChatTab_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
+            var sm = StateManager.GetInstance();
+
             switch (e.PropertyName)
             {
                 case nameof(TextMessage):
                     if (string.IsNullOrEmpty(TextMessage))
                         button.SendButtonIcon = SendButtonIcon.MicrophoneIcon;
-                    else button.SendButtonIcon = SendButtonIcon.SendIcon;
+                    else
+                    {
+                        button.SendButtonIcon = SendButtonIcon.SendIcon;
+                        sm.CurrentState = sm.GetState<OpenedState>();
+                    }
                     break;
             }
         }

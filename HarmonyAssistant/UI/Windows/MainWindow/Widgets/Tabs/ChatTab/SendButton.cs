@@ -1,4 +1,6 @@
-﻿using HarmonyAssistant.UI.Animations;
+﻿using HarmonyAssistant.Core.TTC;
+using HarmonyAssistant.Core.TTC.States;
+using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Icons;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
@@ -63,6 +65,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
         {
             PropertyChanged += SendButton_PropertyChanged;
 
+            var sm = StateManager.GetInstance();
+            sm.GetState<SayButtonPressedState>().StateEnter += SendButton_StateEnter;
+            sm.GetState<SayButtonPressedState>().StateExit += SendButton_StateExit;
+
             InitializeComponent();
         }
 
@@ -126,21 +132,18 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Children = { el, planeLabel, microphoneLabel },
             };
-            PreviewKeyDown += MainGrid_KeyDown;
 
             Content = mainGrid;
         }
 
-        private void MainGrid_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void SendButton_StateExit()
         {
-            if(e.Key == System.Windows.Input.Key.A)
-            {
-                ellipseAnim.StartAnim();
-            }
-            else if(e.Key == System.Windows.Input.Key.W)
-            {
-                ellipseAnim.StopAnim();
-            }
+            ellipseAnim.StopAnim();
+        }
+
+        private void SendButton_StateEnter()
+        {
+            ellipseAnim.StartAnim();
         }
 
         private void SendButton_PropertyChanged(object? sender, PropertyChangedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using HarmonyAssistant.Core.Base;
 using HarmonyAssistant.Core.Skills.InternetSkills;
+using HarmonyAssistant.Core.TTC.States;
 using HarmonyAssistant.Data.DataSerialize;
 using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using System;
@@ -64,6 +65,10 @@ namespace HarmonyAssistant.Core.TTC
 
         public async void DefineSkills(string cleanText)
         {
+            var sm = StateManager.GetInstance();
+            if (sm.CurrentState == sm.GetState<SayButtonPressedState>())
+                sm.CurrentState = sm.GetState<OpenedState>();
+
             string processedText = NormalizeSentence(cleanText);
 
             List<WordsObject> wordsObjectsList = new List<WordsObject>();
