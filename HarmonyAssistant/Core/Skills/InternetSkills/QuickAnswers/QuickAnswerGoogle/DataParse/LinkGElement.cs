@@ -8,7 +8,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
 {
     public class LinkGElement
     {
-        public string Link { get; set; }
+        public string SourceLink { get; set; }
         public string ArticleTitle { get; set; }
         public string IconSource { get; set; }
         public string SiteName { get; set; }
