@@ -1,5 +1,6 @@
 ﻿using HarmonyAssistant.Core.Base;
 using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGoogle;
+using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYandex;
 using HarmonyAssistant.Core.STT;
 using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
@@ -17,7 +18,7 @@ namespace HarmonyAssistant
         [STAThread]
         static void Main(string[] args)
         {
-            QAGoogleParser googleParser = new QAGoogleParser("https://www.google.ru/search?q=%D1%87%D1%82%D0%BE+%D1%82%D0%B0%D0%BA%D0%BE%D0%B5+%D0%B4%D0%BE%D0%BC&newwindow=1&sca_esv=567392669&sxsrf=AM9HkKm1juJ8K8emuZTu-ANt-_haozyGLQ%3A1695329813266&source=hp&ei=Fa4MZYnsDevFwPAPluqi6AQ&iflsig=AO6bgOgAAAAAZQy8JZcnGV5z4qTEP9D2luY2zEmGhzUy&oq=%D1%87%D1%82%D0%BE+&gs_lp=Egdnd3Mtd2l6IgfRh9GC0L4gKgIIATIHECMYigUYJzIHECMYigUYJzIHECMYigUYJzIEEAAYAzILEAAYigUYsQMYgwEyCxAAGIoFGLEDGIMBMgUQABiABDILEAAYigUYsQMYgwEyCxAAGIAEGLEDGMkDMggQABiABBiSA0ikH1CaCFioD3ABeACQAQCYAbsCoAHbBKoBBzIuMS4wLjG4AQHIAQD4AQGoAgrCAgcQIxjqAhgnwgIHEAAYigUYQ8ICBRAuGIAEwgILEAAYgAQYsQMYgwE&sclient=gws-wiz");
+            QAYandexParser googleParser = new QAYandexParser("https://ya.ru/search/?text=%D1%87%D1%82%D0%BE+%D0%BF%D0%BE%D1%8F%D0%B2%D0%B8%D0%BB%D0%BE%D1%81%D1%8C+%D1%80%D0%B0%D0%BD%D1%8C%D1%88%D0%B5+%D0%BA%D1%83%D1%80%D0%B8%D1%86%D0%B0+%D0%B8%D0%BB%D0%B8+%D1%8F%D0%B9%D1%86%D0%BE&lr=120612&search_source=yaru_desktop_common&search_domain=yaru&src=suggest_B");
             googleParser.Parse();
 
             SettingsData.GetInstance().Initialize();
