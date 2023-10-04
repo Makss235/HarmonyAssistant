@@ -1,29 +1,32 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
-using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.Base;
 using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYandex.DataParse;
-using HarmonyAssistant.UI.Styles;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYandex
 {
-    public class QAYandexParser : QAParser
+    public class QAYandexParser
     {
-        public override event Action ParsedEvent;
+        public QuickDefinition QuickDefinition { get; set; }
+        public RightTermDefinition RightTermDefinition { get; set; }
 
-        public QAYandexParser(string url) : base(url) { }
+        private string url;
 
-        public override void Parse()
+        public QAYandexParser(string url) 
+        {
+            this.url = url;
+        }
+
+        public void Parse()
         {
             var doc = Task.Run(async () =>
             {
                 HttpClient client = new HttpClient();
+                //client.DefaultRequestHeaders.Add("User-Agent",
+                //        "Mozilla/5.0 (Windows NT 11.0; Win64; x64; rv:23.0) Gecko/20100101 Firefox/77.0");
                 string page = await client.GetStringAsync(url);
 
                 var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
@@ -34,17 +37,17 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYa
             var elems = doc.Result.GetElementsByClassName("Fact Fact_flexSize_no");
             if (elems.Length != 0)
             {
-                QuickDefinition quickDefinition = new QuickDefinition();
+                QuickDefinition = new QuickDefinition();
                 var elem = elems[0];
 
                 var t1 = elem.Children.Where(p => p.ClassList.Contains("Typo_line_m") && 
                 !p.ClassList.Contains("ExtraActions")).ToArray();
-                if (t1.Length != 0) quickDefinition.FactAnswer = t1[0].Text();
+                if (t1.Length != 0) QuickDefinition.FactAnswer = t1[0].Text();
 
                 var t2 = elem.GetElementsByClassName("Fact-ECFragment Fact-ECFragment Fact-ECFragment_typo");
                 if (t2.Length != 0)
                 {
-                    quickDefinition.FactFragments = new List<FactFragment>();
+                    QuickDefinition.FactFragments = new List<FactFragment>();
                     foreach (var item in t2)
                     {
                         FactFragment fragment = new FactFragment();
@@ -52,23 +55,23 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYa
                             fragment.NumberInOrder = item.GetAttribute("data-position");
                         fragment.TextFragment = item.Text();
 
-                        quickDefinition.FactFragments.Add(fragment);
+                        QuickDefinition.FactFragments.Add(fragment);
                     }
                 }
 
                 var t3 = elem.GetElementsByClassName("Link Fact-SiteSource");
                 if (t3.Length != 0)
                 {
-                    quickDefinition.SitePath = t3[0].GetAttribute("href");
+                    QuickDefinition.SitePath = t3[0].GetAttribute("href");
 
                     var t4 = t3[0].GetElementsByClassName("Path-Item");
-                    if (t4.Length != 0) quickDefinition.SiteName = t4[0].Text();
+                    if (t4.Length != 0) QuickDefinition.SiteName = t4[0].Text();
 
                     var t5 = t3[0].GetElementsByClassName("Fact-HostDescription");
-                    if (t5.Length != 0) quickDefinition.SiteType = t5[0].Text();
+                    if (t5.Length != 0) QuickDefinition.SiteType = t5[0].Text();
 
                     var t6 = t3[0].GetElementsByClassName("OneLine Fact-Title Typo Typo_text_xm Typo_line_m");
-                    if (t6.Length != 0) quickDefinition.ArticleName = t6[0].Text();
+                    if (t6.Length != 0) QuickDefinition.ArticleName = t6[0].Text();
                 }
             }
 
@@ -76,23 +79,23 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYa
                 "entity-search entity-search_type_false entity-search_wiki");
             if (elems1.Length != 0)
             {
-                RightTermDefinition rightTermDefinition = new RightTermDefinition();
+                RightTermDefinition = new RightTermDefinition();
                 var elem = elems1[0];
 
                 var t1 = elem.GetElementsByClassName("serp-title_type_supertitle");
-                if (t1.Length != 0) rightTermDefinition.Term = t1[0].Text();
+                if (t1.Length != 0) RightTermDefinition.Term = t1[0].Text();
 
                 var t2 = elem.GetElementsByClassName("serp-title_type_subtitle");
-                if (t2.Length != 0) rightTermDefinition.SubTitle = t2[0].Text();
+                if (t2.Length != 0) RightTermDefinition.SubTitle = t2[0].Text();
 
                 var t3 = elem.GetElementsByClassName("ExtendedText-Full");
                 if (t3.Length != 0)
                 {
                     var t31 = t3[0].GetElementsByClassName("Description-Paragraph");
 
-                    rightTermDefinition.DefinitionParagraphes = new List<string>();
+                    RightTermDefinition.DefinitionParagraphes = new List<string>();
                     foreach (var item in t31)
-                        rightTermDefinition.DefinitionParagraphes.Add(item.Text());
+                        RightTermDefinition.DefinitionParagraphes.Add(item.Text());
                 }
 
                 var t4 = elem.GetElementsByClassName("EntitySearchHint Description-Source");
@@ -100,8 +103,8 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYa
                 {
                     var t41 = elem.GetElementsByTagName("a");
 
-                    rightTermDefinition.SourceLink = t41[0].GetAttribute("href");
-                    rightTermDefinition.SourceTitle = t4[0].Text();
+                    RightTermDefinition.SourceLink = t41[0].GetAttribute("href");
+                    RightTermDefinition.SourceTitle = t4[0].Text();
                 }
             }
 
@@ -188,70 +191,70 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYa
             #endregion
         }
 
-        private void ChechMarginElement(FrameworkElement element, Panel parent)
-        {
-            if (parent.Children.Count > 0)
-            {
-                foreach (var child in parent.Children)
-                {
-                    try
-                    {
-                        if ((child as FrameworkElement).Style == HeaderTextBlockStyle)
-                        {
-                            element.Margin = new Thickness(10, 4, 10, 4);
-                            break;
-                        }
-                        else
-                        {
-                            element.Margin = new Thickness(0, 6, 0, 0);
-                            break;
-                        }
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-                }
-            }
-        }
+        //private void ChechMarginElement(FrameworkElement element, Panel parent)
+        //{
+        //    if (parent.Children.Count > 0)
+        //    {
+        //        foreach (var child in parent.Children)
+        //        {
+        //            try
+        //            {
+        //                if ((child as FrameworkElement).Style == HeaderTextBlockStyle)
+        //                {
+        //                    element.Margin = new Thickness(10, 4, 10, 4);
+        //                    break;
+        //                }
+        //                else
+        //                {
+        //                    element.Margin = new Thickness(0, 6, 0, 0);
+        //                    break;
+        //                }
+        //            }
+        //            catch
+        //            {
+        //                continue;
+        //            }
+        //        }
+        //    }
+        //}
 
-        private FrameworkElement ListItemPresenter(IElement element)
-        {
-            TextBlock mainTextBlock = new TextBlock()
-            {
-                Text = element.Text(),
-                Style = TextBlockStyles.CommonTextBlockStyle
-            };
-            Text += element.Text() + "\n";
+        //private FrameworkElement ListItemPresenter(IElement element)
+        //{
+        //    TextBlock mainTextBlock = new TextBlock()
+        //    {
+        //        Text = element.Text(),
+        //        Style = TextBlockStyles.CommonTextBlockStyle
+        //    };
+        //    Text += element.Text() + "\n";
 
-            var dataPositionAttr = element.Attributes["data-position"];
-            if (dataPositionAttr != null)
-            {
-                TextBlock positionTextBlock = new TextBlock()
-                {
-                    Text = dataPositionAttr.Value,
-                    Style = TextBlockStyles.CommonTextBlockStyle,
-                    Margin = new Thickness(0, 0, 5, 0)
-                };
-                Grid.SetColumn(positionTextBlock, 0);
+        //    var dataPositionAttr = element.Attributes["data-position"];
+        //    if (dataPositionAttr != null)
+        //    {
+        //        TextBlock positionTextBlock = new TextBlock()
+        //        {
+        //            Text = dataPositionAttr.Value,
+        //            Style = TextBlockStyles.CommonTextBlockStyle,
+        //            Margin = new Thickness(0, 0, 5, 0)
+        //        };
+        //        Grid.SetColumn(positionTextBlock, 0);
 
-                mainTextBlock.Margin = new Thickness(5, 0, 0, 0);
-                Grid.SetColumn(mainTextBlock, 1);
+        //        mainTextBlock.Margin = new Thickness(5, 0, 0, 0);
+        //        Grid.SetColumn(mainTextBlock, 1);
 
-                ColumnDefinition positionColumnDefinition = new ColumnDefinition()
-                { Width = new GridLength(1, GridUnitType.Auto) };
+        //        ColumnDefinition positionColumnDefinition = new ColumnDefinition()
+        //        { Width = new GridLength(1, GridUnitType.Auto) };
 
-                ColumnDefinition mainColumnDefinition = new ColumnDefinition()
-                { Width = new GridLength(1, GridUnitType.Star) };
+        //        ColumnDefinition mainColumnDefinition = new ColumnDefinition()
+        //        { Width = new GridLength(1, GridUnitType.Star) };
 
-                Grid grid = new Grid();
-                grid.ColumnDefinitions.Add(positionColumnDefinition);
-                grid.ColumnDefinitions.Add(mainColumnDefinition);
-                grid.Children.Add(positionTextBlock);
-                grid.Children.Add(mainTextBlock);
-                return grid;
-            }
-            else return mainTextBlock;
-        }
+        //        Grid grid = new Grid();
+        //        grid.ColumnDefinitions.Add(positionColumnDefinition);
+        //        grid.ColumnDefinitions.Add(mainColumnDefinition);
+        //        grid.Children.Add(positionTextBlock);
+        //        grid.Children.Add(mainTextBlock);
+        //        return grid;
+        //    }
+        //    else return mainTextBlock;
+        //}
     }
 }
