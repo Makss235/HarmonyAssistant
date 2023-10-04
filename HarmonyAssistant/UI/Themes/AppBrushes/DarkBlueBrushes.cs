@@ -11,6 +11,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
         public Brush TabBackgroundBrush { get; }
         public Brush ChatMessageBrush { get; }
         public Brush HighlightingIconBrush { get; }
+        public Brush EllipseInSendButtonBrush { get; }
 
         public ResourceDictionary ResourceDictionary { get; private set; }
 
@@ -43,13 +44,17 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
             HighlightingIconBrush = new SolidColorBrush(new Color()
             { R = 50, G = 50, B = 100, A = 255 });
 
+            EllipseInSendButtonBrush = new SolidColorBrush(new Color()
+            { R = 36, G = 74, B = 156, A = 255 });
+
             ResourceDictionary = new ResourceDictionary
             {
                 { nameof(CommonBackgroundBrush), CommonBackgroundBrush },
                 { nameof(CommonForegroundBrush), CommonForegroundBrush },
                 { nameof(TabBackgroundBrush), TabBackgroundBrush },
                 { nameof(ChatMessageBrush), ChatMessageBrush },
-                { nameof(HighlightingIconBrush), HighlightingIconBrush }
+                { nameof(HighlightingIconBrush), HighlightingIconBrush },
+                { nameof(EllipseInSendButtonBrush), EllipseInSendButtonBrush },
             };
         }
     }
