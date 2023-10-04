@@ -7,6 +7,7 @@ namespace HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData
         public string CurrentCity { get; set; }
         public string LastUpdateDate { get; set; }
         public string AtmosphericPhenomena { get; set; }
+        public string ClassPhenomena { get; set; }
         public string CurrentTemperature { get; set; }
         public string CurrentTemperatureWater { get; set; }
 

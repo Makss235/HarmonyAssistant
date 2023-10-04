@@ -8,6 +8,7 @@ namespace HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData
         public string NumberMonth { get; set; }
         public string Month { get; set; }
         public string AtmosphericPhenomena { get; set; }
+        public string ClassPhenomena { get; set; }
         public string DayTemperature { get; set; }
         public string NightTemperature { get; set; }
 

@@ -35,11 +35,19 @@ namespace HarmonyAssistant.Core.Skills.WeatherSkills
             WeatherToday.CurrentCity = tagWithCurrentCity.Text();
             WeatherToday.LastUpdateDate = weatherNowInfo.GetElementsByTagName("p")[0].
                 GetElementsByTagName("b")[0].Text();
+
             WeatherToday.CurrentTemperature = weatherNowInfo.GetElementsByTagName("div").
                 Where(p => p.GetAttribute("id") == "weather-now-number").First().Text();
-            WeatherToday.AtmosphericPhenomena = weatherNowInfo.GetElementsByTagName("span").
-                Where(p => Equals(p.GetAttribute("id"), "weather-now-icon")).
-                First().GetAttribute("title");
+
+            var fgfg = weatherNowInfo.GetElementsByTagName("span").
+                Where(p => Equals(p.GetAttribute("id"), "weather-now-icon"));
+
+            WeatherToday.AtmosphericPhenomena = fgfg.First().GetAttribute("title");
+            var fdfd = fgfg.First().ClassName?.Split(" ");
+            if (fdfd.Length >= 3)
+                WeatherToday.ClassPhenomena = fdfd[1];
+            else WeatherToday.ClassPhenomena = "d000";
+
             WeatherToday.CurrentTemperatureWater = weatherNowInfo.GetElementsByTagName("a").
                 Where(p => p.ClassName.Contains("tooltip water-now")).First().Text();
 
@@ -130,8 +138,14 @@ namespace HarmonyAssistant.Core.Skills.WeatherSkills
                 weatherDay.DayOfWeek = tabs[i].GetElementsByClassName("day-week")[0].Text();
                 weatherDay.NumberMonth = tabs[i].GetElementsByClassName("numbers-month")[0].Text();
                 weatherDay.Month = tabs[i].GetElementsByClassName("month")[0].Text();
-                weatherDay.AtmosphericPhenomena = tabs[i].GetElementsByClassName(
-                    "icon-weather")[0].GetAttribute("title");
+
+                var ttt = tabs[i].GetElementsByClassName("icon-weather")[0];
+                weatherDay.AtmosphericPhenomena = ttt.GetAttribute("title");
+                var fdfd1 = ttt.ClassName?.Split(" ");
+                if (fdfd1.Length >= 4)
+                    weatherDay.ClassPhenomena = fdfd1[2];
+                else weatherDay.ClassPhenomena = "d000";
+
                 weatherDay.DayTemperature = tabs[i].GetElementsByClassName("day-temperature")[0].Text();
                 weatherDay.NightTemperature = tabs[i].GetElementsByClassName("night-temperature")[0].Text();
                 weatherDay.Header = strings;
@@ -151,8 +165,13 @@ namespace HarmonyAssistant.Core.Skills.WeatherSkills
 
                     var g1 = currentTable[j].GetElementsByClassName("weather-temperature")[0];
                     quaterOfDay.Temperature = g1.Text();
-                    quaterOfDay.AtmosphericPhenomena = g1.GetElementsByTagName(
-                        "div")[0].GetAttribute("title");
+
+                    var hbhb = g1.GetElementsByTagName("div")[0];
+                    quaterOfDay.AtmosphericPhenomena = hbhb.GetAttribute("title");
+                    var fdfd2 = hbhb.ClassName?.Split(" ");
+                    if (fdfd2.Length >= 3)
+                        quaterOfDay.ClassPhenomena = fdfd2[1];
+                    else quaterOfDay.ClassPhenomena = "d000";
 
                     quaterOfDay.FeelingTemperature = currentTable[j].
                         GetElementsByClassName("weather-feeling")[0].Text();

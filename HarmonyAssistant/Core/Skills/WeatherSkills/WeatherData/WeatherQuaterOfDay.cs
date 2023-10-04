@@ -4,6 +4,7 @@
     {
         public string QuaterOfDayName { get; set; }
         public string AtmosphericPhenomena { get; set; }
+        public string ClassPhenomena { get; set; }
         public string Temperature { get; set; }
         public string FeelingTemperature { get; set; }
         public string ProbabilityOfPrecipitation { get; set; }

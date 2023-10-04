@@ -2,12 +2,17 @@
 using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Widgets.WeatherWidgets.Base;
 using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Resources;
 
 namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
 {
@@ -30,17 +35,43 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
 
             var probability = WeatherToday.WeatherDays[0].QuatersOfDay[index].ProbabilityOfPrecipitation;
 
+            // data/resources/images/weather/d420_n420.png
+            var assembly = Assembly.GetExecutingAssembly();
+            var rm = new ResourceManager(assembly.GetName().Name + ".g", assembly);
+            string filename = "";
+            try
+            {
+                var list = rm.GetResourceSet(CultureInfo.CurrentCulture, true, true);
+                foreach (DictionaryEntry item in list)
+                {
+                    string hh = (string)item.Key;
+                    if (hh.Contains(WeatherToday.ClassPhenomena))
+                        filename = (string)item.Key;
+                }
+            }
+            catch
+            {
+                filename = "data/resources/images/weather/mountain.png";
+            }
+            finally
+            {
+                rm.ReleaseAllResources();
+            }
+
+            if (string.IsNullOrEmpty(filename))
+                filename = "data/resources/images/weather/mountain.png";
+
             Label label = new Label()
             {
                 Content = new Image()
                 {
                     Source = new BitmapImage(
-                    new Uri("pack://application:,,,/Data/Resources/Images/Weather/mountain.png",
+                    new Uri($"pack://application:,,,/{filename}",
                     UriKind.RelativeOrAbsolute))
                 },
-                Width = 100,
-                Height = 100,
-                Margin = new Thickness(-7, -10, 0, 0)
+                Width = 80,
+                Height = 80,
+                Margin = new Thickness(-5, -5, 5, 10)
             };
             Grid.SetColumn(label, 0);
             Grid.SetRow(label, 0);

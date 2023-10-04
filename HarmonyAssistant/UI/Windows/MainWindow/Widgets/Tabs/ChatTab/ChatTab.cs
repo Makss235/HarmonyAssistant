@@ -115,7 +115,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 FontSize = 16,
                 FontWeight = FontWeights.SemiBold,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(10, 0, 0, 0),
+                Margin = new Thickness(15, -2, 0, 0),
             };
             Grid.SetColumn(transparentLabel, 0);
             Grid.SetRow(transparentLabel, 1);
@@ -131,7 +131,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Background = Brushes.Transparent,
-                Margin = new Thickness(15, 5, 15, 5)
+                Margin = new Thickness(15, 1, 15, 5)
             };
 
             textBox.SetBinding(TextBox.TextProperty, new Binding()
