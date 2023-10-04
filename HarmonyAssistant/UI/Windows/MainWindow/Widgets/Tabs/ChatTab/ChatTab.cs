@@ -215,9 +215,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                     if (string.IsNullOrEmpty(TextMessage))
                     {
                         button.SendButtonIcon = SendButtonIcon.MicrophoneIcon;
+                        transparentLabel.Visibility = Visibility.Visible;
+                    }
                     else
                     {
                         button.SendButtonIcon = SendButtonIcon.SendIcon;
+                        transparentLabel.Visibility = Visibility.Hidden;
                         sm.CurrentState = sm.GetState<OpenedState>();
                     }
                     break;
