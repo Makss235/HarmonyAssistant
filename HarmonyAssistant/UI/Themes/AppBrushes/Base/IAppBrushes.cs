@@ -11,6 +11,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes.Base
         public Brush TabBackgroundBrush { get; }
         public Brush ChatMessageBrush { get; }
         public Brush HighlightingIconBrush { get; }
+        public Brush EllipseInSendButtonBrush { get; }
 
         public ResourceDictionary ResourceDictionary { get; }
     }

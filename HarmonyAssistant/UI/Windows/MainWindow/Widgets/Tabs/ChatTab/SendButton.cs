@@ -81,6 +81,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools
                 Height = 45,
                 //Margin = new Thickness(0, 8, 15, 8)
             };
+            ThemeManager.AddResourceReference(el);
+            el.SetResourceReference(Ellipse.FillProperty,
+                nameof(IAppBrushes.EllipseInSendButtonBrush));
 
             StreamResourceInfo streamPlaneResInfo = Application.GetResourceStream(
                 new Uri("/Data/Resources/Images/Send.svg", UriKind.Relative));
