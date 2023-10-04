@@ -30,7 +30,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
                 return doc;
             });
 
-            #region QuickAnswer
+            #region QuickAnswers
 
             var elems = doc.Result.GetElementsByClassName("V3FYCf");
             if (elems.Length != 0)
@@ -49,7 +49,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
                         var a = t3[0].GetElementsByTagName("a");
                         if (a.Length != 0)
                         {
-                            link.Link = a[0].GetAttribute("href");
+                            link.SourceLink = a[0].GetAttribute("href");
 
                             var t4 = a[0].GetElementsByClassName("LC20lb MBeuO DKV0Md");
                             if (t4.Length != 0) link.ArticleTitle = t4[0].Text();
@@ -149,6 +149,53 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
 
                             termDefinition.TermDefinitionElements.Add(termDefinitionElement);
                         }
+                    }
+                }
+            }
+
+            #endregion
+
+            #region RightDefinition
+
+            var elems2 = doc.Result.GetElementsByClassName("kp-wholepage kp-wholepage-osrp HSryR EyBRub");
+            if (elems2.Length != 0)
+            {
+                RightTermDefinition rightTermDefinition = new RightTermDefinition();
+                var elem = elems2[0];
+
+                var t1 = elem.GetElementsByClassName("qrShPb pXs6bb PZPZlf q8U8x aTI8gc");
+                if (t1.Length != 0) rightTermDefinition.Term = t1[0].Text();
+                
+                var t12 = elem.GetElementsByClassName("wwUB2c PZPZlf");
+                if (t12.Length != 0) rightTermDefinition.SubTitle = t12[0].Text();
+
+                var t2 = elem.GetElementsByClassName("yxjZuf");
+                if (t2.Length != 0)
+                {
+                    rightTermDefinition.Definitions = new List<RightTermDefinitionElement>();
+                    foreach (var item in t2[0].Children)
+                    {
+                        if (!Equals(item.GetAttribute("class"), "wDYxhc")) continue;
+                        RightTermDefinitionElement rightTermDefinitionElement = new RightTermDefinitionElement();
+
+                        var t3 = item.GetElementsByClassName("kno-rdesc");
+                        if (t3.Length != 0)
+                        {
+                            var t4 = t3[0].Children.Where(p => Equals(p.TagName.ToLower(), "span")).ToArray();
+                            if (t4.Length == 1)
+                                rightTermDefinitionElement.Definition = t4[0].Text();
+                            else if (t4.Length == 2)
+                            {
+                                rightTermDefinitionElement.Definition = t4[0].Text();
+                                var t5 = t4[1].GetElementsByTagName("a");
+                                if (t5.Length != 0)
+                                {
+                                    rightTermDefinitionElement.SourceLink = t5[0].GetAttribute("href");
+                                    rightTermDefinitionElement.SourceTitle = t5[0].Text();
+                                }
+                            }
+                        }
+                        rightTermDefinition.Definitions.Add(rightTermDefinitionElement);
                     }
                 }
             }

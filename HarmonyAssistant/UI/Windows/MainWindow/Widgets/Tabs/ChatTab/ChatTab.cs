@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.Core.TTC;
+using HarmonyAssistant.Core.TTC.States;
 using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
@@ -61,6 +62,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         public void SendMessage(object content, SendMessageBy sendMessageBy)
         {
+            var stateManager = StateManager.GetInstance();
+            stateManager.CurrentState = stateManager.GetState<OpenedState>();
+
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Messages.Add(new Message(content, sendMessageBy));
@@ -176,12 +180,21 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var sm = StateManager.GetInstance();
+
             if (!string.IsNullOrEmpty(textBox.Text))
             {
                 SendMessage(textBox.Text, SendMessageBy.ByMe);
                 SkillManager.GetInstance().DefineSkills(textBox.Text);
                 textBox.Clear();
                 button.SendButtonIcon = SendButtonIcon.MicrophoneIcon;
+            }
+            else
+            {
+                if (sm.CurrentState == sm.GetState<OpenedState>())
+                    sm.CurrentState = sm.GetState<SayButtonPressedState>();
+                else if (sm.CurrentState == sm.GetState<SayButtonPressedState>())
+                    sm.CurrentState = sm.GetState<OpenedState>();
             }
         }
 
@@ -194,18 +207,18 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         private void ChatTab_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
+            var sm = StateManager.GetInstance();
+
             switch (e.PropertyName)
             {
                 case nameof(TextMessage):
                     if (string.IsNullOrEmpty(TextMessage))
                     {
                         button.SendButtonIcon = SendButtonIcon.MicrophoneIcon;
-                        transparentLabel.Visibility = Visibility.Visible;
-                    }
                     else
                     {
                         button.SendButtonIcon = SendButtonIcon.SendIcon;
-                        transparentLabel.Visibility = Visibility.Hidden;
+                        sm.CurrentState = sm.GetState<OpenedState>();
                     }
                     break;
             }

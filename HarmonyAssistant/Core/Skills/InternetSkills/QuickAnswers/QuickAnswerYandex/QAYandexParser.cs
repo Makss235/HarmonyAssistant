@@ -1,8 +1,11 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
 using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.Base;
+using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYandex.DataParse;
 using HarmonyAssistant.UI.Styles;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,85 +31,161 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYa
                 return doc;
             });
 
-            var quickAnswer = doc.Result.GetElementsByClassName("Fact Fact_flexSize_no");
-            if (quickAnswer.Length == 0)
-                return;
-
-            StackPanel stackPanel = new StackPanel();
-
-            var elems = quickAnswer[0].Children;
-            for (int i = 0; i < elems.Length; i++)
+            var elems = doc.Result.GetElementsByClassName("Fact Fact_flexSize_no");
+            if (elems.Length != 0)
             {
-                var elem = elems[i];
+                QuickDefinition quickDefinition = new QuickDefinition();
+                var elem = elems[0];
 
-                if (elem.ClassList.Contains("Fact-Summarize") ||
-                    elem.ClassList.Contains("Fact-ECTitle") ||
-                    elem.ClassList.Contains("Fact-Answer"))
+                var t1 = elem.Children.Where(p => p.ClassList.Contains("Typo_line_m") && 
+                !p.ClassList.Contains("ExtraActions")).ToArray();
+                if (t1.Length != 0) quickDefinition.FactAnswer = t1[0].Text();
+
+                var t2 = elem.GetElementsByClassName("Fact-ECFragment Fact-ECFragment Fact-ECFragment_typo");
+                if (t2.Length != 0)
                 {
-                    if (!string.IsNullOrEmpty(elem.Text()))
+                    quickDefinition.FactFragments = new List<FactFragment>();
+                    foreach (var item in t2)
                     {
-                        TextBlock mainTextBlock = new TextBlock()
-                        {
-                            Style = HeaderTextBlockStyle,
-                            Text = elem.Text()
-                        };
-                        stackPanel.Children.Add(mainTextBlock);
+                        FactFragment fragment = new FactFragment();
+                        if (item.ClassName.Contains("Fact-ECFragment_marker_number"))
+                            fragment.NumberInOrder = item.GetAttribute("data-position");
+                        fragment.TextFragment = item.Text();
 
-                        Text += elem.Text() + "\n";
+                        quickDefinition.FactFragments.Add(fragment);
                     }
                 }
-                else if (elem.ClassList.Contains("Fact-ECFragment_marker_number"))
-                {
-                    FrameworkElement element = ListItemPresenter(elem);
-                    ChechMarginElement(element, stackPanel);
-                    stackPanel.Children.Add(element);
-                }
-                else if (elem.ClassList.Contains("Fact-ECFragment") ||
-                         elem.ClassList.Contains("Fact-Description"))
-                {
-                    if (elem.Children.Length > 0)
-                    {
-                        var list = elem.GetElementsByClassName("List");
-                        if (list.Length > 0)
-                        {
-                            var childrenOfList = list[0].Children;
-                            for (int j = 0; j < childrenOfList.Length; j++)
-                            {
-                                if (childrenOfList[j].ClassList.Contains("List-Item"))
-                                {
-                                    FrameworkElement element = ListItemPresenter(childrenOfList[j]);
-                                    ChechMarginElement(element, stackPanel);
-                                    stackPanel.Children.Add(element);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            TextBlock mainTextBlock = new TextBlock()
-                            {
-                                Text = elem.Text(),
-                                Style = TextBlockStyles.CommonTextBlockStyle
-                            };
-                            ChechMarginElement(mainTextBlock, stackPanel);
-                            stackPanel.Children.Add(mainTextBlock);
-                        }
-                    }
-                    else
-                    {
-                        TextBlock mainTextBlock = new TextBlock()
-                        {
-                            Text = elem.Text(),
-                            Style = TextBlockStyles.CommonTextBlockStyle
-                        };
-                        ChechMarginElement(mainTextBlock, stackPanel);
-                        stackPanel.Children.Add(mainTextBlock);
-                    }
 
-                    Text += elem.Text() + "\n";
+                var t3 = elem.GetElementsByClassName("Link Fact-SiteSource");
+                if (t3.Length != 0)
+                {
+                    quickDefinition.SitePath = t3[0].GetAttribute("href");
+
+                    var t4 = t3[0].GetElementsByClassName("Path-Item");
+                    if (t4.Length != 0) quickDefinition.SiteName = t4[0].Text();
+
+                    var t5 = t3[0].GetElementsByClassName("Fact-HostDescription");
+                    if (t5.Length != 0) quickDefinition.SiteType = t5[0].Text();
+
+                    var t6 = t3[0].GetElementsByClassName("OneLine Fact-Title Typo Typo_text_xm Typo_line_m");
+                    if (t6.Length != 0) quickDefinition.ArticleName = t6[0].Text();
                 }
             }
-            AnswerPresenter = stackPanel;
-            ParsedEvent?.Invoke();
+
+            var elems1 = doc.Result.GetElementsByClassName(
+                "entity-search entity-search_type_false entity-search_wiki");
+            if (elems1.Length != 0)
+            {
+                RightTermDefinition rightTermDefinition = new RightTermDefinition();
+                var elem = elems1[0];
+
+                var t1 = elem.GetElementsByClassName("serp-title_type_supertitle");
+                if (t1.Length != 0) rightTermDefinition.Term = t1[0].Text();
+
+                var t2 = elem.GetElementsByClassName("serp-title_type_subtitle");
+                if (t2.Length != 0) rightTermDefinition.SubTitle = t2[0].Text();
+
+                var t3 = elem.GetElementsByClassName("ExtendedText-Full");
+                if (t3.Length != 0)
+                {
+                    var t31 = t3[0].GetElementsByClassName("Description-Paragraph");
+
+                    rightTermDefinition.DefinitionParagraphes = new List<string>();
+                    foreach (var item in t31)
+                        rightTermDefinition.DefinitionParagraphes.Add(item.Text());
+                }
+
+                var t4 = elem.GetElementsByClassName("EntitySearchHint Description-Source");
+                if (t4.Length != 0)
+                {
+                    var t41 = elem.GetElementsByTagName("a");
+
+                    rightTermDefinition.SourceLink = t41[0].GetAttribute("href");
+                    rightTermDefinition.SourceTitle = t4[0].Text();
+                }
+            }
+
+            #region MyRegion
+            //var quickAnswer = doc.Result.GetElementsByClassName("Fact Fact_flexSize_no");
+            //if (quickAnswer.Length == 0)
+            //    return;
+
+            //StackPanel stackPanel = new StackPanel();
+
+            //var elems = quickAnswer[0].Children;
+            //for (int i = 0; i < elems.Length; i++)
+            //{
+            //    var elem = elems[i];
+
+            //    if (elem.ClassList.Contains("Fact-Summarize") ||
+            //        elem.ClassList.Contains("Fact-ECTitle") ||
+            //        elem.ClassList.Contains("Fact-Answer"))
+            //    {
+            //        if (!string.IsNullOrEmpty(elem.Text()))
+            //        {
+            //            TextBlock mainTextBlock = new TextBlock()
+            //            {
+            //                Style = HeaderTextBlockStyle,
+            //                Text = elem.Text()
+            //            };
+            //            stackPanel.Children.Add(mainTextBlock);
+
+            //            Text += elem.Text() + "\n";
+            //        }
+            //    }
+            //    else if (elem.ClassList.Contains("Fact-ECFragment_marker_number"))
+            //    {
+            //        FrameworkElement element = ListItemPresenter(elem);
+            //        ChechMarginElement(element, stackPanel);
+            //        stackPanel.Children.Add(element);
+            //    }
+            //    else if (elem.ClassList.Contains("Fact-ECFragment") ||
+            //             elem.ClassList.Contains("Fact-Description"))
+            //    {
+            //        if (elem.Children.Length > 0)
+            //        {
+            //            var list = elem.GetElementsByClassName("List");
+            //            if (list.Length > 0)
+            //            {
+            //                var childrenOfList = list[0].Children;
+            //                for (int j = 0; j < childrenOfList.Length; j++)
+            //                {
+            //                    if (childrenOfList[j].ClassList.Contains("List-Item"))
+            //                    {
+            //                        FrameworkElement element = ListItemPresenter(childrenOfList[j]);
+            //                        ChechMarginElement(element, stackPanel);
+            //                        stackPanel.Children.Add(element);
+            //                    }
+            //                }
+            //            }
+            //            else
+            //            {
+            //                TextBlock mainTextBlock = new TextBlock()
+            //                {
+            //                    Text = elem.Text(),
+            //                    Style = TextBlockStyles.CommonTextBlockStyle
+            //                };
+            //                ChechMarginElement(mainTextBlock, stackPanel);
+            //                stackPanel.Children.Add(mainTextBlock);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            TextBlock mainTextBlock = new TextBlock()
+            //            {
+            //                Text = elem.Text(),
+            //                Style = TextBlockStyles.CommonTextBlockStyle
+            //            };
+            //            ChechMarginElement(mainTextBlock, stackPanel);
+            //            stackPanel.Children.Add(mainTextBlock);
+            //        }
+
+            //        Text += elem.Text() + "\n";
+            //    }
+            //}
+            //AnswerPresenter = stackPanel;
+            //ParsedEvent?.Invoke(); 
+            #endregion
         }
 
         private void ChechMarginElement(FrameworkElement element, Panel parent)

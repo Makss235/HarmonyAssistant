@@ -80,10 +80,13 @@ namespace HarmonyAssistant.UI.Animations
         }
         public void StopAnim()
         {
-            Storyboard.SetTargetProperty(animToEnd, new PropertyPath("RenderTransform.ScaleY"));
-            toEndSB.Begin();
-            Storyboard.SetTargetProperty(animToEnd, new PropertyPath("RenderTransform.ScaleX"));
-            toEndSB.Begin();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Storyboard.SetTargetProperty(animToEnd, new PropertyPath("RenderTransform.ScaleY"));
+                toEndSB.Begin();
+                Storyboard.SetTargetProperty(animToEnd, new PropertyPath("RenderTransform.ScaleX"));
+                toEndSB.Begin();
+            });
         }
         private void IncreaseSB_Completed(object sender, EventArgs e)
         {

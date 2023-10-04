@@ -12,7 +12,7 @@ namespace HarmonyAssistant.Core.TTC
     {
         public event Action<string> SpeechStateVerifiedEvent;
 
-        private Dictionary<Type, IState> StatesMap;
+        private Dictionary<Type, IState> statesMap;
 
         #region CurrentState
 
@@ -54,7 +54,7 @@ namespace HarmonyAssistant.Core.TTC
 
         public IState GetState<T>() where T : IState
         {
-            return StatesMap[typeof(T)];
+            return statesMap[typeof(T)];
         }
 
         public void InitCheckStates()
@@ -123,7 +123,7 @@ namespace HarmonyAssistant.Core.TTC
 
         private void InitStates()
         {
-            StatesMap = new Dictionary<Type, IState>
+            statesMap = new Dictionary<Type, IState>
             {
                 { typeof(HiddenState), new HiddenState() },
                 { typeof(OpenedState), new OpenedState() },
