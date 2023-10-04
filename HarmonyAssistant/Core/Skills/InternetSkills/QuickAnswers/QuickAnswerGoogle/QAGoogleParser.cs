@@ -1,6 +1,5 @@
 ﻿using AngleSharp;
 using AngleSharp.Dom;
-using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.Base;
 using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGoogle.DataParse;
 using System;
 using System.Collections.Generic;
@@ -10,13 +9,24 @@ using System.Threading.Tasks;
 
 namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGoogle
 {
-    public class QAGoogleParser : QAParser
+    public class QAGoogleParser
     {
-        public override event Action ParsedEvent;
+        private string url;
 
-        public QAGoogleParser(string url) : base(url) { }
+        public event Action ParsedEvent;
+        public string Text { get; set; }
 
-        public override void Parse()
+        public QuickAnswerText QuickAnswerText { get; set; }
+        public QuickAnswerList QuickAnswerList { get; set; }
+        public TermDefinition TermDefinition { get; set; }
+        public RightTermDefinition RightTermDefinition { get; set; }
+
+        public QAGoogleParser(string url)
+        {
+            this.url = url;
+        }
+
+        public void Parse()
         {
             var doc = Task.Run(async () =>
             {
@@ -73,15 +83,15 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
                 var e1 = elem.GetElementsByClassName("LGOjhe");
                 if (e1.Length != 0)
                 {
-                    QuickAnswerText quickAnswerText = new QuickAnswerText();
+                    QuickAnswerText = new QuickAnswerText();
 
                     var t2 = elem.GetElementsByClassName("hgKElc");
-                    if (t2.Length != 0) quickAnswerText.Body = t2[0].Text();
+                    if (t2.Length != 0) QuickAnswerText.Body = t2[0].Text();
 
                     var t23 = elem.GetElementsByClassName("kX21rb ZYHQ7e");
-                    if (t23.Length != 0) quickAnswerText.Date = t23[0].Text();
+                    if (t23.Length != 0) QuickAnswerText.Date = t23[0].Text();
 
-                    quickAnswerText.LinkGElement = link;
+                    QuickAnswerText.LinkGElement = link;
                 }
 
                 #endregion
@@ -91,15 +101,15 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
                 var e2 = elem.GetElementsByClassName("di3YZe");
                 if (e2.Length != 0)
                 {
-                    QuickAnswerList quickAnswerList = new QuickAnswerList();
+                    QuickAnswerList = new QuickAnswerList();
 
                     var ol = e2[0].GetElementsByClassName("X5LH0c");
                     if (ol.Length != 0)
                     {
-                        quickAnswerList.QuickAnswerElements = new List<string>();
+                        QuickAnswerList.QuickAnswerElements = new List<string>();
                         foreach (var item in ol[0].Children)
-                            quickAnswerList.QuickAnswerElements.Add(item.Text());
-                        quickAnswerList.LinkGElement = link;
+                            QuickAnswerList.QuickAnswerElements.Add(item.Text());
+                        QuickAnswerList.LinkGElement = link;
                     }
                 }
 
@@ -113,19 +123,19 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
             var elems1 = doc.Result.GetElementsByClassName("VpH2eb vmod");
             if (elems1.Length != 0)
             {
-                TermDefinition termDefinition = new TermDefinition();
+                TermDefinition = new TermDefinition();
                 var elem = elems1[0];
 
                 var t1 = elem.GetElementsByClassName("LWPArc");
-                if (t1.Length != 0) termDefinition.Term = t1[0].Text();
+                if (t1.Length != 0) TermDefinition.Term = t1[0].Text();
 
                 var t2 = elem.GetElementsByClassName("YrbPuc");
-                if (t2.Length != 0) termDefinition.Gender = t2[0].Text();
+                if (t2.Length != 0) TermDefinition.Gender = t2[0].Text();
 
                 var tlist = elem.GetElementsByClassName("eQJLDd");
                 if (tlist.Length != 0)
                 {
-                    termDefinition.TermDefinitionElements = new List<TermDefinitionElement>();
+                    TermDefinition.TermDefinitionElements = new List<TermDefinitionElement>();
 
                     foreach (var t in tlist[0].Children)
                     {
@@ -147,7 +157,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
                             var t6 = t.GetElementsByClassName("ZYHQ7e");
                             if (t6.Length != 0) termDefinitionElement.Example = t6[0].Text();
 
-                            termDefinition.TermDefinitionElements.Add(termDefinitionElement);
+                            TermDefinition.TermDefinitionElements.Add(termDefinitionElement);
                         }
                     }
                 }
@@ -160,19 +170,19 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
             var elems2 = doc.Result.GetElementsByClassName("kp-wholepage kp-wholepage-osrp HSryR EyBRub");
             if (elems2.Length != 0)
             {
-                RightTermDefinition rightTermDefinition = new RightTermDefinition();
+                RightTermDefinition = new RightTermDefinition();
                 var elem = elems2[0];
 
                 var t1 = elem.GetElementsByClassName("qrShPb pXs6bb PZPZlf q8U8x aTI8gc");
-                if (t1.Length != 0) rightTermDefinition.Term = t1[0].Text();
+                if (t1.Length != 0) RightTermDefinition.Term = t1[0].Text();
                 
                 var t12 = elem.GetElementsByClassName("wwUB2c PZPZlf");
-                if (t12.Length != 0) rightTermDefinition.SubTitle = t12[0].Text();
+                if (t12.Length != 0) RightTermDefinition.SubTitle = t12[0].Text();
 
                 var t2 = elem.GetElementsByClassName("yxjZuf");
                 if (t2.Length != 0)
                 {
-                    rightTermDefinition.Definitions = new List<RightTermDefinitionElement>();
+                    RightTermDefinition.Definitions = new List<RightTermDefinitionElement>();
                     foreach (var item in t2[0].Children)
                     {
                         if (!Equals(item.GetAttribute("class"), "wDYxhc")) continue;
@@ -195,7 +205,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGo
                                 }
                             }
                         }
-                        rightTermDefinition.Definitions.Add(rightTermDefinitionElement);
+                        RightTermDefinition.Definitions.Add(rightTermDefinitionElement);
                     }
                 }
             }

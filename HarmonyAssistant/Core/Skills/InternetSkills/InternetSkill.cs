@@ -1,9 +1,10 @@
 ﻿using HarmonyAssistant.Core.Skills.Base;
-using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerYandex;
+using HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.QuickAnswerGoogle;
 using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
+using HarmonyAssistant.UI.Widgets.ParserWidgets;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 
 namespace HarmonyAssistant.Core.Skills.InternetSkills
@@ -28,18 +29,19 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
                     string url = "https://yandex.ru/search/?text=" + string.Join("", charArraySearch);
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        QAYandexParser parseYandex = new QAYandexParser(url);
+                        QAGoogleParser parseYandex = new QAGoogleParser(url);
                         parseYandex.Parse();
 
-                        oCS.AnswerPresenter = parseYandex.AnswerPresenter;
-                        oCS.AnswerString = parseYandex.Text;
+                        QAGoogleWidget qAYandexWidget = new QAGoogleWidget(parseYandex);
+
+                        oCS.AnswerPresenter = qAYandexWidget.Content;
+                        oCS.AnswerString = qAYandexWidget.Text;
                     });
 
                     if (oCS.AnswerPresenter == null)
                     {
-                        System.Diagnostics.Process.Start(
-                            @"C:\Program Files\Internet Explorer\iexplore.exe",
-                            "https://yandex.ru/search/?text=" + string.Join("", charArraySearch));
+                        Process.Start(new ProcessStartInfo("https://www.google.ru/search?q=" + 
+                            string.Join("", charArraySearch)) { UseShellExecute = true });
                         oCS.AnswerString = PositiveAnswer(iCS);
                     }
                     oCS.Result = true;
@@ -58,15 +60,17 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
         public OCS SearchText(ICS iCS)
         {
             OCS oCS = new OCS();
-            string url = "https://yandex.ru/search/?text=" + string.Join("", iCS.CleanText);
+            string url = "https://www.google.ru/search?q=" + string.Join("", iCS.CleanText);
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                QAYandexParser parseYandex = new QAYandexParser(url);
+                QAGoogleParser parseYandex = new QAGoogleParser(url);
                 parseYandex.Parse();
 
-                oCS.AnswerPresenter = parseYandex.AnswerPresenter;
-                oCS.AnswerString = parseYandex.Text;
+                QAGoogleWidget qAYandexWidget = new QAGoogleWidget(parseYandex);
+
+                oCS.AnswerPresenter = qAYandexWidget.Content;
+                oCS.AnswerString = qAYandexWidget.Text;
             });
 
             oCS.Result = true;
@@ -88,9 +92,8 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
                     {
                         try
                         {
-                            System.Diagnostics.Process.Start(
-                                @"C:\Program Files\Internet Explorer\iexplore.exe",
-                                siteObject.Url);
+                            Process.Start(new ProcessStartInfo(siteObject.Url) 
+                            { UseShellExecute = true });
                             results.Add(true);
                             break;
                         }
@@ -99,7 +102,6 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
                             results.Add(false);
                             break;
                         }
-
                     }
                 }
             }
