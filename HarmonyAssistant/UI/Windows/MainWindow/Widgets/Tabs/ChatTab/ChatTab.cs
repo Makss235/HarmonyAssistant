@@ -43,6 +43,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
         private TextBox textBox;
         private Border border;
         private SendButton button;
+        private Label transparentLabel;
 
         public ChatTab()
         {
@@ -106,6 +107,23 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             border.SetResourceReference(Border.BorderBrushProperty,
                 nameof(IAppBrushes.CommonBackgroundBrush));
 
+            transparentLabel = new Label
+            {
+                Opacity = 0.5,
+                Content = "Напишите сообщение...",
+                FontFamily = new FontFamily("Segoe UI"),
+                FontSize = 16,
+                FontWeight = FontWeights.SemiBold,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(10, 0, 0, 0),
+            };
+            Grid.SetColumn(transparentLabel, 0);
+            Grid.SetRow(transparentLabel, 1);
+
+            ThemeManager.AddResourceReference(transparentLabel);
+            transparentLabel.SetResourceReference(Label.ForegroundProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
+
             textBox = new TextBox()
             {
                 Style = TextBlockStyles.CommonTextBlockStyle,
@@ -153,6 +171,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             grid.RowDefinitions.Add(rowDefinition);
             grid.RowDefinitions.Add(rowDefinition1);
             grid.Children.Add(border);
+            grid.Children.Add(transparentLabel);
             grid.Children.Add(textBox);
             grid.Children.Add(button);
 
@@ -194,10 +213,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             {
                 case nameof(TextMessage):
                     if (string.IsNullOrEmpty(TextMessage))
+                    {
                         button.SendButtonIcon = SendButtonIcon.MicrophoneIcon;
+                        transparentLabel.Visibility = Visibility.Visible;
+                    }
                     else
                     {
                         button.SendButtonIcon = SendButtonIcon.SendIcon;
+                        transparentLabel.Visibility = Visibility.Hidden;
                         sm.CurrentState = sm.GetState<OpenedState>();
                     }
                     break;
