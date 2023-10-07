@@ -79,7 +79,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock = new TextBlock()
             {
                 Text = WeatherToday.CurrentTemperature,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
                 FontSize = 30
             };
@@ -87,7 +87,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock1 = new TextBlock()
             {
                 Text = WeatherToday.FeelingString,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
                 FontSize = 14,
                 Margin = new Thickness(0, -6, 0, 0)
@@ -96,7 +96,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock2 = new TextBlock()
             {
                 Text = WeatherToday.FeelingTemperature,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(0, -4, 0, 0)
@@ -112,7 +112,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock3 = new TextBlock()
             {
                 Text = WeatherToday.AtmosphericPhenomena,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch,
                 Margin = new Thickness(-6, -6, 0, 0),
                 MaxWidth = 150,
@@ -148,7 +148,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock4 = new TextBlock()
             {
                 Text = "Вероятность осадков",
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
             };
             Grid.SetColumn(textBlock4, 0);
             Grid.SetRow(textBlock4, 0);
@@ -156,7 +156,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock5 = new TextBlock()
             {
                 Text = probability,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
                 Margin = new Thickness(7, 0, 0, 0)
@@ -167,7 +167,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock6 = new TextBlock()
             {
                 Text = WeatherToday.HumidityString,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
             };
             Grid.SetColumn(textBlock6, 0);
             Grid.SetRow(textBlock6, 1);
@@ -175,7 +175,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock7 = new TextBlock()
             {
                 Text = WeatherToday.HumidityPercent,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
                 Margin = new Thickness(7, 0, 0, 0)
@@ -186,7 +186,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock8 = new TextBlock()
             {
                 Text = WeatherToday.WindString,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
             };
             Grid.SetColumn(textBlock8, 0);
             Grid.SetRow(textBlock8, 2);
@@ -194,7 +194,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock9 = new TextBlock()
             {
                 Text = WeatherToday.WindSpeed.Split(", ")[0],
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
                 Margin = new Thickness(7, 0, 0, 0)
@@ -205,14 +205,14 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock10 = new TextBlock()
             {
                 Text = WeatherToday.CurrentCity,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontSize = 14
             };
 
             TextBlock textBlock11 = new TextBlock()
             {
                 Text = WeatherToday.LastUpdateDate,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontSize = 14
             };
 
@@ -231,7 +231,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
             TextBlock textBlock12 = new TextBlock()
             {
                 Text = "пт",
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontSize = 14,
             };
 

@@ -25,7 +25,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
         {
             HeaderTextBlockStyle = new Style(
                 targetType: typeof(TextBlock),
-                basedOn: TextBlockStyles.CommonTextBlockStyle);
+                basedOn: new CommonTextBlockStyle());
             HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.Bold));
             HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)17));
         }
@@ -58,7 +58,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
                         {
                             TextBlock textBlock1 = new TextBlock()
                             {
-                                Style = TextBlockStyles.CommonTextBlockStyle,
+                                Style = new CommonTextBlockStyle(),
                                 Text = qAYandexParser.QuickDefinition.FactFragments[i].NumberInOrder,
                                 Margin = new Thickness(0, 0, 5, 0)
                             };
@@ -67,7 +67,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
 
                         TextBlock textBlock2 = new TextBlock()
                         {
-                            Style = TextBlockStyles.CommonTextBlockStyle,
+                            Style = new CommonTextBlockStyle(),
                             Text = qAYandexParser.QuickDefinition.FactFragments[i].TextFragment
                         };
                         stackPanel1.Children.Add(textBlock2);
@@ -86,7 +86,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
 
                     TextBlock textBlock = new TextBlock()
                     {
-                        Style = TextBlockStyles.CommonTextBlockStyle,
+                        Style = new CommonTextBlockStyle(),
                         Text = qAYandexParser.QuickDefinition.SiteName,
                         FontSize = 13
                     };
@@ -96,7 +96,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
                     {
                         TextBlock textBlock1 = new TextBlock()
                         {
-                            Style = TextBlockStyles.CommonTextBlockStyle,
+                            Style = new CommonTextBlockStyle(),
                             Text = qAYandexParser.QuickDefinition.ArticleName,
                             Margin = new Thickness(0, -3, 0, 0)
                         };

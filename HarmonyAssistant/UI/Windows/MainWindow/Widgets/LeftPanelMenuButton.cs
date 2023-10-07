@@ -59,7 +59,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             titleTextBlock = new TextBlock()
             {
                 Text = text,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(20, 0, 0, 0)
