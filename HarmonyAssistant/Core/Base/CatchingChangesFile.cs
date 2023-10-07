@@ -4,15 +4,20 @@ using System.Threading;
 
 namespace HarmonyAssistant.Core.Base
 {
+    /// <summary>Делегат функции-обработчика события изменения файла.</summary>
+    /// <param name="textFile">Содержимое измененного файла.</param>
+    public delegate void FileChangedHandler(string textFile);
+
+    /// <summary>Класс, предоставляющий функционал 
+    /// для отслеживания изменения файла.</summary>
     public class CatchingChangesFile
     {
-        public Thread CCFThread { get; set; }
-        public event Action<string> FileChanged;
+        #region TextFile : string - Содержимое файла
 
-        #region TextFile
-
+        /// <summary>Содержимое файла.</summary>
         private string _TextFile = "";
 
+        /// <summary>Содержимое файла.</summary>
         public string TextFile
         {
             get => _TextFile;
@@ -25,52 +30,75 @@ namespace HarmonyAssistant.Core.Base
 
         #endregion
 
-        private string fileName;
+        /// <summary>Поток, в котором происходит отслеживания изменений файла.</summary>
+        public Thread CCFThread { get; set; }
+        /// <summary>Событие, которое вызывается при изменении файла.</summary>
+        public event FileChangedHandler FileChanged;
+
+        /// <summary>Абсолютный путь до файла.</summary>
+        private readonly string filePath;
+        /// <summary>Поле, которое содержит значение, 
+        /// запрещающее потоку завершиться.</summary>
         private bool canClose = false;
 
-        public CatchingChangesFile(string fileName)
+        /// <summary>Инициализирует новый объект класса CatchingChangesFile.</summary>
+        /// <param name="filePath">Абсолютный путь до файла.</param>
+        public CatchingChangesFile(string filePath)
         {
-            this.fileName = fileName;
+            // Инициализация полей и потока.
+            this.filePath = filePath;
             CCFThread = new Thread(() => CatchChangeDateFile());
         }
 
+        /// <summary>Запуск потока.</summary>
         public void Start() => CCFThread.Start();
+        /// <summary>Остановка потока.</summary>
         public void Stop() => canClose = true;
 
+        /// <summary>Отслеживание изменений файла.</summary>
         private void CatchChangeDateFile()
         {
-            DateTime currentWritingTime = File.GetLastWriteTime(fileName);
-            DateTime previousWritingTime = File.GetLastWriteTime(fileName);
+            // Предыдущая дата изменения файла.
+            DateTime previousWritingTime = File.GetLastWriteTime(filePath);
 
             while (!canClose)
             {
                 string text = "";
-                currentWritingTime = File.GetLastWriteTime(fileName);
+                // Текущая дата изменения файла.
+                DateTime currentWritingTime = File.GetLastWriteTime(filePath);
+                // Если две даты равны,
                 if (currentWritingTime == previousWritingTime)
                 {
+                    // То пропуск итерации.
                     Thread.Sleep(100);
                     continue;
                 }
+                // Если текущая больше предыдущей,
                 else if (currentWritingTime > previousWritingTime)
                 {
-                    text = OpenFile(fileName);
+                    // Чтение файл.
+                    text = OpenFile(filePath);
                     previousWritingTime = currentWritingTime;
                 }
 
-                if (Equals(text, String.Empty) ||
-                    Equals(text, null)) continue;
-                else TextFile = text;
+                // Проверка на пустоту.
+                if (string.IsNullOrEmpty(text)) continue;
+                TextFile = text;
                 Thread.Sleep(30);
             }
         }
 
-        private string OpenFile(string STTF)
+        /// <summary>Открытие файла и чтение.</summary>
+        /// <param name="filePath">Абсолютный путь до файла.</param>
+        /// <returns>Содержимое файла.</returns>
+        private string OpenFile(string filePath)
         {
             while (!canClose)
             {
+                // Попытка прочитать файл.
                 try
                 {
-                    return File.ReadAllText(STTF);
+                    return File.ReadAllText(filePath);
                 }
                 catch (IOException)
                 {
