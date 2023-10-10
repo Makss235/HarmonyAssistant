@@ -18,7 +18,7 @@ namespace HarmonyAssistant.UI.Icons.CaptionIcons.Base
         {
             icon_Path = new Path();
 
-            // Установка привязки свойства заполнения иконки и свойства Foreground
+            // Установка привязки свойства заполнения иконки и свойства Foreground.
             icon_Path.SetBinding(Shape.StrokeProperty, new Binding()
             {
                 Source = this,
@@ -26,6 +26,7 @@ namespace HarmonyAssistant.UI.Icons.CaptionIcons.Base
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             });
 
+            // Привязка свойства Foreground к CommonForegroundBrush.
             ThemeManager.AddResourceReference(this);
             SetResourceReference(ForegroundProperty,
                 nameof(IAppBrushes.CommonForegroundBrush));
