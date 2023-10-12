@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.Core.Skills.Base;
+﻿using HarmonyAssistant.Core.Parsers.WeatherParser;
+using HarmonyAssistant.Core.Skills.Base;
 using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.UI.Widgets.WeatherWidgets;
 
@@ -18,7 +19,7 @@ namespace HarmonyAssistant.Core.Skills.WeatherSkills
             parser.Parse();
 
             ShortWeatherWidget shortWeatherWidget = 
-                new ShortWeatherWidget(parser.WeatherToday);
+                new ShortWeatherWidget(parser.WeatherData);
             
             oCS.AnswerString = PositiveAnswer(iCS);
             oCS.Result = true;

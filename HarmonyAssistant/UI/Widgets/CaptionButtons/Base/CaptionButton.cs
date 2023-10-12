@@ -45,7 +45,7 @@ namespace HarmonyAssistant.UI.Widgets.CaptionButtons.Base
         /// регистрируются свойства зависимостей.</summary>
         static CaptionButton()
         {
-            // Регистрация свойства зависимостей IconProperty
+            // Регистрация свойства зависимостей IconProperty.
             IconProperty = DependencyProperty.Register(
                         "Icon",
                         typeof(CaptionIcon),

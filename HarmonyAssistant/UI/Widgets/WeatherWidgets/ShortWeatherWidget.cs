@@ -1,11 +1,8 @@
-﻿using HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData;
-using HarmonyAssistant.UI.Styles;
+﻿using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Widgets.WeatherWidgets.Base;
 using System;
-using System.Collections.Generic;
 using System.Collections;
 using System.Globalization;
-using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,12 +10,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Resources;
+using HarmonyAssistant.Core.Parsers.WeatherParser;
 
 namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
 {
     public class ShortWeatherWidget : WeatherWidget
     {
-        public ShortWeatherWidget(WeatherToday weatherToday) : base(weatherToday) { }
+        public ShortWeatherWidget(WeatherData weatherToday) : base(weatherToday) { }
 
         protected override void InitializeComponent()
         {
@@ -45,7 +43,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
                 foreach (DictionaryEntry item in list)
                 {
                     string hh = (string)item.Key;
-                    if (hh.Contains(WeatherToday.ClassPhenomena))
+                    if (hh.Contains(WeatherToday.ClassNamePhenomena))
                         filename = (string)item.Key;
                 }
             }
@@ -174,7 +172,7 @@ namespace HarmonyAssistant.UI.Widgets.WeatherWidgets
 
             TextBlock textBlock7 = new TextBlock()
             {
-                Text = WeatherToday.HumidityPercent,
+                Text = WeatherToday.Humidity,
                 Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold,
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
