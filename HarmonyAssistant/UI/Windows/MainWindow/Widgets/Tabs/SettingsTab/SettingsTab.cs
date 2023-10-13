@@ -49,7 +49,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
                 Margin = new Thickness(10, 10, 7, 10)
             };
             Grid.SetColumn(themeTB, 0);
-            Grid.SetRow(themeTB, 1);
+            Grid.SetRow(themeTB, 0);
 
             ThemeButton greyThemeButton = new ThemeButton(GreyBrushes.GetInstance());
             ThemeButton darkGrayThemeButton = new ThemeButton(DarkGrayBrushes.GetInstance());
@@ -70,7 +70,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
                 }
             };
             Grid.SetColumn(themeStackPanel, 1);
-            Grid.SetRow(themeStackPanel, 1);
+            Grid.SetRow(themeStackPanel, 0);
 
             foreach (ThemeButton item in themeStackPanel.Children)
             {
@@ -128,6 +128,11 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             //Grid.SetColumn(searchSystSP, 1);
             //Grid.SetRow(searchSystSP, 3);
 
+            ProgramsTable programsTable = new ProgramsTable();
+            Grid.SetColumnSpan(programsTable, 2);
+            Grid.SetColumn(programsTable, 0);
+            Grid.SetRow(programsTable, 1);
+
             ColumnDefinition leftColumnDfn = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Auto) };
             ColumnDefinition rightColumnDfn = new ColumnDefinition()
@@ -136,6 +141,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             //RowDefinition userRowDfn = new RowDefinition()
             //{ Height = new GridLength(1, GridUnitType.Auto) };
             RowDefinition themeRowDfn = new RowDefinition()
+            { Height = new GridLength(1, GridUnitType.Auto) };
+            RowDefinition programsTableRowDfn = new RowDefinition()
             { Height = new GridLength(1, GridUnitType.Auto) };
             //RowDefinition soundRowDfn = new RowDefinition()
             //{ Height = new GridLength(1, GridUnitType.Auto) };
@@ -148,11 +155,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             mainGrid.ColumnDefinitions.Add(rightColumnDfn);
             //mainGrid.RowDefinitions.Add(soundRowDfn);
             mainGrid.RowDefinitions.Add(themeRowDfn);
+            mainGrid.RowDefinitions.Add(programsTableRowDfn);
             //mainGrid.RowDefinitions.Add(userRowDfn);
             //mainGrid.RowDefinitions.Add(searchSystRowDfn);
             //mainGrid.Children.Add(userTable);
             mainGrid.Children.Add(themeTB);
             mainGrid.Children.Add(themeStackPanel);
+            mainGrid.Children.Add(programsTable);
             //mainGrid.Children.Add(soundTB);
             //mainGrid.Children.Add(soundSlider);
             //mainGrid.Children.Add(searchSystTB);
