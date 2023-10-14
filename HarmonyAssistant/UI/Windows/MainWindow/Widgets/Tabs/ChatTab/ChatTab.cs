@@ -7,7 +7,6 @@ using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools;
-using SmartAssistant.Infrastructure.Styles.Base.ContextMenuS;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -132,17 +131,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Background = Brushes.Transparent,
-                Margin = new Thickness(15, 5, 15, 5),
-                ContextMenu = new ContextMenu()
-                {
-                    Style = new CommonContextMenuStyle(),
-                    ItemContainerStyle = new CommonContextMenuItemStyle(new CornerRadius(5)),
-                    Items =
-                    {
-                        new MenuItem(){Header = "AAA" },
-                        new MenuItem(){Header = "BBB" },
-                    }
-                }
+                Margin = new Thickness(15, 5, 15, 5)
             };
 
             textBox.SetBinding(TextBox.TextProperty, new Binding()

@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.UI.Styles;
+using HarmonyAssistant.UI.Styles.ContextMenuStyles;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab;
@@ -91,35 +92,44 @@ namespace HarmonyAssistant.UI.Widgets
                 Margin = new Thickness(6, 2, 6, 2)
             };
 
-            MenuItem menuItem = new MenuItem()
-            {
-                Header = "Изменить"
-            };
-
-            MenuItem menuItem1 = new MenuItem()
-            {
-                Header = "Удалить",
-                Background = Brushes.Transparent
-            };
-
-            SContextMenu menu = new SContextMenu()
-            {
-                Items = { menuItem, menuItem1 }
-            };
-
             border = new Border()
             {
                 Child = textBlock,
                 BorderBrush = Brushes.Transparent,
                 BorderThickness = new Thickness(2),
                 CornerRadius = new CornerRadius(3),
-                ContextMenu = menu
+                ContextMenu = CreateContextMenu()
             };
+
+            ThemeManager.CurrentThemeChanged += () => border.ContextMenu = CreateContextMenu();
 
             if (content != null)
                 OnContentListItemChanged(null, content);
 
             Content = border;
+        }
+
+        private ContextMenu CreateContextMenu()
+        {
+            MenuItem menuItem = new MenuItem()
+            {
+                Header = "Изменить",
+                Style = new CommonContextMenuItemStyle()
+            };
+
+            MenuItem menuItem1 = new MenuItem()
+            {
+                Header = "Удалить",
+                Style = new CommonContextMenuItemStyle()
+            };
+
+            ContextMenu menu = new ContextMenu()
+            {
+                Items = { menuItem, menuItem1 },
+                Style = new CommonContextMenuStyle()
+            };
+
+            return menu;
         }
     }
 }
