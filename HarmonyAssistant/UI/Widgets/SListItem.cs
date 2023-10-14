@@ -1,4 +1,6 @@
 ﻿using HarmonyAssistant.UI.Styles;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,7 +9,7 @@ using System.Windows.Media;
 
 namespace HarmonyAssistant.UI.Widgets
 {
-    public class SListItem : ListBoxItem
+    public class SListItem : ContentControl
     {
 #pragma warning disable CS8618
 
@@ -17,7 +19,7 @@ namespace HarmonyAssistant.UI.Widgets
                         typeof(object),
                         typeof(ContentControl),
                         new FrameworkPropertyMetadata(
-                                (object)null,
+                                null,
                                 new PropertyChangedCallback(OnContentListItemChanged)));
 
         [Bindable(true)]
@@ -29,12 +31,12 @@ namespace HarmonyAssistant.UI.Widgets
 
         protected override void OnMouseEnter(MouseEventArgs e)
         {
-            border.Background = Brushes.AliceBlue;
+            border.BorderBrush = ThemeManager.CurrentTheme.HighlightingIconBrush;
         }
-        
+
         protected override void OnMouseLeave(MouseEventArgs e)
         {
-            border.Background = Brushes.Transparent;
+            border.BorderBrush = Brushes.Transparent;
         }
 
         private static void OnContentListItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -44,7 +46,7 @@ namespace HarmonyAssistant.UI.Widgets
             ctrl.OnContentListItemChanged(e.OldValue, e.NewValue);
         }
 
-        protected void OnContentListItemChanged(object oldContent, object newContent)
+        protected void OnContentListItemChanged(object? oldContent, object newContent)
         {
             if (newContent.GetType() == typeof(string))
             {
@@ -62,37 +64,44 @@ namespace HarmonyAssistant.UI.Widgets
         private TextBlock textBlock;
         private ContentPresenter contentPresenter;
         private Border border;
+        private object content;
 
         public SListItem()
         {
             InitializeComponent();
         }
+        
+        public SListItem(object content)
+        {
+            this.content = content;
+            InitializeComponent();
+        }
 
         private void InitializeComponent()
         {
-            textBlock = new TextBlock();
-            textBlock.Style = new CommonTextBlockStyle();
+            textBlock = new TextBlock()
+            {
+                Style = new CommonTextBlockStyle(),
+                Margin = new Thickness(6, 2, 6, 2)
+            };
 
-            contentPresenter = new ContentPresenter();
+            contentPresenter = new ContentPresenter()
+            {
+                Margin = new Thickness(6, 2, 6, 2)
+            };
 
-            border = new Border();
-            //border.MouseEnter += Border_MouseEnter;
-            //border.MouseLeave += Border_MouseLeave;
-            border.Child = textBlock;
+            border = new Border()
+            {
+                Child = textBlock,
+                BorderBrush = Brushes.Transparent,
+                BorderThickness = new Thickness(2),
+                CornerRadius = new CornerRadius(3)
+            };
+
+            if (content != null)
+                OnContentListItemChanged(null, content);
 
             Content = border;
-        }
-
-        private void Border_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            var b = sender as Border;
-            b.Background = Brushes.Transparent;
-        }
-
-        private void Border_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            var b = sender as Border;
-            b.Background = Brushes.AliceBlue;
         }
     }
 }

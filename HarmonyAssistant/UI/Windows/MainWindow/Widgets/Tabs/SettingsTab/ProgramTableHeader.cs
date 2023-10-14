@@ -1,7 +1,10 @@
 ﻿using HarmonyAssistant.UI.Styles;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using HarmonyAssistant.UI.Themes;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
@@ -41,8 +44,25 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             };
             Grid.SetColumn(textBlock1 , 1);
 
+            Line line = new Line()
+            {
+                X1 = 0,
+                Y1 = 0,
+                X2 = 1000,
+                Y2 = 0,
+                StrokeThickness = 1,
+                Opacity = 0.5,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(0, 0, 0, -8)
+            };
+            ThemeManager.AddResourceReference(line);
+            line.SetResourceReference(Line.StrokeProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
+            Grid.SetColumnSpan(line, 2);
+
             ColumnDefinition columnDefinition = new ColumnDefinition()
-            { Width = new GridLength(2, GridUnitType.Star) };
+            { Width = new GridLength(1, GridUnitType.Star) };
             
             ColumnDefinition columnDefinition1 = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };
@@ -50,7 +70,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid grid = new Grid()
             {
                 ColumnDefinitions = { columnDefinition, columnDefinition1 },
-                Children = { textBlock, textBlock1 }
+                Children = { textBlock, textBlock1, line },
+                Margin = new Thickness(5, 0, 5, 13)
             };
 
             Content = grid;
