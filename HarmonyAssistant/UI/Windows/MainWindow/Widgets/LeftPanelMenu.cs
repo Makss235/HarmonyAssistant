@@ -35,7 +35,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
         private RowDefinition menuRowDefinition;
         private Grid mainGrid;
 
-        private LeftPanelSlideOutAnim lpAnim;
+        private LeftPanelSlideOut_Animation lpAnim;
         private bool isClosed;
         private double requiredWidth;
 
@@ -180,7 +180,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             mainGrid.Children.Add(headerBorder);
             mainGrid.Children.Add(menuButtonsStackPanel);
 
-            lpAnim = new LeftPanelSlideOutAnim(this);
+            lpAnim = new LeftPanelSlideOut_Animation(this);
 
             Content = mainGrid;
         }

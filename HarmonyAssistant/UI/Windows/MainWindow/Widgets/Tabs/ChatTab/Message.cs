@@ -88,7 +88,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             g.Children.Add(b);
             g.Children.Add(designForMessageBubble);
 
-            ChatBubbleAppearAnim appearAnim = new ChatBubbleAppearAnim(this);
+            ChatBubbleAppear_Animation appearAnim = new ChatBubbleAppear_Animation(this);
             this.Loaded += (s, e) => appearAnim.StartAnim(sendMessageBy);
 
             Margin = new Thickness(0, 5, 0, 5);

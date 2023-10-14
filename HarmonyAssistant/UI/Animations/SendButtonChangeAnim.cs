@@ -10,6 +10,9 @@ using System.Windows;
 
 namespace HarmonyAssistant.UI.Animations
 {
+    /// <summary>
+    /// Анимация при изменении иконки кнопки отправки.
+    /// </summary>
     public class SendButtonChangeAnim
     {
         private DoubleAnimation animIncrease;
@@ -18,12 +21,23 @@ namespace HarmonyAssistant.UI.Animations
         private Storyboard sb2;
         private Label fromLabel;
         private Label toLabel;
-        private bool canClick;
+
+        /// <summary>
+        /// Анимация при изменении иконки кнопки отправки.
+        /// </summary>
+        /// <param name="fromLabel">Label, который </param>
+        /// <param name="toLabel"></param>
         public SendButtonChangeAnim(Label fromLabel, Label toLabel)
         {
-            canClick = true;
             this.fromLabel = fromLabel;
             this.toLabel = toLabel;
+            InitializeAnimation();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InitializeAnimation()
+        {
             fromLabel.RenderTransformOrigin = new Point(0.5, 0.5);
             fromLabel.RenderTransform = new ScaleTransform(1.0, 1.0);
             toLabel.RenderTransformOrigin = new Point(0.5, 0.5);
@@ -46,16 +60,20 @@ namespace HarmonyAssistant.UI.Animations
             sb.Children.Add(animDecrease);
             sb2 = new Storyboard();
             sb2.Children.Add(animIncrease);
+
             Storyboard.SetTarget(animDecrease, fromLabel);
             Storyboard.SetTarget(animIncrease, toLabel);
+
             sb.Completed += Sb_Completed;
-            sb2.Completed += (s, e) => canClick = true;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="canStartAnim"></param>
         public void StartAnim(bool canStartAnim)
         {
-            if (canClick && canStartAnim)
+            if (canStartAnim)
             {
-                canClick = false;
                 Storyboard.SetTargetProperty(animDecrease, new PropertyPath("RenderTransform.ScaleY"));
                 sb.Begin();
                 Storyboard.SetTargetProperty(animDecrease, new PropertyPath("RenderTransform.ScaleX"));
@@ -63,7 +81,9 @@ namespace HarmonyAssistant.UI.Animations
                 fromLabel.BeginAnimation(Label.OpacityProperty, animDecrease);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void Sb_Completed(object sender, EventArgs e)
         {
             Storyboard.SetTargetProperty(animIncrease, new PropertyPath("RenderTransform.ScaleY"));
