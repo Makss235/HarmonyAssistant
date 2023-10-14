@@ -12,7 +12,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
     public class SettingsTab : Tab
     {
-        private TabAppearAnim tabAppearAnim;
+        private TabAppear_Animation tabAppearAnim;
 
         public SettingsTab()
         {
@@ -21,7 +21,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
         private void InitializeComponent()
         {
-            tabAppearAnim = new TabAppearAnim(this);
+            tabAppearAnim = new TabAppear_Animation(this);
             IsVisibleChanged += SettingsTab_IsVisibleChanged;
 
             //Image userImage = new Image()

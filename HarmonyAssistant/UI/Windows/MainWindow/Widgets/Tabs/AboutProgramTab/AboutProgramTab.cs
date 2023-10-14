@@ -16,7 +16,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 {
     public class AboutProgramTab : Tab
     {
-        private TabAppearAnim tabAppearAnim;
+        private TabAppear_Animation tabAppearAnim;
 
         #region UI Elements
 
@@ -67,7 +67,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
         private void InitializeComponent()
         {
-            tabAppearAnim = new TabAppearAnim(this);
+            tabAppearAnim = new TabAppear_Animation(this);
             IsVisibleChanged += AboutProgramTab_IsVisibleChanged;
 
             titleTextBlock = new TextBlock()

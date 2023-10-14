@@ -1,7 +1,6 @@
 ﻿using HarmonyAssistant.UI.Styles;
-using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Themes;
-using System;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;

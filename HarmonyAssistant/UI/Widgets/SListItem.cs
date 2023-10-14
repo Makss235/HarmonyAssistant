@@ -1,6 +1,7 @@
 ﻿using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -90,12 +91,29 @@ namespace HarmonyAssistant.UI.Widgets
                 Margin = new Thickness(6, 2, 6, 2)
             };
 
+            MenuItem menuItem = new MenuItem()
+            {
+                Header = "Изменить"
+            };
+
+            MenuItem menuItem1 = new MenuItem()
+            {
+                Header = "Удалить",
+                Background = Brushes.Transparent
+            };
+
+            SContextMenu menu = new SContextMenu()
+            {
+                Items = { menuItem, menuItem1 }
+            };
+
             border = new Border()
             {
                 Child = textBlock,
                 BorderBrush = Brushes.Transparent,
                 BorderThickness = new Thickness(2),
-                CornerRadius = new CornerRadius(3)
+                CornerRadius = new CornerRadius(3),
+                ContextMenu = menu
             };
 
             if (content != null)

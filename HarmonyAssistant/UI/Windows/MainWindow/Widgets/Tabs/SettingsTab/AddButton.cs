@@ -5,7 +5,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows;
 using HarmonyAssistant.UI.Themes;
-using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {

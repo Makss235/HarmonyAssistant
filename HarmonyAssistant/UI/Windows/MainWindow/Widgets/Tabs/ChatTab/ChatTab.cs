@@ -7,6 +7,7 @@ using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tools;
+using SmartAssistant.Infrastructure.Styles.Base.ContextMenuS;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -37,7 +38,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             set => SetProperty(ref _Text, value);
         }
 
-        private TabAppearAnim tabAppearAnim;
+        private TabAppear_Animation tabAppearAnim;
 
         private ScrollViewer scrollViewer;
         private TextBox textBox;
@@ -74,7 +75,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
         private void InitializeComponent()
         {
-            tabAppearAnim = new TabAppearAnim(this);
+            tabAppearAnim = new TabAppear_Animation(this);
 
             ItemsControl ic = new ItemsControl()
             {
@@ -115,7 +116,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 FontSize = 16,
                 FontWeight = FontWeights.SemiBold,
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(15, -2, 0, 0),
+                Margin = new Thickness(10, 0, 0, 0),
             };
             Grid.SetColumn(transparentLabel, 0);
             Grid.SetRow(transparentLabel, 1);
@@ -131,7 +132,17 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Background = Brushes.Transparent,
-                Margin = new Thickness(15, 1, 15, 5)
+                Margin = new Thickness(15, 5, 15, 5),
+                ContextMenu = new ContextMenu()
+                {
+                    Style = new CommonContextMenuStyle(),
+                    ItemContainerStyle = new CommonContextMenuItemStyle(new CornerRadius(5)),
+                    Items =
+                    {
+                        new MenuItem(){Header = "AAA" },
+                        new MenuItem(){Header = "BBB" },
+                    }
+                }
             };
 
             textBox.SetBinding(TextBox.TextProperty, new Binding()
