@@ -127,7 +127,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
 
             textBox = new TextBox()
             {
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 BorderThickness = new Thickness(0),
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Stretch,

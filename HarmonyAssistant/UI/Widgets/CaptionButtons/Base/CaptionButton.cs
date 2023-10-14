@@ -1,119 +1,84 @@
-﻿using HarmonyAssistant.UI.Themes.AppBrushes.Base;
-using HarmonyAssistant.UI.Themes;
-using HarmonyAssistant.UI.Widgets.Base;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using HarmonyAssistant.UI.Icons.CaptionIcons;
+using HarmonyAssistant.UI.Icons.CaptionIcons.Base;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Shell;
 
 namespace HarmonyAssistant.UI.Widgets.CaptionButtons.Base
 {
-    public class CaptionButton : ContentControl, INotifyPropertyChanged
+    /// <summary>Базовый класс кнопки заголовка.</summary>
+    public abstract class CaptionButton : ButtonBase
     {
-        #region NPC
+        #region Icon : DependencyProperty[CaptionIcon] - Иконка кнопки заголовка
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        /// <summary>Свойство зависимостей свойства Icon.</summary>
+        public static readonly DependencyProperty IconProperty;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
+        /// <summary>Иконка, являющаяся визуалом кнопки заголовка.</summary>
+        public CaptionIcon Icon
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            get { return (CaptionIcon)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
         }
 
-        protected virtual bool SetProperty<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
+        /// <summary>Метод обработки изменений свойства Icon.</summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //if (Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(PropertyName);
-            return true;
-        }
-
-        #endregion
-
-        #region Background
-
-        private Brush _Background;
-
-        public new Brush Background
-        {
-            get => _Background;
-            set => SetProperty(ref _Background, value);
+            CaptionButton captionButton = (CaptionButton)d;
+            captionButton.mainBorder.Child = e.NewValue as CaptionIcon;
         }
 
         #endregion
 
-        #region Icon
+        /// <summary>
+        /// Border, с помощью которого меняется цвет заднего фона кнопки.
+        /// </summary>
+        protected Border mainBorder;
 
-        private ContentControl _Icon;
+        #region Конструкторы
 
-        public ContentControl Icon
+        /// <summary>Статический конструктор, в котором 
+        /// регистрируются свойства зависимостей.</summary>
+        static CaptionButton()
         {
-            get => _Icon;
-            set => SetProperty(ref _Icon, value);
+            // Регистрация свойства зависимостей IconProperty.
+            IconProperty = DependencyProperty.Register(
+                        "Icon",
+                        typeof(CaptionIcon),
+                        typeof(CaptionButton),
+                        new FrameworkPropertyMetadata(
+                            null,
+                            //FrameworkPropertyMetadataOptions.AffectsMeasure |
+                            //FrameworkPropertyMetadataOptions.AffectsRender,
+                            new PropertyChangedCallback(OnIconChanged)));
         }
 
-        #endregion
-
-        public event RoutedEventHandler Click;
-        public new event MouseButtonEventHandler PreviewMouseLeftButtonDown;
-
-        private Border border;
-        private TButton button;
-
-        public CaptionButton(ContentControl icon)
+        /// <summary>Инициализирует новый объект класса CaptionButton.</summary>
+        public CaptionButton()
         {
-            Icon = icon;
-            PropertyChanged += CaptionButton_PropertyChanged;
-
             InitializeComponent();
         }
 
+        #endregion
+
+        /// <summary>Инициализация визуальных компонентов.</summary>
         private void InitializeComponent()
         {
-            Icon.HorizontalAlignment = HorizontalAlignment.Center;
-            Icon.VerticalAlignment = VerticalAlignment.Center;
+            // Инициализация border.
+            mainBorder = new Border()
+            { Background = Brushes.Transparent };
 
-            ThemeManager.AddResourceReference(Icon);
-            Icon.SetResourceReference(BackgroundProperty,
-                nameof(IAppBrushes.CommonForegroundBrush));
+            // Установка значения свойства Icon по умолчанию.
+            Icon = new MinimizeIcon(10);
+            mainBorder.Child = Icon;
 
-            border = new Border()
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch,
-                Background = Brushes.Transparent
-            };
-            border.Child = Icon;
-
-            button = new TButton()
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch
-            };
-            button.Click += (s, e) => Click?.Invoke(s, e);
-            button.PreviewMouseLeftButtonDown += (s, e) => 
-            PreviewMouseLeftButtonDown?.Invoke(s, e);
-            button.Content = border;
-
+            // Установка значение true свойства видимости на Chrome.
             SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
-            Content = button;
-        }
-
-        private void CaptionButton_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(Background):
-                    border.Background = Background;
-                    break;
-                case nameof(Icon):
-                    border.Child = Icon;
-                    break;
-                default:
-                    break;
-            }
+            Content = mainBorder;
         }
     }
 }

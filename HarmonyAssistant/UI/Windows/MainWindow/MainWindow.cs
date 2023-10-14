@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shell;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow
@@ -36,6 +37,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
 
         public MainWindow()
         {
+            SourceInitialized += WindowHelper.RemoveSysMenu;
+
             var stateManager = StateManager.GetInstance();
             stateManager.GetState<OpenedState>().StateEnter += () =>
             {
@@ -125,14 +128,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             tabs.Add(aboutProgramTab);
 
             MinimizeButton minimizeButton = new MinimizeButton(this);
-            minimizeButton.VerticalAlignment = VerticalAlignment.Stretch;
-            minimizeButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+            //minimizeButton.VerticalAlignment = VerticalAlignment.Stretch;
+            //minimizeButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             Grid.SetColumn(minimizeButton, 0);
 
             CloseButton minimizeButton2 = new CloseButton(this);
-            minimizeButton.VerticalAlignment = VerticalAlignment.Stretch;
-            minimizeButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-            Grid.SetColumn(minimizeButton2, 2);
+            //minimizeButton2.VerticalAlignment = VerticalAlignment.Stretch;
+            //minimizeButton2.HorizontalAlignment = HorizontalAlignment.Stretch;
+            Grid.SetColumn(minimizeButton2, 1);
 
             ColumnDefinition columnDefinition = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };

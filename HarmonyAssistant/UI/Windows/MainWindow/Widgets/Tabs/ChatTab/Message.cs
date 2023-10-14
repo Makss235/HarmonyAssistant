@@ -42,7 +42,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
                 TextBlock textBlock = new TextBlock()
                 {
                     Text = contentObject.ToString(),
-                    Style = TextBlockStyles.CommonTextBlockStyle,
+                    Style = new CommonTextBlockStyle(),
                     Margin = new Thickness(12, 7, 12, 7)
                 };
                 b.Child = textBlock;

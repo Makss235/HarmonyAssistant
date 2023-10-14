@@ -1,14 +1,13 @@
-﻿using HarmonyAssistant.Core.Skills.WeatherSkills.WeatherData;
-using System;
+﻿using HarmonyAssistant.Core.Parsers.WeatherParser;
 using System.Windows.Controls;
 
 namespace HarmonyAssistant.UI.Widgets.WeatherWidgets.Base
 {
     public abstract class WeatherWidget : ContentControl
     {
-        public WeatherToday WeatherToday { get; set; }
+        public WeatherData WeatherToday { get; set; }
 
-        public WeatherWidget(WeatherToday weatherToday)
+        public WeatherWidget(WeatherData weatherToday)
         {
             WeatherToday = weatherToday;
 

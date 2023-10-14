@@ -1,9 +1,5 @@
-﻿using HarmonyAssistant.Core.STT;
-using HarmonyAssistant.Core.TTC;
-using HarmonyAssistant.Data.DataSerialize;
-using HarmonyAssistant.UI.Windows.MainWindow;
+﻿using HarmonyAssistant.Core;
 using System;
-using System.Windows;
 
 namespace HarmonyAssistant
 {
@@ -12,31 +8,8 @@ namespace HarmonyAssistant
         [STAThread]
         static void Main(string[] args)
         {
-            SettingsData.GetInstance().Initialize();
-            WordsData.GetInstance().Initialize();
-            TriggerWordsData.GetInstance().Initialize();
-            DictionaryWordsData.GetInstance().Initialize();
-            GreetingWordsData.GetInstance().Initialize();
-            ProgramsData.GetInstance().Initialize();
-            SitesData.GetInstance().Initialize();
-
-            StateManager.GetInstance();
-
-            STT sTT = STT.GetInstance();
-            sTT.Start();
-
-            CCSTTF cCSTTF = CCSTTF.GetInstance();
-            cCSTTF.Start();
-
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-
-            StateManager.GetInstance().InitCheckStates();
-            SkillManager.GetInstance();
-
-            Application application = new Application();
-            application.MainWindow = mainWindow;
-            application.Run();
+            HarmonyApplication harmonyApplication = new HarmonyApplication();
+            harmonyApplication.Run();
         }
     }
 }

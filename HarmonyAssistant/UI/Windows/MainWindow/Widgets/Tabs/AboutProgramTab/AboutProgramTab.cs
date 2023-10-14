@@ -73,7 +73,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             titleTextBlock = new TextBlock()
             {
                 Text = "О программе",
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontSize = 20,
                 FontWeight = FontWeights.Bold,
                 HorizontalAlignment = HorizontalAlignment.Center,
@@ -84,12 +84,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             nameProgramLocTextBlock = new TextBlock()
             {
                 Text = "Название программы:",
-                Style = TextBlockStyles.CommonTextBlockStyle
+                Style = new CommonTextBlockStyle()
             };
             nameProgramTextBlock = new TextBlock()
             {
                 Text = "Привет, Иван!",
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(10, 0, 0, 0)
             };
@@ -109,12 +109,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             nameBuildLocTextBlock = new TextBlock()
             {
                 Text = "Название сборки:",
-                Style = TextBlockStyles.CommonTextBlockStyle
+                Style = new CommonTextBlockStyle()
             };
             nameBuildTextBlock = new TextBlock()
             {
                 Text = "HarmonyAssistant",
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(10, 0, 0, 0)
             };
@@ -134,12 +134,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             versionLocTextBlock = new TextBlock()
             {
                 Text = "Версия:",
-                Style = TextBlockStyles.CommonTextBlockStyle
+                Style = new CommonTextBlockStyle()
             };
             versionTextBlock = new TextBlock()
             {
                 Text = "0.1.0.0",
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(10, 0, 0, 0)
             };
@@ -159,25 +159,25 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             authorsLocTextBlock = new TextBlock()
             {
                 Text = "Авторы:",
-                Style = TextBlockStyles.CommonTextBlockStyle
+                Style = new CommonTextBlockStyle()
             };
 
             makssAuthorTextBlock = new TextBlock()
             {
                 Text = "Makss (Широков Максим)",
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold
             };
             mrVeserAuthorTextBlock = new TextBlock()
             {
                 Text = "MrVeser (Кузнецов Виктор)",
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold
             };
             cripol1AuthorTextBlock = new TextBlock()
             {
                 Text = "Cripol1 (Инкин Максим)",
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 FontWeight = FontWeights.Bold
             };
 
@@ -205,13 +205,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             downloadLinkLocTextBlock = new TextBlock()
             { 
                 Text = "Ссылка на скачивание:",
-                Style = TextBlockStyles.CommonTextBlockStyle
+                Style = new CommonTextBlockStyle()
             };
 
             downloadHyperlink = new Hyperlink()
             { 
                 NavigateUri = new Uri("https://clck.ru/335ThJ"),
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 Foreground = Brushes.CornflowerBlue
             };
             downloadHyperlink.RequestNavigate += DownloadHyperlink_RequestNavigate;
@@ -246,13 +246,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             githubLinkLocTextBlock = new TextBlock()
             {
                 Text = "Ссылка на GitHub:",
-                Style = TextBlockStyles.CommonTextBlockStyle
+                Style = new CommonTextBlockStyle()
             };
 
             githubHyperlink = new Hyperlink()
             { 
                 NavigateUri = new Uri("https://clck.ru/35WELg"),
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 Foreground = Brushes.CornflowerBlue
             };
             githubHyperlink.RequestNavigate += GithubHyperlink_RequestNavigate;

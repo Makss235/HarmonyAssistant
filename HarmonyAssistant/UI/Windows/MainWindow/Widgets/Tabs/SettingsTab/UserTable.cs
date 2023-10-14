@@ -31,7 +31,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             TextBlock userNameTB = new TextBlock()
             {
                 Text = userName,
-                Style = TextBlockStyles.CommonTextBlockStyle,
+                Style = new CommonTextBlockStyle(),
                 Background = Brushes.Transparent
             };
 

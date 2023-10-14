@@ -28,7 +28,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills.QuickAnswers.Base
         {
             HeaderTextBlockStyle = new Style(
                 targetType: typeof(TextBlock),
-                basedOn: TextBlockStyles.CommonTextBlockStyle);
+                basedOn: new CommonTextBlockStyle());
             HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.Bold));
             HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)17));
         }

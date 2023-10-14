@@ -32,7 +32,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
         {
             HeaderTextBlockStyle = new Style(
                 targetType: typeof(TextBlock),
-                basedOn: TextBlockStyles.CommonTextBlockStyle);
+                basedOn: new CommonTextBlockStyle());
             HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontWeightProperty, FontWeights.Bold));
             HeaderTextBlockStyle.Setters.Add(new Setter(TextBlock.FontSizeProperty, (double)17));
         }
@@ -60,7 +60,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
                     TextBlock textBlock1 = new TextBlock()
                     {
                         Text = quickAnswerText.Body,
-                        Style = TextBlockStyles.CommonTextBlockStyle,
+                        Style = new CommonTextBlockStyle(),
                     };
                     ThemeManager.AddResourceReference(textBlock1);
                     textBlock1.SetResourceReference(TextBlock.ForegroundProperty,
@@ -86,7 +86,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
                     {
                         TextBlock textBlock1 = new TextBlock()
                         {
-                            Style = TextBlockStyles.CommonTextBlockStyle,
+                            Style = new CommonTextBlockStyle(),
                             Text = link.SiteName,
                             FontSize = 13
                         };
@@ -100,7 +100,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
                     {
                         TextBlock textBlock1 = new TextBlock()
                         {
-                            Style = TextBlockStyles.CommonTextBlockStyle,
+                            Style = new CommonTextBlockStyle(),
                             Text = link.ArticlePathString,
                             Margin = new Thickness(0, -3, 0, 0),
                             FontSize = 12
@@ -141,7 +141,7 @@ namespace HarmonyAssistant.UI.Widgets.ParserWidgets
                         Hyperlink githubHyperlink = new Hyperlink()
                         {
                             NavigateUri = new Uri(link.SourceLink),
-                            Style = TextBlockStyles.CommonTextBlockStyle,
+                            Style = new CommonTextBlockStyle(),
                             Foreground = Brushes.CornflowerBlue
                         };
                         githubHyperlink.RequestNavigate += (s, e) =>
