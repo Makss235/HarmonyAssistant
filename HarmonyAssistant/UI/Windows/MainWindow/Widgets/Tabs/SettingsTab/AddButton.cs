@@ -21,7 +21,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
         protected override void OnMouseEnter(MouseEventArgs e)
         {
             base.OnMouseEnter(e);
-            border.Background = ThemeManager.CurrentTheme.HighlightingIconBrush;
+            border.Background = ThemeManager.CurrentTheme.MouseOverBrush;
         }
 
         protected override void OnMouseLeave(MouseEventArgs e)

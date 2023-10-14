@@ -11,6 +11,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
         public Brush TabBackgroundBrush { get; }
         public Brush ChatMessageBrush { get; }
         public Brush HighlightingIconBrush { get; }
+        public Brush MouseOverBrush { get; }
         public Brush EllipseInSendButtonBrush { get; }
 
         public ResourceDictionary ResourceDictionary { get; private set; }
@@ -42,6 +43,9 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
             { R = 43, G = 82, B = 120, A = 255 });
 
             HighlightingIconBrush = new SolidColorBrush(new Color()
+            { R = 50, G = 50, B = 100, A = 255 });
+
+            MouseOverBrush = new SolidColorBrush(new Color()
             { R = 50, G = 50, B = 100, A = 255 });
 
             EllipseInSendButtonBrush = new SolidColorBrush(new Color()

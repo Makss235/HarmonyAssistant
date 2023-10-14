@@ -11,7 +11,9 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
         public Brush TabBackgroundBrush { get; }
         public Brush ChatMessageBrush { get; }
         public Brush HighlightingIconBrush { get; }
+        public Brush MouseOverBrush { get; }
         public Brush EllipseInSendButtonBrush { get; }
+
 
         public ResourceDictionary ResourceDictionary { get; private set; }
 
@@ -33,16 +35,20 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
             CommonBackgroundBrush = new SolidColorBrush(new Color()
             { R = 113, G = 201, B = 206, A = 255 });
 
-            CommonForegroundBrush = Brushes.Black;
+            CommonForegroundBrush = new SolidColorBrush(new Color()
+            { R = 25, G = 45, B = 46, A = 255 });
 
             TabBackgroundBrush = new SolidColorBrush(new Color()
-            { R = 227, G = 253, B = 253, A = 255 });
+            { R = 206, G = 230, B = 230, A = 255 });
 
             ChatMessageBrush = new SolidColorBrush(new Color()
-            { R = 166, G = 227, B = 233, A = 255 });
+            { R = 145, G = 205, B = 214, A = 255 });
 
             HighlightingIconBrush = new SolidColorBrush(new Color()
-            { R = 110, G = 135, B = 140, A = 255 });
+            { R = 40, G = 168, B = 168, A = 255 });
+
+            MouseOverBrush = new SolidColorBrush(new Color()
+            { R = 131, G = 179, B = 184, A = 255 });
 
             EllipseInSendButtonBrush = new SolidColorBrush(new Color()
             { R = 85, G = 182, B = 201, A = 255 });

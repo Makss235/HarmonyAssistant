@@ -31,7 +31,7 @@ namespace HarmonyAssistant.UI.Widgets
 
         protected override void OnMouseEnter(MouseEventArgs e)
         {
-            border.BorderBrush = ThemeManager.CurrentTheme.HighlightingIconBrush;
+            border.BorderBrush = ThemeManager.CurrentTheme.MouseOverBrush;
         }
 
         protected override void OnMouseLeave(MouseEventArgs e)
