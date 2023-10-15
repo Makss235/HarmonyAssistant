@@ -9,8 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System;
-using HarmonyAssistant.Data.DataSerialize;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
@@ -22,8 +20,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
         private TextBox textBox;
         private Grid grid1;
         private AddButton addButtonAddNew;
+        private AddButton addButtonAddNew1;
         private AddButton addButtonChange;
         private AddButton addButtonCancel;
+        private AddButton addButtonCancel1;
+        private TextBox textBox1;
+        private TextBlock textBlock1;
 
         private SListItem current;
 
@@ -124,13 +126,72 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             };
             Grid.SetColumn(stackPanel, 0);
 
-            TextBlock textBlock1 = new TextBlock()
+            textBlock1 = new TextBlock()
             {
                 Text = programObject.Path,
-                Style = new CommonTextBlockStyle(),
-                Margin = new Thickness(5, 0, 0, 0)
+                Style = new CommonTextBlockStyle()
             };
-            Grid.SetColumn(textBlock1, 1);
+            textBlock1.PreviewMouseLeftButtonUp += TextBlock1_PreviewMouseLeftButtonUp;
+            Grid.SetColumn(textBlock1, 0);
+            Grid.SetColumnSpan(textBlock1, 2);
+
+            textBox1 = new TextBox()
+            {
+                Background = Brushes.Transparent,
+                Style = new CommonTextBlockStyle(),
+                BorderThickness = new Thickness(0, 0, 0, 1),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Padding = new Thickness(0, 5, 0, 0),
+                Margin = new Thickness(-2, -5, 0, 0),
+                Visibility = Visibility.Hidden,
+            };
+            ThemeManager.AddResourceReference(textBox1);
+            textBox1.SetResourceReference(TextBox.CaretBrushProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
+            textBox1.SetResourceReference(TextBox.BorderBrushProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
+            Grid.SetColumn(textBox1, 0);
+            Grid.SetColumnSpan(textBox1, 2);
+
+            addButtonAddNew1 = new AddButton(TypeButton.Change)
+            {
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Visibility = Visibility.Collapsed
+            };
+            addButtonAddNew1.Width = addButtonAddNew1.Height = 30;
+            addButtonAddNew1.Click += AddButtonAddNew1_Click;
+            Grid.SetColumn(addButtonAddNew1, 0);
+            Grid.SetRow(addButtonAddNew1, 1);
+
+            addButtonCancel1 = new AddButton(TypeButton.Cancel)
+            {
+                Visibility = Visibility.Collapsed,
+            };
+            addButtonCancel1.Width = addButtonCancel1.Height = 30;
+            addButtonCancel1.Click += AddButtonCancel1_Click;
+            Grid.SetColumn(addButtonCancel1, 1);
+            Grid.SetRow(addButtonCancel1, 1);
+
+            ColumnDefinition columnDefinition5 = new ColumnDefinition()
+            { Width = new GridLength(1, GridUnitType.Star) };
+            
+            ColumnDefinition columnDefinition6 = new ColumnDefinition()
+            { Width = new GridLength(1, GridUnitType.Auto) };
+
+            RowDefinition rowDefinition7 = new RowDefinition()
+            { Height = new GridLength(1, GridUnitType.Auto) };
+            
+            RowDefinition rowDefinition8 = new RowDefinition()
+            { Height = new GridLength(1, GridUnitType.Auto) };
+
+            Grid grid2 = new Grid()
+            {
+                ColumnDefinitions = { columnDefinition5, columnDefinition6 },
+                RowDefinitions = { rowDefinition7, rowDefinition8 },
+                Children = { textBlock1, textBox1, addButtonAddNew1, addButtonCancel1 },
+                Margin = new Thickness(5, 0, 5, 0)
+            };
+            Grid.SetColumn(grid2, 1);
 
             Line line = new Line()
             {
@@ -158,11 +219,47 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid grid = new Grid()
             {
                 ColumnDefinitions = { columnDefinition, columnDefinition1 },
-                Children = { stackPanel, textBlock1, line },
+                Children = { stackPanel, grid2, line },
                 Margin = new Thickness(5, 0, 5, 13)
             };
 
             Content = grid;
+        }
+
+        private void AddButtonCancel1_Click(object sender, RoutedEventArgs e)
+        {
+            textBox1.Clear();
+
+            addButtonAddNew1.Visibility = Visibility.Collapsed;
+            addButtonCancel1.Visibility = Visibility.Collapsed;
+            textBox1.Visibility = Visibility.Hidden;
+            textBlock1.Visibility = Visibility.Visible;
+        }
+
+        private void AddButtonAddNew1_Click(object sender, RoutedEventArgs e)
+        {
+            string text = textBox1.Text;
+            if (string.IsNullOrEmpty(text)) return;
+
+            textBlock1.Text = text;
+            textBox1.Clear();
+
+            addButtonAddNew1.Visibility = Visibility.Collapsed;
+            addButtonCancel1.Visibility = Visibility.Collapsed;
+            textBox1.Visibility = Visibility.Hidden;
+            textBlock1.Visibility = Visibility.Visible;
+
+            textBox1.Focus();
+        }
+
+        private void TextBlock1_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            textBox1.Text = textBlock1.Text;
+
+            addButtonAddNew1.Visibility = Visibility.Visible;
+            addButtonCancel1.Visibility = Visibility.Visible;
+            textBox1.Visibility = Visibility.Visible;
+            textBlock1.Visibility = Visibility.Hidden;
         }
 
         private void AddButtonChange_Click(object sender, RoutedEventArgs e)
