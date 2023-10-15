@@ -61,7 +61,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetColumnSpan(line, 2);
 
             ColumnDefinition columnDefinition = new ColumnDefinition()
-            { Width = new GridLength(1, GridUnitType.Star) };
+            { Width = new GridLength(1.5, GridUnitType.Star) };
             
             ColumnDefinition columnDefinition1 = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Star) };

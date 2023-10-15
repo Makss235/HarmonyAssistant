@@ -8,12 +8,20 @@ using HarmonyAssistant.UI.Themes;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
+    public enum TypeButton
+    {
+        Add, Change, Cancel
+    }
+
     public class AddButton : ButtonBase
     {
         private Border border;
+        private TypeButton typeButton;
 
-        public AddButton()
+        public AddButton(TypeButton typeButton)
         {
+            this.typeButton = typeButton;
+
             InitializeComponent();
         }
 
@@ -31,23 +39,54 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
         private void InitializeComponent()
         {
-            TextBlock textBlock = new TextBlock()
-            {
-                Text = "+",
-                Style = new CommonTextBlockStyle(),
-                FontSize = 25,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, -5, 0, 0)
-            };
-
             border = new Border()
             {
-                Child = textBlock,
                 CornerRadius = new CornerRadius(5),
                 HorizontalAlignment = HorizontalAlignment.Stretch, 
                 VerticalAlignment = VerticalAlignment.Stretch
             };
+
+            if (typeButton == TypeButton.Add)
+            {
+                TextBlock textBlock = new TextBlock()
+                {
+                    Text = "+",
+                    Style = new CommonTextBlockStyle(),
+                    FontSize = 25,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(0, -6, 0, 0)
+                };
+                border.Child = textBlock;
+            }
+            else if (typeButton == TypeButton.Change)
+            {
+                TextBlock textBlock = new TextBlock()
+                {
+                    Text = "✓",
+                    Style = new CommonTextBlockStyle(),
+                    FontWeight = FontWeights.UltraBold,
+                    FontSize = 14,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(-1, -1, 0, 0)
+                };
+                border.Child = textBlock;
+            }
+            else if (typeButton == TypeButton.Cancel)
+            {
+                TextBlock textBlock = new TextBlock()
+                {
+                    Text = "✖",
+                    Style = new CommonTextBlockStyle(),
+                    FontWeight = FontWeights.UltraLight,
+                    FontSize = 10,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(0, -2, 0, 0)
+                };
+                border.Child = textBlock;
+            }
 
             Content = border;
         }

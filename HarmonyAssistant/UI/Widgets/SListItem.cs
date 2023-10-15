@@ -3,6 +3,7 @@ using HarmonyAssistant.UI.Styles.ContextMenuStyles;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab;
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,20 +16,23 @@ namespace HarmonyAssistant.UI.Widgets
     {
 #pragma warning disable CS8618
 
+        public event Action<SListItem> ClickChange;
+        public event Action<SListItem> ClickDelete;
+
         public static readonly DependencyProperty ContentListItemProperty =
                 DependencyProperty.Register(
                         "ContentListItem",
                         typeof(object),
-                        typeof(ContentControl),
+                        typeof(SListItem),
                         new FrameworkPropertyMetadata(
-                                null,
+                                (object)null,
                                 new PropertyChangedCallback(OnContentListItemChanged)));
 
         [Bindable(true)]
         public object ContentListItem
         {
-            get { return GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            get { return GetValue(ContentListItemProperty); }
+            set { SetValue(ContentListItemProperty, value); }
         }
 
         protected override void OnMouseEnter(MouseEventArgs e)
@@ -50,6 +54,8 @@ namespace HarmonyAssistant.UI.Widgets
 
         protected void OnContentListItemChanged(object? oldContent, object newContent)
         {
+            ContentListItem = newContent;
+
             if (newContent.GetType() == typeof(string))
             {
                 string newString = (string)newContent;
@@ -116,12 +122,14 @@ namespace HarmonyAssistant.UI.Widgets
                 Header = "Изменить",
                 Style = new CommonContextMenuItemStyle()
             };
+            menuItem.Click += (sender, args) => ClickChange?.Invoke(this);
 
             MenuItem menuItem1 = new MenuItem()
             {
                 Header = "Удалить",
                 Style = new CommonContextMenuItemStyle()
             };
+            menuItem1.Click += (sender, args) => ClickDelete?.Invoke(this);
 
             ContextMenu menu = new ContextMenu()
             {
