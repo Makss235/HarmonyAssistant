@@ -127,13 +127,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow
             tabs.Add(aboutProgramTab);
 
             MinimizeButton minimizeButton = new MinimizeButton(this);
-            //minimizeButton.VerticalAlignment = VerticalAlignment.Stretch;
-            //minimizeButton.HorizontalAlignment = HorizontalAlignment.Stretch;
             Grid.SetColumn(minimizeButton, 0);
 
             CloseButton minimizeButton2 = new CloseButton(this);
-            //minimizeButton2.VerticalAlignment = VerticalAlignment.Stretch;
-            //minimizeButton2.HorizontalAlignment = HorizontalAlignment.Stretch;
             Grid.SetColumn(minimizeButton2, 1);
 
             ColumnDefinition columnDefinition = new ColumnDefinition()
