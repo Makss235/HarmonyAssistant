@@ -3,18 +3,18 @@
     "Names": [
       "ютуб"
     ],
-    "Url": "https://www.youtube.com/"
+    "Path": "https://www.youtube.com/"
   },
   {
     "Names": [
       "яндекс"
     ],
-    "Url": "https://ya.ru/"
+    "Path": "https://ya.ru/"
   },
   {
     "Names": [
       "гугл"
     ],
-    "Url": "https://www.google.com/"
+    "Path": "https://www.google.com/"
   }
 ]

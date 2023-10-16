@@ -10,9 +10,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
     public class ProgramsTable : ContentControl
     {
         public ObservableCollection<object> Programs;
+        private List<NamesAndPathObject> namesAndPathObjects;
 
-        public ProgramsTable()
+        public ProgramsTable(List<NamesAndPathObject> namesAndPathObjects)
         {
+            this.namesAndPathObjects = namesAndPathObjects;
+
             InitializeComponent();
         }
 
@@ -22,9 +25,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             {
                 new ProgramTableHeader()
             };
-            foreach (var item in ProgramsData.GetInstance().JsonObject)
+            for (int i = 0; i < namesAndPathObjects.Count; i++)
             {
-                var gg = new ProgramElement(item.CallingNames, item.Path);
+                var hh = namesAndPathObjects[i];
+                var gg = new ProgramElement(ref hh);
                 gg.ProgramElementChanged += Gg_ProgramElementChanged;
                 gg.ProgramElementSeleted += Gg_ProgramElementSeleted;
                 Programs.Add(gg);
@@ -54,7 +58,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
         private void Gg_ProgramElementSeleted(ProgramElement obj)
         {
             int index = ProgramsData.GetInstance().JsonObject.FindIndex(
-                p => p.Path.Equals(obj.Path) && p.CallingNames.Equals(obj.Names));
+                p => p.Path.Equals(obj.namesAndPathObject.Path) && p.Names.Equals(obj.namesAndPathObject.Names));
 
             try
             {
@@ -68,12 +72,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
         private void Gg_ProgramElementChanged(ProgramElement obj)
         {
             int index = ProgramsData.GetInstance().JsonObject.FindIndex(
-                p => p.Path.Equals(obj.Path) || p.CallingNames.Equals(obj.Names));
+                p => p.Path.Equals(obj.namesAndPathObject.Path) || p.Names.Equals(obj.namesAndPathObject.Names));
 
-            var ff = new ProgramObject()
+            var ff = new NamesAndPathObject()
             {
-                CallingNames = obj.Names,
-                Path = obj.Path,
+                Names = obj.namesAndPathObject.Names,
+                Path = obj.namesAndPathObject.Path,
             };
 
             if (index == -1)
@@ -90,10 +94,17 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var gg = new ProgramElement(new List<string>(), string.Empty);
+            var hh = new NamesAndPathObject()
+            {
+                Names = new List<string>(),
+                Path = string.Empty
+            };
+
+            var gg = new ProgramElement(ref hh);
             gg.ProgramElementChanged += Gg_ProgramElementChanged;
             gg.ProgramElementSeleted += Gg_ProgramElementSeleted;
             Programs.Add(gg);
+            namesAndPathObjects.Add(hh);
         }
     }
 }

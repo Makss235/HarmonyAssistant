@@ -15,7 +15,7 @@ namespace HarmonyAssistant.Core.Skills.ProgramsSkills
 
             foreach (var programObj in ProgramsData.GetInstance().JsonObject)
             {
-                foreach (var callingNameProgram in programObj.CallingNames)
+                foreach (var callingNameProgram in programObj.Names)
                 {
                     FuzzyString.FuzzyString fuzzyString = new FuzzyString.FuzzyString();
                     var fuzzy = fuzzyString.FuzzySentence(callingNameProgram, iCS.CleanText);

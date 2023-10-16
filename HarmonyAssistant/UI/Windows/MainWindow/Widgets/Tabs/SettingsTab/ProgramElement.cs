@@ -1,4 +1,5 @@
-﻿using HarmonyAssistant.UI.Styles;
+﻿using HarmonyAssistant.Data.DataSerialize;
+using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Styles.ContextMenuStyles;
 using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes.Base;
@@ -31,20 +32,18 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
         public event Action<ProgramElement> ProgramElementChanged;
         public event Action<ProgramElement> ProgramElementSeleted;
 
-        public List<string> Names { get; set; }
-        public string Path { get; set; }
+        public NamesAndPathObject namesAndPathObject;
         public ObservableCollection<SListItem> sListItems;
 
-        public ProgramElement(List<string> names, string path)
+        public ProgramElement(ref NamesAndPathObject namesAndPathObject)
         {
-            this.Names = names;
-            this.Path = path;
+            this.namesAndPathObject = namesAndPathObject;
 
             sListItems = new ObservableCollection<SListItem>();
 
-            if (Names?.Count != 0)
+            if (namesAndPathObject.Names?.Count != 0)
             {
-                foreach (string item in Names)
+                foreach (string item in namesAndPathObject.Names)
                 {
                     var f = new SListItem(item);
                     f.ClickChange += F_ClickChange;
@@ -177,13 +176,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid.SetColumn(addButtonCancel1, 1);
             Grid.SetRow(addButtonCancel1, 1);
 
-            if (string.IsNullOrEmpty(Path))
+            if (string.IsNullOrEmpty(namesAndPathObject.Path))
             {
                 textBlock1.Visibility = Visibility.Hidden;
             }
             else
             {
-                textBlock1.Text = Path;
+                textBlock1.Text = namesAndPathObject.Path;
                 textBox1.Visibility = Visibility.Hidden;
                 addButtonAddNew1.Visibility = Visibility.Hidden;
                 addButtonCancel1.Visibility = Visibility.Hidden;
@@ -248,7 +247,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             sListItems.Remove(obj);
             try
             {
-                Names.Remove(obj.ContentListItem.ToString());
+                namesAndPathObject.Names.Remove(obj.ContentListItem.ToString());
             }
             catch { }
             ProgramElementChanged?.Invoke(this);
@@ -262,7 +261,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
         private void AddButtonCancel1_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Path)) return;
+            if (string.IsNullOrEmpty(namesAndPathObject.Path)) return;
 
             textBox1.Clear();
             addButtonAddNew1.Visibility = Visibility.Collapsed;
@@ -277,7 +276,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             if (string.IsNullOrEmpty(text)) return;
             if (!text.Equals(textBlock1.Text))
             {
-                Path = text;
+                namesAndPathObject.Path = text;
                 ProgramElementChanged?.Invoke(this);
                 textBlock1.Text = text;
                 textBox1.Clear();
@@ -305,11 +304,11 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
         {
             string text = textBox.Text;
             if (string.IsNullOrEmpty(text)) return;
-            if (Names.Contains(text)) return;
+            if (namesAndPathObject.Names.Contains(text)) return;
 
             try
             {
-                Names[Names.FindIndex(p => p.Equals(current.ContentListItem))] = text;
+                namesAndPathObject.Names[namesAndPathObject.Names.FindIndex(p => p.Equals(current.ContentListItem))] = text;
             }
             catch
             {
@@ -324,13 +323,13 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
         {
             string text = textBox.Text;
             if (string.IsNullOrEmpty(text)) return;
-            if (Names.Contains(text)) return;
+            if (namesAndPathObject.Names.Contains(text)) return;
 
             var f = new SListItem(text);
             f.ClickChange += F_ClickChange;
             f.ClickDelete += F_ClickDelete;
             sListItems.Add(f);
-            Names.Add(text);
+            namesAndPathObject.Names.Add(text);
             ProgramElementChanged?.Invoke(this);
 
             HideAll();

@@ -128,7 +128,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             //Grid.SetColumn(searchSystSP, 1);
             //Grid.SetRow(searchSystSP, 3);
 
-            ProgramsTable programsTable = new ProgramsTable();
+            ProgramsTable programsTable = new ProgramsTable(ProgramsData.GetInstance().JsonObject);
             Grid.SetColumnSpan(programsTable, 2);
             Grid.SetColumn(programsTable, 0);
             Grid.SetRow(programsTable, 1);

@@ -29,11 +29,11 @@ namespace HarmonyAssistant.Data.DataSerialize.Base
                 throw new Exception("file name is empty");
             this.fileName = fileName;
             if (string.IsNullOrEmpty(language))
-                relativeFilePath = $"Files/{fileName}";
+                relativeFilePath = $"Files\\{fileName}";
             else
             {
                 this.language = language;
-                relativeFilePath = $"Files/{this.language.ToUpper()}/{fileName}";
+                relativeFilePath = $"Files\\{this.language.ToUpper()}\\{fileName}";
             }
             fullFilePath = Path.Combine(Environment.CurrentDirectory, relativeFilePath);
         }
