@@ -58,7 +58,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
             try
             {
-                Programs.RemoveAt(index);
+                Programs.Remove(obj);
                 ProgramsData.GetInstance().JsonObject.RemoveAt(index);
                 ProgramsData.GetInstance().Serialize();
             }
