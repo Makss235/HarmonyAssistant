@@ -1,4 +1,5 @@
 ﻿using HarmonyAssistant.Data.DataSerialize;
+using HarmonyAssistant.Data.DataSerialize.Base;
 using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,11 +11,11 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
     public class ProgramsTable : ContentControl
     {
         public ObservableCollection<object> Programs;
-        private List<NamesAndPathObject> namesAndPathObjects;
+        private BaseDataSerialize<List<NamesAndPathObject>> BaseDataSerialize;
 
-        public ProgramsTable(List<NamesAndPathObject> namesAndPathObjects)
+        public ProgramsTable(BaseDataSerialize<List<NamesAndPathObject>> BaseDataSerialize)
         {
-            this.namesAndPathObjects = namesAndPathObjects;
+            this.BaseDataSerialize = BaseDataSerialize;
 
             InitializeComponent();
         }
@@ -25,9 +26,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             {
                 new ProgramTableHeader()
             };
-            for (int i = 0; i < namesAndPathObjects.Count; i++)
+            for (int i = 0; i < BaseDataSerialize.JsonObject.Count; i++)
             {
-                var hh = namesAndPathObjects[i];
+                var hh = BaseDataSerialize.JsonObject[i];
                 var gg = new ProgramElement(ref hh);
                 gg.ProgramElementChanged += Gg_ProgramElementChanged;
                 gg.ProgramElementSeleted += Gg_ProgramElementSeleted;
@@ -57,21 +58,21 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
         private void Gg_ProgramElementSeleted(ProgramElement obj)
         {
-            int index = ProgramsData.GetInstance().JsonObject.FindIndex(
+            int index = BaseDataSerialize.JsonObject.FindIndex(
                 p => p.Path.Equals(obj.namesAndPathObject.Path) && p.Names.Equals(obj.namesAndPathObject.Names));
 
             try
             {
                 Programs.Remove(obj);
-                ProgramsData.GetInstance().JsonObject.RemoveAt(index);
-                ProgramsData.GetInstance().Serialize();
+                BaseDataSerialize.JsonObject.RemoveAt(index);
+                BaseDataSerialize.Serialize();
             }
             catch { }
         }
 
         private void Gg_ProgramElementChanged(ProgramElement obj)
         {
-            int index = ProgramsData.GetInstance().JsonObject.FindIndex(
+            int index = BaseDataSerialize.JsonObject.FindIndex(
                 p => p.Path.Equals(obj.namesAndPathObject.Path) || p.Names.Equals(obj.namesAndPathObject.Names));
 
             var ff = new NamesAndPathObject()
@@ -82,14 +83,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 
             if (index == -1)
             {
-                ProgramsData.GetInstance().JsonObject.Add(ff);
+                BaseDataSerialize.JsonObject.Add(ff);
             }
             else
             {
-                ProgramsData.GetInstance().JsonObject[index] = ff;
+                BaseDataSerialize.JsonObject[index] = ff;
             }
 
-            ProgramsData.GetInstance().Serialize();
+            BaseDataSerialize.Serialize();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -104,7 +105,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             gg.ProgramElementChanged += Gg_ProgramElementChanged;
             gg.ProgramElementSeleted += Gg_ProgramElementSeleted;
             Programs.Add(gg);
-            namesAndPathObjects.Add(hh);
+            BaseDataSerialize.JsonObject.Add(hh);
         }
     }
 }
