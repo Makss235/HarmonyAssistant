@@ -3,6 +3,7 @@ using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Themes.AppBrushes;
+using HarmonyAssistant.UI.Widgets;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Windows;
@@ -129,14 +130,38 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             //Grid.SetRow(searchSystSP, 3);
 
             ProgramsTable programsTable = new ProgramsTable(ProgramsData.GetInstance());
-            Grid.SetColumnSpan(programsTable, 2);
-            Grid.SetColumn(programsTable, 0);
-            Grid.SetRow(programsTable, 1);
-            
+
+            TextBlock textBlock = new TextBlock()
+            {
+                Text = "Программы",
+                Style = new CommonTextBlockStyle()
+            };
+
+            SExpander sExpander = new SExpander()
+            {
+                HeaderContent = textBlock,
+                BodyContent = programsTable
+            };
+            Grid.SetColumnSpan(sExpander, 2);
+            Grid.SetColumn(sExpander, 0);
+            Grid.SetRow(sExpander, 1);
+
             ProgramsTable programsTable1 = new ProgramsTable(SitesData.GetInstance());
-            Grid.SetColumnSpan(programsTable1, 2);
-            Grid.SetColumn(programsTable1, 0);
-            Grid.SetRow(programsTable1, 2);
+
+            TextBlock textBlock1 = new TextBlock()
+            {
+                Text = "Сайты",
+                Style = new CommonTextBlockStyle()
+            };
+
+            SExpander sExpander1 = new SExpander()
+            {
+                HeaderContent = textBlock1,
+                BodyContent = programsTable1
+            };
+            Grid.SetColumnSpan(sExpander1, 2);
+            Grid.SetColumn(sExpander1, 0);
+            Grid.SetRow(sExpander1, 2);
 
             ColumnDefinition leftColumnDfn = new ColumnDefinition()
             { Width = new GridLength(1, GridUnitType.Auto) };
@@ -166,8 +191,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             //mainGrid.Children.Add(userTable);
             mainGrid.Children.Add(themeTB);
             mainGrid.Children.Add(themeStackPanel);
-            mainGrid.Children.Add(programsTable);
-            mainGrid.Children.Add(programsTable1);
+            mainGrid.Children.Add(sExpander);
+            mainGrid.Children.Add(sExpander1);
             //mainGrid.Children.Add(soundTB);
             //mainGrid.Children.Add(soundSlider);
             //mainGrid.Children.Add(searchSystTB);
