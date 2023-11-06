@@ -1,6 +1,7 @@
 ﻿using HarmonyAssistant.Core.STT;
 using HarmonyAssistant.Core.TTC;
 using HarmonyAssistant.Data.DataSerialize;
+using HarmonyAssistant.UI.Windows;
 using HarmonyAssistant.UI.Windows.MainWindow;
 using System.Windows;
 
@@ -72,6 +73,8 @@ namespace HarmonyAssistant.Core
         {
             mainWindow = new MainWindow();
             mainWindow.Show();
+            //TestWindow testWindow = new TestWindow();
+            //testWindow.Show();
         }
 
         /// <summary>Инициализация модуля TTC (распозавание команд).</summary>

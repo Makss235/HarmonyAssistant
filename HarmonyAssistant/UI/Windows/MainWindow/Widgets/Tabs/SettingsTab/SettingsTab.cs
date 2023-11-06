@@ -137,7 +137,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
                 Style = new CommonTextBlockStyle()
             };
 
-            SExpander sExpander = new SExpander()
+            HExpander sExpander = new HExpander()
             {
                 HeaderContent = textBlock,
                 BodyContent = programsTable
@@ -154,7 +154,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
                 Style = new CommonTextBlockStyle()
             };
 
-            SExpander sExpander1 = new SExpander()
+            HExpander sExpander1 = new HExpander()
             {
                 HeaderContent = textBlock1,
                 BodyContent = programsTable1
