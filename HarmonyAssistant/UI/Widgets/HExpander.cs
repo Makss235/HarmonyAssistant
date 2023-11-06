@@ -12,7 +12,7 @@ namespace HarmonyAssistant.UI.Widgets
 {
     public class HExpander : HorizontalExpander
     {
-        protected static readonly DependencyProperty IconProperty;
+        public static readonly DependencyProperty IconProperty;
 
         public object Icon
         {
@@ -195,6 +195,9 @@ namespace HarmonyAssistant.UI.Widgets
             if (IsExpanded)
             {
                 path.LayoutTransform = new RotateTransform { Angle = 90 };
+                path.SetResourceReference(Shape.FillProperty,
+                    nameof(IAppBrushes.CommonForegroundBrush));
+
             }
             else
             {

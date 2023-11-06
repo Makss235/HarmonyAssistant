@@ -25,6 +25,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             tabAppearAnim = new TabAppear_Animation(this);
             IsVisibleChanged += SettingsTab_IsVisibleChanged;
 
+            #region MyRegion
             //Image userImage = new Image()
             //{
             //    HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -40,17 +41,35 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             //UserTable userTable = new UserTable(userImage, "Пиписьк Яблонович");
             //Grid.SetColumn(userTable, 0);
             //Grid.SetRow(userTable, 0);
-            //Grid.SetColumnSpan(userTable, 2);
+            //Grid.SetColumnSpan(userTable, 2); 
+            #endregion
 
-            TextBlock themeTB = new TextBlock()
+            TextBlock textBlock3 = new TextBlock()
             {
-                Text = "Тема",
+                Text = "Настройки",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Style = new CommonTextBlockStyle(),
+                FontWeight = FontWeights.Bold,
+                FontSize = 19,
+            };
+
+            TextBlock textBlock2 = new TextBlock()
+            {
+                Text = "Основные",
+                Style = new CommonTextBlockStyle(),
+                FontWeight = FontWeights.Bold
+            };
+
+            TextBlock themeTextBlock = new TextBlock()
+            {
+                Text = "Тема:",
                 Style = new CommonTextBlockStyle(),
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(10, 10, 7, 10)
+                Margin = new Thickness(0, 5, 9, 5)
             };
-            Grid.SetColumn(themeTB, 0);
-            Grid.SetRow(themeTB, 0);
+            Grid.SetColumn(themeTextBlock, 0);
+            Grid.SetRow(themeTextBlock, 0);
+
 
             ThemeButton greyThemeButton = new ThemeButton(GreyBrushes.GetInstance());
             ThemeButton darkGrayThemeButton = new ThemeButton(DarkGrayBrushes.GetInstance());
@@ -61,7 +80,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             { 
                 Orientation = Orientation.Horizontal,
                 HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(10, 10, 7, 10),
+                Margin = new Thickness(0, 5, 0, 5),
                 Children =
                 {
                     greyThemeButton,
@@ -83,6 +102,32 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
                 };
             }
 
+            ColumnDefinition leftColumnDfn = new ColumnDefinition()
+            { Width = new GridLength(1, GridUnitType.Auto) };
+            ColumnDefinition rightColumnDfn = new ColumnDefinition()
+            { Width = new GridLength(1, GridUnitType.Star) };
+
+            RowDefinition themeRowDfn = new RowDefinition()
+            { Height = new GridLength(1, GridUnitType.Auto) };
+
+            Grid mainGrid = new Grid()
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                ColumnDefinitions = { leftColumnDfn, rightColumnDfn },
+                RowDefinitions = { themeRowDfn },
+                Children = { themeTextBlock, themeStackPanel }
+            };
+
+            HExpander hExpander = new HExpander()
+            {
+                HeaderContent = textBlock2,
+                BodyContent = mainGrid,
+                IsExpanded = true,
+                Margin = new Thickness(0, 5, 0, 0)
+            };
+
+
+            #region MyRegion
             //TextBlock soundTB = new TextBlock()
             //{
             //    Text = "Звук",
@@ -127,76 +172,47 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             //    Children = { searchSystBtnGoogle, searchSystBtnYandex }
             //};
             //Grid.SetColumn(searchSystSP, 1);
-            //Grid.SetRow(searchSystSP, 3);
+            //Grid.SetRow(searchSystSP, 3); 
+            #endregion
 
             ProgramsTable programsTable = new ProgramsTable(ProgramsData.GetInstance());
 
             TextBlock textBlock = new TextBlock()
             {
                 Text = "Программы",
-                Style = new CommonTextBlockStyle()
+                Style = new CommonTextBlockStyle(),
+                FontWeight = FontWeights.Bold
             };
 
             HExpander sExpander = new HExpander()
             {
                 HeaderContent = textBlock,
-                BodyContent = programsTable
+                BodyContent = programsTable,
+                Margin = new Thickness(0, 5, 0, 0)
             };
-            Grid.SetColumnSpan(sExpander, 2);
-            Grid.SetColumn(sExpander, 0);
-            Grid.SetRow(sExpander, 1);
+
 
             ProgramsTable programsTable1 = new ProgramsTable(SitesData.GetInstance());
 
             TextBlock textBlock1 = new TextBlock()
             {
                 Text = "Сайты",
-                Style = new CommonTextBlockStyle()
+                Style = new CommonTextBlockStyle(),
+                FontWeight = FontWeights.Bold
             };
 
             HExpander sExpander1 = new HExpander()
             {
                 HeaderContent = textBlock1,
-                BodyContent = programsTable1
+                BodyContent = programsTable1,
+                Margin = new Thickness(0, 5, 0, 0)
             };
-            Grid.SetColumnSpan(sExpander1, 2);
-            Grid.SetColumn(sExpander1, 0);
-            Grid.SetRow(sExpander1, 2);
 
-            ColumnDefinition leftColumnDfn = new ColumnDefinition()
-            { Width = new GridLength(1, GridUnitType.Auto) };
-            ColumnDefinition rightColumnDfn = new ColumnDefinition()
-            { Width = new GridLength(1, GridUnitType.Star) };
-
-            //RowDefinition userRowDfn = new RowDefinition()
-            //{ Height = new GridLength(1, GridUnitType.Auto) };
-            RowDefinition themeRowDfn = new RowDefinition()
-            { Height = new GridLength(1, GridUnitType.Auto) };
-            RowDefinition programsTableRowDfn = new RowDefinition()
-            { Height = new GridLength(1, GridUnitType.Auto) };
-            RowDefinition soundRowDfn = new RowDefinition()
-            { Height = new GridLength(1, GridUnitType.Auto) };
-            //RowDefinition searchSystRowDfn = new RowDefinition()
-            //{ Height = new GridLength(1, GridUnitType.Auto) };
-
-            Grid mainGrid = new Grid() 
-            { HorizontalAlignment = HorizontalAlignment.Stretch };
-            mainGrid.ColumnDefinitions.Add(leftColumnDfn);
-            mainGrid.ColumnDefinitions.Add(rightColumnDfn);
-            mainGrid.RowDefinitions.Add(soundRowDfn);
-            mainGrid.RowDefinitions.Add(themeRowDfn);
-            mainGrid.RowDefinitions.Add(programsTableRowDfn);
-            //mainGrid.RowDefinitions.Add(userRowDfn);
-            //mainGrid.RowDefinitions.Add(searchSystRowDfn);
-            //mainGrid.Children.Add(userTable);
-            mainGrid.Children.Add(themeTB);
-            mainGrid.Children.Add(themeStackPanel);
-            mainGrid.Children.Add(sExpander);
-            mainGrid.Children.Add(sExpander1);
-            //mainGrid.Children.Add(soundTB);
-            //mainGrid.Children.Add(soundSlider);
-            //mainGrid.Children.Add(searchSystTB);
-            //mainGrid.Children.Add(searchSystSP);
+            StackPanel stackPanel = new StackPanel()
+            {
+                Children = { textBlock3, hExpander, sExpander, sExpander1 },
+                Margin = new Thickness(7)
+            };
 
             ResourceDictionary svStyle = new ResourceDictionary()
             {
@@ -205,7 +221,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
                 UriKind.RelativeOrAbsolute)
             };
             ScrollViewer mainScrollViewer = new ScrollViewer() { Style = svStyle["ScrollViewerStyle"] as Style };
-            mainScrollViewer.Content = mainGrid;
+            mainScrollViewer.Content = stackPanel;
 
             Content = mainScrollViewer;
         }

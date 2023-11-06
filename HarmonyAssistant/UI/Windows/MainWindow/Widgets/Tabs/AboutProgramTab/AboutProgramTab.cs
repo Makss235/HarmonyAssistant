@@ -74,7 +74,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             {
                 Text = "О программе",
                 Style = new CommonTextBlockStyle(),
-                FontSize = 20,
+                FontSize = 19,
                 FontWeight = FontWeights.Bold,
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
@@ -296,7 +296,7 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
             mainStackPanel = new StackPanel()
             {
                 Orientation = Orientation.Vertical,
-                Margin = new Thickness(15, 10, 15, 10)
+                Margin = new Thickness(15, 7, 15, 7)
             };
             mainStackPanel.Children.Add(titleTextBlock);
             mainStackPanel.Children.Add(nameProgramWrapPanel);

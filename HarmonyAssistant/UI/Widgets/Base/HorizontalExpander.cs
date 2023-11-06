@@ -4,6 +4,8 @@ using System.Windows.Controls;
 
 namespace HarmonyAssistant.UI.Widgets.Base
 {
+    public delegate void HorizontalExpanderPropertyChanged(HorizontalExpander sender);
+
     public abstract class HorizontalExpander : ContentControl
     {
         public static readonly DependencyProperty HeaderContentProperty;
@@ -29,6 +31,10 @@ namespace HarmonyAssistant.UI.Widgets.Base
             get { return (bool)GetValue(IsExpandedProperty); }
             set { SetValue(IsExpandedProperty, value); }
         }
+
+        public event HorizontalExpanderPropertyChanged HeaderContentChanged;
+        public event HorizontalExpanderPropertyChanged BodyContentChanged;
+        public event HorizontalExpanderPropertyChanged IsExpandedChanged;
 
         static HorizontalExpander()
         {
@@ -63,10 +69,11 @@ namespace HarmonyAssistant.UI.Widgets.Base
                         new PropertyChangedCallback(OnIsExpandedChanged)));
         }
 
-        protected static void OnHeaderContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnHeaderContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             HorizontalExpander horizontalExpander = (HorizontalExpander)d;
             horizontalExpander.OnHeaderContentChanged(e);
+            horizontalExpander.HeaderContentChanged?.Invoke(horizontalExpander);
         }
 
         protected virtual void OnHeaderContentChanged(DependencyPropertyChangedEventArgs e)
@@ -74,10 +81,11 @@ namespace HarmonyAssistant.UI.Widgets.Base
             
         }
 
-        protected static void OnBodyContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnBodyContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             HorizontalExpander horizontalExpander = (HorizontalExpander)d;
             horizontalExpander.OnBodyContentChanged(e);
+            horizontalExpander.BodyContentChanged?.Invoke(horizontalExpander);
         }
 
         protected virtual void OnBodyContentChanged(DependencyPropertyChangedEventArgs e)
@@ -89,6 +97,7 @@ namespace HarmonyAssistant.UI.Widgets.Base
         {
             HorizontalExpander horizontalExpander = (HorizontalExpander)d;
             horizontalExpander.OnIsExpandedChanged(e);
+            horizontalExpander.IsExpandedChanged?.Invoke(horizontalExpander);
         }
 
         protected virtual void OnIsExpandedChanged(DependencyPropertyChangedEventArgs e)

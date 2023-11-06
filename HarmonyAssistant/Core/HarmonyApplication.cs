@@ -62,10 +62,10 @@ namespace HarmonyAssistant.Core
         private void InitializeSTT()
         {
             sTT = STT.STT.GetInstance();
-            sTT.Start();
+            //sTT.Start();
 
             cCSTTF = CCSTTF.GetInstance();
-            cCSTTF.Start();
+            //cCSTTF.Start();
         }
 
         /// <summary>Инициализация главного окна программы.</summary>
