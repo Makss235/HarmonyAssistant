@@ -48,7 +48,7 @@ namespace HarmonyAssistant.UI.Themes.AppBrushes
             { R = 40, G = 168, B = 168, A = 255 });
 
             MouseOverBrush = new SolidColorBrush(new Color()
-            { R = 131, G = 179, B = 184, A = 255 });
+            { R = 147, G = 203, B = 211, A = 230 });
 
             EllipseInSendButtonBrush = new SolidColorBrush(new Color()
             { R = 85, G = 182, B = 201, A = 255 });

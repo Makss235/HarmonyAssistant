@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\Resources\Images\tr.svg" />
     <None Remove="Data\Resources\Images\Weather\cloudy.png" />
     <None Remove="Data\Resources\Images\Weather\cloud_moon_rain.png" />
     <None Remove="Data\Resources\Images\Weather\cloud_moon_thunder.png" />
@@ -112,6 +113,7 @@
     <Resource Include="Data\Resources\Images\QRDownload.png" />
     <Resource Include="Data\Resources\Images\QRGit.png" />
     <Resource Include="Data\Resources\Images\Send.svg" />
+    <Resource Include="Data\Resources\Images\tr.svg" />
     <Resource Include="Data\Resources\Images\Weather\d000.png" />
     <Resource Include="Data\Resources\Images\Weather\d100.png" />
     <Resource Include="Data\Resources\Images\Weather\d200.png" />
@@ -173,6 +175,7 @@
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="1.0.4" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="SharpVectors" Version="1.8.2" />
     <PackageReference Include="Svg" Version="3.4.4" />
     <PackageReference Include="System.Speech" Version="7.0.0" />
   </ItemGroup>

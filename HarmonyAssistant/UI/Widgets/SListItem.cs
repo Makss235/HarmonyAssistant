@@ -1,8 +1,6 @@
 ﻿using HarmonyAssistant.UI.Styles;
 using HarmonyAssistant.UI.Styles.ContextMenuStyles;
 using HarmonyAssistant.UI.Themes;
-using HarmonyAssistant.UI.Themes.AppBrushes.Base;
-using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab;
 using System;
 using System.ComponentModel;
 using System.Windows;

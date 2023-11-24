@@ -1,10 +1,9 @@
 ﻿using HarmonyAssistant.Data.DataSerialize.Base;
-using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using System.Collections.Generic;
 
 namespace HarmonyAssistant.Data.DataSerialize
 {
-    public class ProgramsData : BaseDataSerialize<List<ProgramObject>>
+    public class ProgramsData : BaseDataSerialize<List<NamesAndPathObject>>
     {
         #region Singleton
 

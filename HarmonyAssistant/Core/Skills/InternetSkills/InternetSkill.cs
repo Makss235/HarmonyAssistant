@@ -92,7 +92,7 @@ namespace HarmonyAssistant.Core.Skills.InternetSkills
                     {
                         try
                         {
-                            Process.Start(new ProcessStartInfo(siteObject.Url) 
+                            Process.Start(new ProcessStartInfo(siteObject.Path) 
                             { UseShellExecute = true });
                             results.Add(true);
                             break;

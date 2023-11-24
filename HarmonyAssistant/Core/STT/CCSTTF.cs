@@ -23,6 +23,6 @@ namespace HarmonyAssistant.Core.STT
         #endregion
 
         /// <summary>Инициализирует новый объект класса CCSTTF.</summary>
-        private CCSTTF() : base("stt\\STTF.txt") { }
+        private CCSTTF() : base("STTF.txt") { }
     }
 }

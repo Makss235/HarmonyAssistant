@@ -1,67 +1,81 @@
-﻿using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
+﻿using HarmonyAssistant.Data.DataSerialize;
 using HarmonyAssistant.UI.Styles;
-using HarmonyAssistant.UI.Themes.AppBrushes.Base;
+using HarmonyAssistant.UI.Styles.ContextMenuStyles;
 using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Widgets;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Shapes;
 using System.Windows.Media;
-using System;
-using HarmonyAssistant.Data.DataSerialize;
-using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Shapes;
 
 namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
 {
     public class ProgramElement : ContentControl
     {
-        private ProgramObject programObject;
-
         private AddButton addButton;
         private TextBox textBox;
         private Grid grid1;
         private AddButton addButtonAddNew;
+        private AddButton addButtonAddNew1;
         private AddButton addButtonChange;
         private AddButton addButtonCancel;
+        private AddButton addButtonCancel1;
+        private TextBox textBox1;
+        private TextBlock textBlock1;
 
         private SListItem current;
 
-        public ObservableCollection<SListItem> sListItem;
+        public event Action<ProgramElement> ProgramElementChanged;
+        public event Action<ProgramElement> ProgramElementSeleted;
 
-        public ProgramElement(ProgramObject programObject)
+        public NamesAndPathObject namesAndPathObject;
+        public ObservableCollection<SListItem> sListItems;
+
+        public ProgramElement(ref NamesAndPathObject namesAndPathObject)
         {
-            this.programObject = programObject;
+            this.namesAndPathObject = namesAndPathObject;
 
-            sListItem = new ObservableCollection<SListItem>();
-            foreach(string item in programObject.CallingNames)
+            sListItems = new ObservableCollection<SListItem>();
+
+            if (namesAndPathObject.Names?.Count != 0)
             {
-                var f = new SListItem(item);
-                f.ClickChange += F_ClickChange;
-                f.ClickDelete += F_ClickDelete;
+                foreach (string item in namesAndPathObject.Names)
+                {
+                    var f = new SListItem(item);
+                    f.ClickChange += F_ClickChange;
+                    f.ClickDelete += F_ClickDelete;
 
-                sListItem.Add(f);
+                    sListItems.Add(f);
+                }
             }
 
             InitializeComponent();
         }
 
-        private void F_ClickDelete(SListItem obj)
-        {
-            sListItem.Remove(obj);
-        }
-
-        private void F_ClickChange(SListItem obj)
-        {
-            current = obj;
-            ShowChange(obj.ContentListItem.ToString());
-        }
-
         private void InitializeComponent()
         {
+            MenuItem menuItem = new MenuItem()
+            {
+                Header = "Удалить",
+                Style = new CommonContextMenuItemStyle()
+            };
+            menuItem.Click += (s, e) => ProgramElementSeleted?.Invoke(this);
+
+            ContextMenu contextMenu = new ContextMenu()
+            {
+                Items = { menuItem },
+                Style = new CommonContextMenuStyle()
+            };
+
+            ContextMenu = contextMenu;
+
             ItemsControl itemsControl = new ItemsControl()
             {
-                ItemsSource = sListItem
+                ItemsSource = sListItems
             };
 
             addButton = new AddButton(TypeButton.Add);
@@ -124,13 +138,76 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             };
             Grid.SetColumn(stackPanel, 0);
 
-            TextBlock textBlock1 = new TextBlock()
+            textBlock1 = new TextBlock()
+            { Style = new CommonTextBlockStyle() };
+            textBlock1.PreviewMouseLeftButtonUp += TextBlock1_PreviewMouseLeftButtonUp;
+            Grid.SetColumn(textBlock1, 0);
+            Grid.SetColumnSpan(textBlock1, 2);
+
+            textBox1 = new TextBox()
             {
-                Text = programObject.Path,
+                Background = Brushes.Transparent,
                 Style = new CommonTextBlockStyle(),
-                Margin = new Thickness(5, 0, 0, 0)
+                BorderThickness = new Thickness(0, 0, 0, 1),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Padding = new Thickness(0, 5, 0, 0),
+                Margin = new Thickness(-2, -5, 0, 0),
             };
-            Grid.SetColumn(textBlock1, 1);
+            ThemeManager.AddResourceReference(textBox1);
+            textBox1.SetResourceReference(TextBox.CaretBrushProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
+            textBox1.SetResourceReference(TextBox.BorderBrushProperty,
+                nameof(IAppBrushes.CommonForegroundBrush));
+            Grid.SetColumn(textBox1, 0);
+            Grid.SetColumnSpan(textBox1, 2);
+
+            addButtonAddNew1 = new AddButton(TypeButton.Change)
+            {
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+            addButtonAddNew1.Width = addButtonAddNew1.Height = 30;
+            addButtonAddNew1.Click += AddButtonAddNew1_Click;
+            Grid.SetColumn(addButtonAddNew1, 0);
+            Grid.SetRow(addButtonAddNew1, 1);
+
+            addButtonCancel1 = new AddButton(TypeButton.Cancel);
+            addButtonCancel1.Width = addButtonCancel1.Height = 30;
+            addButtonCancel1.Click += AddButtonCancel1_Click;
+            Grid.SetColumn(addButtonCancel1, 1);
+            Grid.SetRow(addButtonCancel1, 1);
+
+            if (string.IsNullOrEmpty(namesAndPathObject.Path))
+            {
+                textBlock1.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                textBlock1.Text = namesAndPathObject.Path;
+                textBox1.Visibility = Visibility.Hidden;
+                addButtonAddNew1.Visibility = Visibility.Hidden;
+                addButtonCancel1.Visibility = Visibility.Hidden;
+            }
+
+            ColumnDefinition columnDefinition5 = new ColumnDefinition()
+            { Width = new GridLength(1, GridUnitType.Star) };
+            
+            ColumnDefinition columnDefinition6 = new ColumnDefinition()
+            { Width = new GridLength(1, GridUnitType.Auto) };
+
+            RowDefinition rowDefinition7 = new RowDefinition()
+            { Height = new GridLength(1, GridUnitType.Auto) };
+            
+            RowDefinition rowDefinition8 = new RowDefinition()
+            { Height = new GridLength(1, GridUnitType.Auto) };
+
+            Grid grid2 = new Grid()
+            {
+                ColumnDefinitions = { columnDefinition5, columnDefinition6 },
+                RowDefinitions = { rowDefinition7, rowDefinition8 },
+                Children = { textBlock1, textBox1, addButtonAddNew1, addButtonCancel1 },
+                Margin = new Thickness(5, 0, 5, 0)
+            };
+            Grid.SetColumn(grid2, 1);
 
             Line line = new Line()
             {
@@ -158,19 +235,87 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             Grid grid = new Grid()
             {
                 ColumnDefinitions = { columnDefinition, columnDefinition1 },
-                Children = { stackPanel, textBlock1, line },
+                Children = { stackPanel, grid2, line },
                 Margin = new Thickness(5, 0, 5, 13)
             };
 
             Content = grid;
         }
 
+        private void F_ClickDelete(SListItem obj)
+        {
+            sListItems.Remove(obj);
+            try
+            {
+                namesAndPathObject.Names.Remove(obj.ContentListItem.ToString());
+            }
+            catch { }
+            ProgramElementChanged?.Invoke(this);
+        }
+
+        private void F_ClickChange(SListItem obj)
+        {
+            current = obj;
+            ShowChange(obj.ContentListItem.ToString());
+        }
+
+        private void AddButtonCancel1_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(namesAndPathObject.Path)) return;
+
+            textBox1.Clear();
+            addButtonAddNew1.Visibility = Visibility.Collapsed;
+            addButtonCancel1.Visibility = Visibility.Collapsed;
+            textBox1.Visibility = Visibility.Hidden;
+            textBlock1.Visibility = Visibility.Visible;
+        }
+
+        private void AddButtonAddNew1_Click(object sender, RoutedEventArgs e)
+        {
+            string text = textBox1.Text;
+            if (string.IsNullOrEmpty(text)) return;
+            if (!text.Equals(textBlock1.Text))
+            {
+                namesAndPathObject.Path = text;
+                ProgramElementChanged?.Invoke(this);
+                textBlock1.Text = text;
+                textBox1.Clear();
+            }
+
+            addButtonAddNew1.Visibility = Visibility.Collapsed;
+            addButtonCancel1.Visibility = Visibility.Collapsed;
+            textBox1.Visibility = Visibility.Hidden;
+            textBlock1.Visibility = Visibility.Visible;
+
+            textBox1.Focus();
+        }
+
+        private void TextBlock1_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            textBox1.Text = textBlock1.Text;
+
+            addButtonAddNew1.Visibility = Visibility.Visible;
+            addButtonCancel1.Visibility = Visibility.Visible;
+            textBox1.Visibility = Visibility.Visible;
+            textBlock1.Visibility = Visibility.Hidden;
+        }
+
         private void AddButtonChange_Click(object sender, RoutedEventArgs e)
         {
             string text = textBox.Text;
             if (string.IsNullOrEmpty(text)) return;
+            if (namesAndPathObject.Names.Contains(text)) return;
 
+            try
+            {
+                namesAndPathObject.Names[namesAndPathObject.Names.FindIndex(p => p.Equals(current.ContentListItem))] = text;
+            }
+            catch
+            {
+                return;
+            }
             current.ContentListItem = text;
+            ProgramElementChanged?.Invoke(this);
             HideAll();
         }
 
@@ -178,12 +323,14 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
         {
             string text = textBox.Text;
             if (string.IsNullOrEmpty(text)) return;
-            if (programObject.CallingNames.Contains(text)) return;
+            if (namesAndPathObject.Names.Contains(text)) return;
 
             var f = new SListItem(text);
             f.ClickChange += F_ClickChange;
             f.ClickDelete += F_ClickDelete;
-            sListItem.Add(f);
+            sListItems.Add(f);
+            namesAndPathObject.Names.Add(text);
+            ProgramElementChanged?.Invoke(this);
 
             HideAll();
         }

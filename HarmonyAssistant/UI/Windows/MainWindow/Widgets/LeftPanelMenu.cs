@@ -126,19 +126,19 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
             LeftPanelMenuButton homeMenuButton = new LeftPanelMenuButton("Главная", imageAwesome);
             homeMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             homeMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-            homeMenuButton.Margin = new Thickness(10, 5, 7, 5);
+            homeMenuButton.Margin = new Thickness(9, 5, 6, 5);
             buttons.Add(homeMenuButton);
 
             LeftPanelMenuButton settingsMenuButton = new LeftPanelMenuButton("Настройки", imageAwesome1);
             settingsMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             settingsMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-            settingsMenuButton.Margin = new Thickness(10, 5, 7, 5);
+            settingsMenuButton.Margin = new Thickness(9, 5, 6, 5);
             buttons.Add(settingsMenuButton);
 
             LeftPanelMenuButton aboutProgramMenuButton = new LeftPanelMenuButton("О программе", imageAwesome2);
             aboutProgramMenuButton.ButtonClicked += LeftPanelMenu_ButtonClicked;
             aboutProgramMenuButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-            aboutProgramMenuButton.Margin = new Thickness(10, 5, 7, 5);
+            aboutProgramMenuButton.Margin = new Thickness(9, 5, 6, 5);
             buttons.Add(aboutProgramMenuButton);
 
             if (buttons.Count != Tabs.Count)
@@ -187,15 +187,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets
 
         private void LeftPanelMenu_ButtonClicked(Tab obj)
         {
-            foreach (var item in buttons)
-            {
-                if (item.Tab == obj)
-                {
-                    item.Tab.Visibility = Visibility.Visible;
-                }
-                else item.Tab.Visibility = Visibility.Collapsed;
-
-            }
+            foreach (var button in buttons)
+                button.Tab.Visibility = button.Tab == obj ? 
+                    Visibility.Visible : Visibility.Collapsed;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
