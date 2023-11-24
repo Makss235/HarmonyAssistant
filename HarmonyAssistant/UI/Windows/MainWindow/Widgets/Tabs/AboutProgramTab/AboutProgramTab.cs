@@ -1,5 +1,7 @@
 ﻿using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Styles;
+using HarmonyAssistant.UI.Themes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Widgets;
 using HarmonyAssistant.UI.Windows.MainWindow.Styles;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
@@ -57,6 +59,8 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
 
         private StackPanel mainStackPanel;
         private Grid mainGrid;
+
+        private ScrollViewer scrollViewer;
 
         #endregion
 
@@ -315,9 +319,12 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.AboutProgramTab
                 new Uri("pack://application:,,,/Data/Resources/ResourceDictionaries/ScrollViewerStyle.xaml",
                 UriKind.RelativeOrAbsolute)
             };
-            ScrollViewer scrollViewer = new ScrollViewer() { Style = svStyle["ScrollViewerStyle"] as Style };
+            scrollViewer = new ScrollViewer() { Style = svStyle["ScrollViewerStyle"] as Style };
             scrollViewer.Content = mainGrid;
-            
+
+            ThemeManager.AddResourceReference(scrollViewer);
+            scrollViewer.SetResourceReference(ScrollViewer.ForegroundProperty, nameof(IAppBrushes.CommonForegroundBrush));
+
             Content = scrollViewer;
         }
 

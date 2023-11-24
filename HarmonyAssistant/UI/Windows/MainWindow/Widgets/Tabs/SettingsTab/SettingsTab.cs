@@ -2,7 +2,9 @@
 using HarmonyAssistant.Data.DataSerialize.SerializeObjects;
 using HarmonyAssistant.UI.Animations;
 using HarmonyAssistant.UI.Styles;
+using HarmonyAssistant.UI.Themes;
 using HarmonyAssistant.UI.Themes.AppBrushes;
+using HarmonyAssistant.UI.Themes.AppBrushes.Base;
 using HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.Base;
 using System;
 using System.Windows;
@@ -175,6 +177,9 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.SettingsTab
             };
             ScrollViewer mainScrollViewer = new ScrollViewer() { Style = svStyle["ScrollViewerStyle"] as Style };
             mainScrollViewer.Content = mainGrid;
+
+            ThemeManager.AddResourceReference(mainScrollViewer);
+            mainScrollViewer.SetResourceReference(ScrollViewer.ForegroundProperty, nameof(IAppBrushes.CommonForegroundBrush));
 
             Content = mainScrollViewer;
         }

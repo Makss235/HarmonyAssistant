@@ -91,6 +91,10 @@ namespace HarmonyAssistant.UI.Windows.MainWindow.Widgets.Tabs.ChatTab
             };
             scrollViewer = new ScrollViewer()
             { Style = svStyle["ScrollViewerStyle"] as Style };
+
+            ThemeManager.AddResourceReference(scrollViewer);
+            scrollViewer.SetResourceReference(ScrollViewer.ForegroundProperty, nameof(IAppBrushes.CommonForegroundBrush));
+
             scrollViewer.Content = ic;
 
             border = new Border()
