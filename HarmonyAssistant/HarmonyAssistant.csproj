@@ -113,7 +113,6 @@
     <Resource Include="Data\Resources\Images\QRDownload.png" />
     <Resource Include="Data\Resources\Images\QRGit.png" />
     <Resource Include="Data\Resources\Images\Send.svg" />
-    <Resource Include="Data\Resources\Images\tr.svg" />
     <Resource Include="Data\Resources\Images\Weather\d000.png" />
     <Resource Include="Data\Resources\Images\Weather\d100.png" />
     <Resource Include="Data\Resources\Images\Weather\d200.png" />

@@ -7,6 +7,8 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Input;
 using System;
+using System.Windows.Data;
+using HarmonyAssistant.UI.Animations;
 
 namespace HarmonyAssistant.UI.Widgets
 {
@@ -25,6 +27,7 @@ namespace HarmonyAssistant.UI.Widgets
         private ContentPresenter grid2;
         private ContentPresenter grid3;
         private Border border;
+        private HExpanderAnimation expanderAnimation;
 
         public HExpander()
         {
@@ -49,7 +52,7 @@ namespace HarmonyAssistant.UI.Widgets
             grid1 = new ContentPresenter()
             {
                 VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(7, 5, 8, 5)
+                Margin = new Thickness(7, 5, 8, 5),
             };
             Grid.SetColumn(grid1, 0);
             Grid.SetRow(grid1, 0);
@@ -90,11 +93,30 @@ namespace HarmonyAssistant.UI.Widgets
             Grid.SetRow(border, 0);
             Panel.SetZIndex(border, -1);
 
+            MultiBinding mb = new MultiBinding()
+            { 
+                Converter = new MultiplyConverter(),
+                Bindings =
+                {
+                    new Binding(){ 
+                        Path = new PropertyPath(nameof(ContentPresenter.ActualHeight)),
+                        //ElementName = nameof(this.grid3)
+                    },
+                    new Binding(){
+                        Path = new PropertyPath(nameof(ContentPresenter.TagProperty)),
+                        //RelativeSource = RelativeSource.Self,
+                    }
+                }
+            };
+
             grid3 = new ContentPresenter()
             {
                 Margin = new Thickness(0, 2, 0, 0),
                 Visibility = Visibility.Collapsed,
+                //Tag = 0.0,
             };
+            //grid3.SetBinding(ContentPresenter.HeightProperty, mb);
+            expanderAnimation = new HExpanderAnimation(grid3);
             Grid.SetColumn(grid3, 1);
             Grid.SetRow(grid3, 1);
 
@@ -185,7 +207,11 @@ namespace HarmonyAssistant.UI.Widgets
 
         protected override void OnIsExpandedChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (IsExpanded) grid3.Visibility = Visibility.Visible; 
+            if (IsExpanded)
+            {
+                grid3.Visibility = Visibility.Visible;
+                //expanderAnimation.StartAnim();
+            }
             else grid3.Visibility = Visibility.Collapsed;
             RotateIcon();
         }
